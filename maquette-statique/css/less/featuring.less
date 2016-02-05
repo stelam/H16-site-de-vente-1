@@ -1,4 +1,5 @@
-.featuring {
+.featuring,
+.shows {
 	margin-left: -5px;
 	margin-right: -5px;
 
@@ -34,5 +35,12 @@
 	.bottom-actions {
 		margin-top: 32px;
 		text-align: center;
+	}
+}
+
+.shows {
+	/* Pour les résolutions où on affiche 4 éléments par row */
+	.show-item:nth-child(4n+1) {
+	    clear: both;
 	}
 }

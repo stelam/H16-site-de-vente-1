@@ -1,11 +1,11 @@
 <header>
-	<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Des spectacles à ne pas manquer</h1>
+	<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Tous les spectacles à l'affiche</h1>
 </header>
 
-<div class="row featuring small-gutter">
+<div class="row shows small-gutter">
 
-	<?php for ($i = 1; $i < 7; $i++) : ?>
-		<article class="show-item col-sm-6">
+	<?php for ($i = 1; $i < 12; $i++) : ?>
+		<article class="show-item col-sm-3">
 			<a href="?page=spectacle">
 				<img src="images/show-<?= $i ?>.jpg" />
 
@@ -26,7 +26,7 @@
 
 	<div class="clear"></div>
 	<div class="row bottom-actions">
-		<a class="btn btn-goevents btn-lg">Voir tous les spectacles <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></a>
+		<a class="btn btn-goevents btn-lg">Afficher plus de spectacles <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></a>
 	</div>	
 
 </div>

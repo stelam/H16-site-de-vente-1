@@ -3,17 +3,17 @@
 
 	<nav class="col-sm-8">
 		<h2 class="logo">
-			<a href="/">
+			<a href="?page=accueil">
 				<img src="images/logo.png" alt="GO EVENTS!" />
 			</a>
 		</h2>
 		
 		<ul class="menu">
-			<li class="active">
-				<a href="#">Accueil</a>
+			<li class="<?php if ($page == 'accueil') echo 'active' ?>">
+				<a href="?page=accueil">Accueil</a>
 			</li>
-			<li>
-				<a href="#">Spectacles</a>
+			<li class="<?php if ($page == 'spectacles') echo 'active' ?>">
+				<a href="?page=spectacles">Spectacles</a>
 			</li>
 		</ul>
 	</nav>

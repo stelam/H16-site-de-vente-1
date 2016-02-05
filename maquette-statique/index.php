@@ -1,8 +1,18 @@
+<?php
+	$page = (isset($_GET['page'])) ? $_GET['page'] : 'accueil';
+
+	$template_map= array (
+		"accueil" => "featuring",
+		"spectacle" => "show",
+		"spectacles" => "shows"
+	);
+?>
+
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
 
-		<title>Accueil - GOEVENTS!</title>
+		<title><?= ucfirst($page) ?> - GOEVENTS!</title>
 		<meta name="description" content="Static site - GOEVENTS!">
 
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
@@ -19,11 +29,9 @@
 			<?php include("components/nav.php"); ?>
 
 			<section class="content">
-				<header>
-					<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Des spectacles à ne pas manquer</h1>
-				</header>
 
-				<?php include("components/featuring.php"); ?>
+				<?php include("components/" . $template_map[$page] . ".php"); ?>
+
 			</section>
 
 		</div>

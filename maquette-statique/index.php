@@ -23,7 +23,7 @@
 
 	</head>
 
-	<body>
+	<body class="page-<?= $page; ?>">
 
 		<div class="container-fluid">
 			<?php include("components/nav.php"); ?>

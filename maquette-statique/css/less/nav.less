@@ -2,7 +2,7 @@
 	position: fixed;
 	top: 0px;
 	z-index: 9001;
-	background: @dark-gray;
+
 	width: 100%;
 	&, * {transition: all 0.1s;}
 
@@ -19,7 +19,8 @@
 	&.sticky {
 
 		box-shadow: 0px 5px 50px -1px rgba(0, 0, 0, 0.95);
-
+		background: @dark-gray;
+		
 		&:after {
 			width: 100%;
 			transition: all 0.75s ease-out;

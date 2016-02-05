@@ -1,0 +1,53 @@
+
+
+body {
+	background: @dark-gray;
+	color: @almost-white;
+	font: 18px @default-font;
+	overflow-x: hidden;
+
+	// for sticky header
+	padding-top: 172px;
+}
+
+a {
+	text-decoration: none;
+	color: @pastel-red;
+	transition: all 0.2s;
+
+	&:hover, &:active, &:focus {
+		text-decoration: none;
+		color: @almost-white;
+	}
+
+	&:active {
+		transform: scale(0.96) !important;
+	}
+}
+
+h1 {font-size: 56px; font-weight: 800;}
+
+body > .container-fluid > .content {
+	margin-top: 64px;
+	margin-bottom: 64px;
+
+	& > header {
+		margin-bottom: 48px;
+
+		.glyphicon {position: relative; top: 6px; color: @pastel-red;}
+	}
+}
+
+.clear {clear: both;}
+
+.btn-goevents {
+	color: @almost-white;
+    background-color: @pastel-red;
+    border-color: darken(@pastel-red, 5%);
+
+    &:hover {
+		color: @pastel-red;
+	    background-color: @almost-white;
+	    border-color: darken(@pastel-red, 5%);
+    }
+}

@@ -1,0 +1,41 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>Accueil - GOEVENTS!</title>
+		<meta name="description" content="Static site - GOEVENTS!">
+
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/styles.css?v=1.0">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/less" href="css/styles.less">
+
+
+	</head>
+
+	<body>
+
+		<div class="container-fluid">
+			<?php include("components/nav.php"); ?>
+
+			<section class="content">
+				<header>
+					<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Des spectacles à ne pas manquer</h1>
+				</header>
+
+				<?php include("components/featuring.php"); ?>
+			</section>
+
+		</div>
+		
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+		<script>less = { env: 'development'};</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.6.0/less.min.js"></script>
+		<script>less.watch();</script>
+
+		<script src="js/static-scripts.js"></script>
+		
+	</body>
+</html>

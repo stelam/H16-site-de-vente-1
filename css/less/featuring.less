@@ -1,0 +1,38 @@
+.featuring {
+	margin-left: -5px;
+	margin-right: -5px;
+
+	.show-item {
+		img {max-width: 100%;}
+		margin-bottom: 14px;
+
+		a {
+			display: block; 		
+			position: relative;
+			&:hover {transform: scale(1.02);}
+		}
+	}
+
+	.show-infos, .quick-links {
+		position: absolute;
+		width: 100%;
+	}
+
+	.show-infos {
+		bottom: -1px;
+		left: 0px;
+		color: @almost-white;
+		text-align: center;
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.2) 20%, rgba(0, 0, 0, 0.42) 40%, rgba(2, 2, 2, 0.58) 79%, rgba(4, 4, 4, 0.6) 100%);
+
+		text-shadow: -1px -1px 4px rgba(0, 0, 0, 0.87);
+
+		h2 {margin-bottom: 6px; font-size: 24px; font-weight: 700;}
+		h3 {margin-top: 0px; font-size: 14px;}
+	}
+
+	.bottom-actions {
+		margin-top: 32px;
+		text-align: center;
+	}
+}

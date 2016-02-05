@@ -23,6 +23,8 @@
 
 	</head>
 
+	hello
+
 	<body class="page-<?= $page; ?>">
 
 		<div class="container-fluid">

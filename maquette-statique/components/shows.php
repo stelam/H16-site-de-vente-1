@@ -1,5 +1,10 @@
 <header>
-	<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Tous les spectacles à l'affiche</h1>
+	<?php if (isset($_GET['recherche'])) : ?>
+		<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Spectacles correspondant à '<?= $_GET['recherche']; ?>'</h1>
+	<?php else : ?>
+		<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Tous les spectacles à l'affiche</h1>
+
+	<?php endif; ?>
 </header>
 
 <div class="row shows small-gutter">

@@ -39,7 +39,7 @@
 
 	<div class="clear"></div>
 	<div class="col-sm-12 bottom-actions">
-		<a class="btn btn-goevents btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Revenir</a>
+		<a class="btn btn-goevents btn-lg" href="?page=spectacles"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Revenir</a>
 	</div>	
 
 	<div class="backdrop"></div>

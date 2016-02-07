@@ -34,7 +34,7 @@
 		
 		<div class="clear"></div>
 
-		<a href="#" class="btn btn-lg btn-add btn-block btn-goevents"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier</a>
+		<a href="?page=panier&step=review" class="btn btn-lg btn-add btn-block btn-goevents"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier</a>
 	</div>
 
 	<div class="clear"></div>

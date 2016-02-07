@@ -4,7 +4,8 @@
 	$template_map= array (
 		"accueil" => "featuring",
 		"spectacle" => "show",
-		"spectacles" => "shows"
+		"spectacles" => "shows",
+		"panier" => "cart"
 	);
 ?>
 

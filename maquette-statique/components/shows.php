@@ -1,9 +1,8 @@
 <header>
 	<?php if (isset($_GET['recherche'])) : ?>
-		<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Spectacles correspondant à '<?= $_GET['recherche']; ?>'</h1>
+		<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 11 spectacles correspondant à '<?= $_GET['recherche']; ?>'</h1>
 	<?php else : ?>
 		<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Tous les spectacles à l'affiche</h1>
-
 	<?php endif; ?>
 </header>
 
@@ -28,11 +27,12 @@
 		</article>
 	<?php endfor; ?>
 
-
-	<div class="clear"></div>
-	<div class="row bottom-actions">
-		<a class="btn btn-goevents btn-lg">Afficher plus de spectacles <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></a>
-	</div>	
+	<?php if (!isset($_GET['recherche'])) : ?>
+		<div class="clear"></div>
+		<div class="row bottom-actions">
+			<a class="btn btn-goevents btn-lg">Afficher plus de spectacles <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></a>
+		</div>	
+	<?php endif; ?>
 
 </div>
 

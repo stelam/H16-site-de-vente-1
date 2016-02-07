@@ -19,9 +19,10 @@
 	</nav>
 
 	<div class="col-sm-4 pull-right right-actions">
-		<div class="search-wrapper col-sm-10">
-			<input class="search form-control input-lg" placeholder="Rechercher un spectacle ou un artiste..."/>
-		</div>
+		<form method="GET" action="" class="search-wrapper col-sm-10">
+			<input name="recherche" class="search form-control input-lg" placeholder="Rechercher un spectacle ou un artiste..."/>
+			<input type="hidden" name="page" value="spectacles" />
+		</form>
 		<div class="cart-wrapper col-sm-2">
 			<a href="#cart" class="glyphicon glyphicon-shopping-cart">
 				<span class="nb-cart-items">0</span>

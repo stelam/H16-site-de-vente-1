@@ -56,3 +56,29 @@ body > .container-fluid > .content {
 	    border-color: darken(@pastel-red, 5%);
     }
 }
+
+
+.popover {
+	min-width: 224px;
+	font-family: @default-font;
+	transition: opacity 0.3s !important;
+	h3 {background-color: fade(black, 95%); font-weight: 700;}
+
+	&:hover {
+		a {
+			color: @almost-white !important;
+
+			&:hover {color: @pastel-red !important;}
+		}
+	}
+
+	a.btn {
+		font-size: 16px !important;
+	}
+	.popover-content {
+		background: fade(black, 95%);
+	}
+	p {
+		color: @almost-white;
+	}
+}

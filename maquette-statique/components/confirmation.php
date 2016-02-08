@@ -25,7 +25,7 @@
 
 	<div class="col-sm-12 instructions">
 		<?php if (isset($_SESSION['oauth']) && $_SESSION['oauth'] == true) : ?>
-			<p class=""><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Vos billets peuvent être récupérés de façon électronique sur le site de portefeuille de billet, ainsi que par l'entremise de l'application mobile. </p>
+			<p class=""><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Vos billets peuvent être récupérés de façon électronique sur le site de portefeuille de billets, ainsi que par l'entremise de l'application mobile. </p>
 
 			<a class="btn btn-goevents btn-lg" href="?page=confirmation">Aller sur le site de portefeuille de billets<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 
@@ -47,7 +47,6 @@
 			<article class="col-sm-12 cart-item">
 				<div class="col-sm-4">
 					Nom de l'artiste - Nom du spectacle
-					<p class="reservation-timer">Ces billets vous sont réservés pour encore 8:32</p>
 				</div>
 
 				<div class="col-sm-3">

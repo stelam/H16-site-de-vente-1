@@ -25,32 +25,52 @@
 	</ul>
 </div>
 
+<?php if ($_GET['step'] == 'review') : ?>
+	<div class="col-sm-9 cart-items">
+		<div class="col-sm-12 head">
+			<label class="col-sm-3">&nbsp;</label>
+			<label class="col-sm-2">Date</label>
+			<label class="col-sm-2">Lieu</label>
+			<label class="col-sm-2">Prix</label>
+			<label class="col-sm-2">Quantité</label>
+			<label class="col-sm-1">&nbsp;</label>
+		</div>
 
-<div class="row">
-	<div class="col-sm-12">
-		<div class="col-sm-3">Spectacle</div>
-		<div class="col-sm-3">Prix (par billet)</div>
-		<div class="col-sm-3">Quantité</div>
-		<div class="col-sm-3"></div>
+		<?php for ($i = 0; $i < 3; $i++) : ?>
+			<article class="col-sm-12 cart-item">
+				<div class="col-sm-3">
+					Nom de l'artiste - Nom du spectacle
+				</div>
+
+				<div class="col-sm-2">
+					<p>06/02/2016</p>
+				</div>
+
+				<div class="col-sm-2">
+					<p>Centre Bell</p>
+				</div>
+
+				<div class="col-sm-2">
+					19.99 $
+				</div>
+
+				<div class="col-sm-2">
+					<input type="number" class="form-control input-lg" value="1" />
+				</div>
+
+				<div class="col-sm-1 actions">
+					<a class="btn btn-goevents btn-lg"> x</a>
+				</div>
+			</article>
+		<?php endfor; ?>
 	</div>
-	<article class="col-sm-12">
-		<div class="col-sm-3">
-			<h4>Nom de l'artiste</h4>
-			<h5>Nom du spectacle</h5>
-			<p>Le 6 janvier @ Centre Bell</p>
+
+	<div class="col-sm-3 subtotal-container">
+		<h3>Sous-total : </h3>
+		<div class="subtotal">
+			<span><sup class="dollar-sign">$</sup>57<sup class="cents">99</sup></span>
 		</div>
 
-		<div class="col-sm-3">
-			19.00 $
-		</div>
-
-		<div class="col-sm-3">
-			<input type="number" class="form-control" value="1" />
-		</div>
-
-		<div class="col-sm-3">
-			<a class="btn btn-goevents btn-sm">a</a>
-		</div>
-	</article>
-
-</div>
+		<a class="btn btn-goevents btn-lg btn-continue" href="?page=panier&step=identification">Continuer <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+	</div>
+<?php endif; ?>

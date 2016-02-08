@@ -1,0 +1,85 @@
+.confirmation {
+  h1 {
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    margin-bottom: 18px;
+  }
+
+  .instructions {
+    margin-bottom: 48px;
+
+    p {
+      margin-bottom: 32px;
+    }
+  }
+
+  .glyphicon-info-sign {
+    color: @pastel-red;
+    position: relative;
+    top: 3px;
+  }
+
+  .glyphicon-chevron-down {
+    position: relative;
+    top: 4px;
+    font-size: 0.8em;
+  }
+}
+
+.checkmark {
+  width: 200px;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+.path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
+  animation: dash 2s ease-in-out;
+  -webkit-animation: dash 2s ease-in-out;
+}
+
+.spin {
+  animation: spin 2s;
+  -webkit-animation: spin 2s;
+  transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+}
+
+@-webkit-keyframes dash {
+ 0% {
+   stroke-dashoffset: 1000;
+ }
+ 100% {
+   stroke-dashoffset: 0;
+ }
+}
+
+@keyframes dash {
+ 0% {
+   stroke-dashoffset: 1000;
+ }
+ 100% {
+   stroke-dashoffset: 0;
+ }
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}

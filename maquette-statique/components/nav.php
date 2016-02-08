@@ -24,7 +24,7 @@
 			<input type="hidden" name="page" value="spectacles" />
 		</form>
 		<div class="cart-wrapper col-sm-2">
-			<a href="#cart" class="glyphicon glyphicon-shopping-cart">
+			<a href="?page=panier&step=1" class="glyphicon glyphicon-shopping-cart">
 				<span class="nb-cart-items">0</span>
 			</a>
 		</div>

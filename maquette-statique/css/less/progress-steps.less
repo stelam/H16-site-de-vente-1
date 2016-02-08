@@ -1,0 +1,140 @@
+.upperNavigationContainer {
+  margin: 0 auto 64px;
+}
+.upperNavigationContainer.left {
+  margin: 0;
+}
+.upperNavigationContainer.right {
+  float: right;
+}
+ul.upperNavigation {
+  list-style: none;
+  display: table;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  table-layout: fixed;
+}
+ul.upperNavigation li {
+  display: table-cell;
+  text-align: center;
+  position: relative;
+}
+ul.upperNavigation li.externalNavIcon {
+  cursor: pointer;
+  /*.makefontstyle (@font-family-secondary, @font-size-base -4px , @font-size-base -4px , @brand-info, normal, 600,normal);	   */
+}
+ul.upperNavigation li:before {
+  border-radius: 50%;
+  /*content: attr(title);*/
+  content : "";
+  display: block;
+  margin: 0 auto;
+  background: none;
+  width: 75px;
+  height: 75px;
+  border: 2px solid @pastel-red;
+  margin-bottom: 0.35em;
+  /*line-height: 1em;*/
+  z-index: 1000;
+  color: @dark-gray;
+  outline: none;
+  /*.makefontstyle (@font-family-base, @font-size-base , @font-size-base  , @brand-info, normal, bold,normal);	   */
+}
+
+ul.upperNavigation .step-nb {
+  position: absolute;
+  top: 12px;
+  width: 100%;
+  text-align: center;
+  left: 0px;
+  font-family: @default-font;
+  color: @pastel-red;
+  font-size: 36px;
+}
+
+ul.upperNavigation li:after {
+  content: '';
+  position: absolute;
+  border-bottom: 1px solid @almost-white;
+  width: 60%;
+  height: 0.5em;
+  top: 1.5em;
+  left: 70%;
+  margin-left: 1.5em\9;
+  z-index: -1;
+}
+ul.upperNavigation li.validation:before {
+  font-family: 'FontAwesome';
+  content: "\f06e";
+}
+ul.upperNavigation li.confirmation:before {
+  font-family: 'FontAwesome';
+  content: "\f00c";
+}
+ul.upperNavigation li.verification:before {
+  font-family: 'FontAwesome';
+  content: "\f12a";
+  background: #eb212e;
+  
+}
+ul.upperNavigation li:last-child:after {
+  display: none;
+}
+ul.upperNavigation li :not(active):hover,
+ul.upperNavigation li :not(active):active {
+  color: @almost-white;
+}
+ul.upperNavigation li.active {
+  cursor: default;
+}
+
+/* Flèche qui pointe vers le bas pour l'élément actif */
+ul.upperNavigation li.active > a:after {
+  content: "\e114";
+  font-family: @glyphicons-font;
+  color: @pastel-red;
+  font-size: 24px;
+  position: absolute;
+  bottom: -30px;
+  left:50%;
+  margin-left: -10px;
+}
+
+ul.upperNavigation li.active:after {
+  border-color: lighten(@dark-gray, 10%);;
+  cursor: not-allowed;
+  color: #CDD6DB;
+}
+ul.upperNavigation li.active ~ li {
+  border-color: #CDD6DB;
+  cursor: not-allowed;
+  color: #CDD6DB;
+}
+ul.upperNavigation li.active ~ li:after,
+ul.upperNavigation li.active ~ li:before {
+  border-color: lighten(@dark-gray, 10%);
+  cursor: not-allowed;
+  color: @pastel-red;
+}
+ul.upperNavigation li.active ~ li span {
+  color: lighten(@dark-gray, 10%);
+  cursor: not-allowed;
+
+  span {display: none;}
+}
+ul.upperNavigation li.active span {
+  color: @almost-white;
+  span {display: none;}
+}
+ul.upperNavigation li.active:before {
+  background: @pastel-red;
+  color: white;
+  border: 2px solid @pastel-red;
+}
+
+@media screen and (max-width: 767px) {
+  ul.upperNavigation li span {
+    display: none;
+  }
+}

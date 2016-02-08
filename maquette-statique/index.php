@@ -1,10 +1,13 @@
 <?php
+	session_start();
 	$page = (isset($_GET['page'])) ? $_GET['page'] : 'accueil';
 
 	$template_map= array (
 		"accueil" => "featuring",
 		"spectacle" => "show",
-		"spectacles" => "shows"
+		"spectacles" => "shows",
+		"panier" => "cart",
+		"confirmation" => "confirmation"
 	);
 ?>
 

@@ -1,7 +1,7 @@
 <header>
 	<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>Un artiste portant un nom</h1>
 	<div class="show-metas">
-		<h3><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> 26 avril 2016</h3>
+		<h3><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> 26 avril au 4 mai 2016</h3>
 		<h3><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <a href="http://maps.google.com" target="_blank">Centre Bell</a></h3>
 	</div>
 </header>
@@ -34,7 +34,7 @@
 		
 		<div class="clear"></div>
 
-		<a href="#" class="btn btn-lg btn-add btn-block btn-goevents"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier</a>
+		<a href="?page=panier&step=review" class="btn btn-lg btn-add btn-block btn-goevents"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier</a>
 	</div>
 
 	<div class="clear"></div>

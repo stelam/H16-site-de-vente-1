@@ -83,7 +83,7 @@
 
 		<p>Si vous possédez un compte sur le site de portefeuille de billets, vous pouvez vous authentifier directement via leur système.</p>
 
-		<a class="btn btn-goevents btn-lg btn-continue" href="?page=panier&step=payment">S'authentifier <span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+		<a class="btn btn-goevents btn-lg btn-continue" href="?page=panier&step=payment&method=oauth">S'authentifier <span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
 	</div>
 
 	<div class="col-sm-2 identification-or">
@@ -137,8 +137,68 @@
 		<div class="col-sm-12">
 			<hr/>
 			<a class="btn btn-goevents btn-lg" href="?page=panier&step=identification"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Revenir</a>
-			<a class="btn btn-goevents btn-lg pull-right" href="?page=panier&step=payment">Continuer<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+			<a class="btn btn-goevents btn-lg pull-right" href="?page=panier&step=payment&method=anon">Continuer<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 		</div>
 		
 	</form>
+<?php endif; ?>
+
+
+
+
+<?php if ($_GET['step'] == 'payment') : ?>
+
+	<?php 
+		if ($_GET['method'] == 'oauth'){
+			$_SESSION['oauth'] = true;
+		} else {
+			$_SESSION['oauth'] = false;
+		}
+	?>
+
+	<div class="col-sm-4 col-sm-offset-1 subtotal-container center payment">
+		<h2>Sous-total </h2>
+		<div class="subtotal">
+			<span><sup class="dollar-sign">$</sup>59<sup class="cents">97</sup></span>
+		</div>
+	</div>
+
+
+	<form class="col-lg-4 col-sm-6 col-sm-7 payment-form">
+		<div class="col-sm-12">
+			<h2>Informations de paiement</h2>
+		</div>
+		
+		<div class="col-sm-9">
+			<input type="text" class="form-control input-lg" placeholder="Numéro de carte de crédit" />
+		</div>
+
+		<div class="col-sm-3">
+			<input type="text" class="form-control input-lg" placeholder="CCV" />
+		</div>
+
+		<div class="col-sm-6">
+			<select class="form-control input-lg">
+				<option>- Mois d'expiration -</option>
+				<option>1</option>
+				<option>2</option>
+			</select>
+		</div>
+
+		<div class="col-sm-6">
+			<select class="form-control input-lg">
+				<option>- Année d'expiration -</option>
+				<option>2016</option>
+				<option>2017</option>
+			</select>
+		</div>
+
+		<div class="col-sm-12">
+			<hr/>
+			<a class="btn btn-goevents btn-lg pull-right" href="?page=confirmation">Soumettre la commande<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+		</div>
+
+	</form>
+
+
 <?php endif; ?>

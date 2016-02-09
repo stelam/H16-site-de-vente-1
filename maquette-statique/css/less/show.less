@@ -22,13 +22,23 @@ body.page-spectacle {
 		.glyphicon {position: relative; top: 4px !important;}
 		a {color: @almost-white; border-bottom: 1px dotted @pastel-red;}
 		a:hover {color: @pastel-red;}
+
+		@media @bp-sm {
+			margin-left: 15px;
+		}
 	}
 
 	.site-nav:not(.sticky) {
 		background: fade(@dark-gray, 50%);
 	}
 
-	.show { padding: 0px 57px; margin-top: 36px;}
+	.show { padding: 0px 57px; margin-top: 36px;
+		@media @bp-sm {
+			padding: 0px 15px;
+		}
+	}
+
+	hr {width: 75%;}
 
 	.tickets-selection {
 		input {
@@ -54,14 +64,6 @@ body.page-spectacle {
 		.btn-add {display: block; margin: 0px auto; max-width: 300px; border-radius: 0px}
 	}
 
-	.multiply {
-		font-weight: 300;
-		font-size: 42px;
-		color: @pastel-red;
-		position: relative;
-		top: -2px;
-		right: -12px;
-	}
 	.price {
 		 background-color: rgba(0, 0, 0, 0);
 		 border: 2px solid @pastel-red;
@@ -78,6 +80,42 @@ body.page-spectacle {
 		 span {display: table-cell; vertical-align: middle; text-align: center;}
 		 span span {font-size: 12px; letter-spacing: 0px; display: block; width: 100%; position: relative; top: -2px;}
 
+		 @media @bp-sm-md {
+		 	text-align: left;
+		 }
+
+		 @media @bp-sm {
+		 	position: relative;
+		 	top: 36px;
+		 }
+	}
+
+
+	.price:after {
+		content: "X";
+		font-weight: 300;
+		font-size: 42px;
+		color: @pastel-red;
+		position: absolute;
+		bottom: 43px;
+		right: -30px;
+
+		@media @bp-sm {
+			bottom: -69px;
+			right: 97px;
+		}
+	}
+
+	.nb-tickets-col {
+		@media @bp-sm {
+			text-align: center;
+		}
+	}
+
+	.bottom-actions {
+		@media @bp-sm {
+			margin-top: 72px;
+		}
 	}
 
 }

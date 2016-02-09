@@ -24,7 +24,7 @@
 			<input type="hidden" name="page" value="spectacles" />
 		</form>
 		<div class="cart-wrapper col-sm-2">
-			<a href="?page=panier&step=1" class="glyphicon glyphicon-shopping-cart">
+			<a id="cart-btn" data-toggle="popover" href="?page=panier&step=review" title="Spectacle ajouté au panier" data-content="<p>Vos billets vous seront réservés pour une durée de 20 minutes.</p> <a href='?page=panier&step=review' class='btn btn-block btn-goevents'>Passer à la caisse</a>" class="glyphicon glyphicon-shopping-cart">
 				<span class="nb-cart-items">0</span>
 			</a>
 		</div>

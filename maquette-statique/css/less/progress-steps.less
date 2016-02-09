@@ -19,6 +19,12 @@ ul.upperNavigation li {
   display: table-cell;
   text-align: center;
   position: relative;
+
+  & > a {
+    @media @bp-xs {
+      font-size: 0.8em;
+    }
+  }
 }
 ul.upperNavigation li.externalNavIcon {
   cursor: pointer;
@@ -30,7 +36,7 @@ ul.upperNavigation li:before {
   content : "";
   display: block;
   margin: 0 auto;
-  background: none;
+  background: @dark-gray;
   width: 75px;
   height: 75px;
   border: 2px solid @pastel-red;
@@ -131,10 +137,4 @@ ul.upperNavigation li.active:before {
   background: @pastel-red;
   color: white;
   border: 2px solid @pastel-red;
-}
-
-@media screen and (max-width: 767px) {
-  ul.upperNavigation li span {
-    display: none;
-  }
 }

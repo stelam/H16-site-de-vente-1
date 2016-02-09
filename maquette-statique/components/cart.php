@@ -26,7 +26,7 @@
 </div>
 
 <?php if ($_GET['step'] == 'review') : ?>
-	<div class="col-sm-9 cart-items">
+	<div class="col-md-9 col-sm-12 cart-items">
 		<div class="col-sm-12 head">
 			<label class="col-sm-3">&nbsp;</label>
 			<label class="col-sm-2">Date</label>
@@ -66,7 +66,7 @@
 		<?php endfor; ?>
 	</div>
 
-	<div class="col-sm-3 subtotal-container">
+	<div class="col-md-3 col-sm-12 subtotal-container">
 		<h3>Sous-total : </h3>
 		<div class="subtotal">
 			<span><sup class="dollar-sign">$</sup>59<sup class="cents">97</sup></span>

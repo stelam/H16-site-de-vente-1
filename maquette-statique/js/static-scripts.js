@@ -30,5 +30,10 @@ $(document).ready(function(){
 		$('.nb-cart-items').text(parseInt($('.nb-cart-items').text()) + 1).addClass('animate');
 	    e.stopPropagation();
 	})
+
+	$("#search-toggle-btn").click(function(){
+		$(".search-wrapper").toggleClass("on");
+		$("#search").focus();
+	})
 })
 

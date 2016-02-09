@@ -29,11 +29,14 @@
 
 		<div class="col-sm-6">
 			<span class="multiply">x</span>
-			<input type="number" value="1" class="form-control" />
+			<input type="number" value="1" max="6" min="1" class="form-control" />
 		</div>
 		
 		<div class="clear"></div>
-
+		<select class="form-control input-lg">
+			<option>26 avril 2016</option>
+			<option>4 mai 2016</option>
+		</select>
 		<a class="btn btn-lg btn-add btn-block btn-goevents"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier</a>
 	</div>
 

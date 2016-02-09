@@ -19,7 +19,7 @@
 
 	<div class="col-sm-1 col-lg-4 pull-right right-actions">
 		<form method="GET" action="" class="search-wrapper col-sm-10">
-			<input name="recherche" class="search form-control input-lg" placeholder="Rechercher un spectacle ou un artiste..."/>
+			<input id="search" name="recherche" class="search form-control input-lg" placeholder="Rechercher un spectacle ou un artiste..."/>
 			<input type="hidden" name="page" value="spectacles" />
 		</form>
 		<div class="cart-wrapper col-sm-2">
@@ -27,6 +27,8 @@
 				<span class="nb-cart-items">0</span>
 			</a>
 		</div>
+		<a id="search-toggle-btn" class="glyphicon glyphicon-search hidden-lg">
+		</a>
 		
 	</div>
 

@@ -9,7 +9,7 @@
 <div class="row shows small-gutter">
 
 	<?php for ($i = 1; $i < 12; $i++) : ?>
-		<article class="show-item col-sm-3">
+		<article class="show-item col-sm-12 col-md-6 col-lg-4">
 			<a href="?page=spectacle">
 				<img src="images/show-<?= $i ?>.jpg" />
 

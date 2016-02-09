@@ -157,7 +157,7 @@
 	?>
 
 	<div class="col-sm-4 col-sm-offset-1 subtotal-container center payment">
-		<h2>Sous-total </h2>
+		<h2>TOTAL</h2>
 		<div class="subtotal">
 			<span><sup class="dollar-sign">$</sup>59<sup class="cents">97</sup></span>
 		</div>

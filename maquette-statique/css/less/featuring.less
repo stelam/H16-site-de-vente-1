@@ -40,7 +40,10 @@
 
 .shows {
 	/* Pour les résolutions où on affiche 4 éléments par row */
-	.show-item:nth-child(4n+1) {
-	    clear: both;
+	@media @bp-lg {
+		.show-item:nth-child(3n+1) {
+		    clear: both;
+		}
 	}
+
 }

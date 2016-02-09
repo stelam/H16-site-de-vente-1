@@ -1,6 +1,9 @@
 .confirmation {
   h1 {
     margin-bottom: 24px;
+    @media @bp-xs {
+      font-size: 1.8em;
+    }
   }
 
   h2 {
@@ -32,6 +35,10 @@
   width: 200px;
   margin: 0 auto;
   padding-top: 40px;
+
+  @media @bp-xs-sm {
+    padding-top: 0px;
+  }
 }
 
 .path {

@@ -25,11 +25,31 @@ a {
 	}
 }
 
-h1 {font-size: 56px; font-weight: 800;}
+p {margin-bottom: 24px;}
+
+hr {opacity: 0.1;}
+
+h1 {
+	font-size: 56px; 
+	font-weight: 800;
+
+	@media @bp-sm-md {
+		font-size: 48px;
+	}
+}
+h2 {font-size: 36px; font-weight: 800;}
 
 body > .container-fluid > .content {
 	margin-top: 64px;
 	margin-bottom: 64px;
+
+	@media @bp-sm-md {
+		margin-top: 0px;
+
+		& > header h1 {
+			margin-top: 0px;
+		}
+	}
 
 	& > header {
 		margin-bottom: 48px;
@@ -50,4 +70,32 @@ body > .container-fluid > .content {
 	    background-color: @almost-white;
 	    border-color: darken(@pastel-red, 5%);
     }
+}
+
+.form-control {
+	&:focus, &:active {border-color: @pastel-red; box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px fade(@pastel-red, 60%)}
+}
+.popover {
+	min-width: 224px;
+	font-family: @default-font;
+	transition: opacity 0.3s !important;
+	h3 {background-color: fade(black, 95%); font-weight: 700;}
+
+	&:hover {
+		a {
+			color: @almost-white !important;
+
+			&:hover {color: @pastel-red !important;}
+		}
+	}
+
+	a.btn {
+		font-size: 16px !important;
+	}
+	.popover-content {
+		background: fade(black, 95%);
+	}
+	p {
+		color: @almost-white;
+	}
 }

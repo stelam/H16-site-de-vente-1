@@ -1,11 +1,15 @@
 <header>
-	<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Tous les spectacles à l'affiche</h1>
+	<?php if (isset($_GET['recherche'])) : ?>
+		<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 11 spectacles correspondants à '<?= $_GET['recherche']; ?>'</h1>
+	<?php else : ?>
+		<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Tous les spectacles à l'affiche</h1>
+	<?php endif; ?>
 </header>
 
 <div class="row shows small-gutter">
 
 	<?php for ($i = 1; $i < 12; $i++) : ?>
-		<article class="show-item col-sm-3">
+		<article class="show-item col-sm-12 col-md-6 col-lg-4">
 			<a href="?page=spectacle">
 				<img src="images/show-<?= $i ?>.jpg" />
 
@@ -23,11 +27,12 @@
 		</article>
 	<?php endfor; ?>
 
-
-	<div class="clear"></div>
-	<div class="row bottom-actions">
-		<a class="btn btn-goevents btn-lg">Afficher plus de spectacles <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></a>
-	</div>	
+	<?php if (!isset($_GET['recherche'])) : ?>
+		<div class="clear"></div>
+		<div class="row bottom-actions">
+			<a class="btn btn-goevents btn-lg">Afficher plus de spectacles <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></a>
+		</div>	
+	<?php endif; ?>
 
 </div>
 

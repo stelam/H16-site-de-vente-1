@@ -26,7 +26,7 @@
 
 	<div class="clear"></div>
 	<div class="row bottom-actions">
-		<a class="btn btn-goevents btn-lg">Voir tous les spectacles <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></a>
+		<a class="btn btn-goevents btn-lg" href="?page=spectacles">Voir tous les spectacles <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></a>
 	</div>	
 
 </div>

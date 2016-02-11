@@ -123,6 +123,23 @@ body.page-spectacle {
 		 span {display: table-cell; vertical-align: middle; text-align: center;}
 		 span span {font-size: 12px; letter-spacing: 0px; display: block; width: 100%; position: relative; top: -2px;}
 
+		 sup {
+		 	.subtotal-container .subtotal .sup;
+		 	font-size: 22px;
+		 	top: -16px;
+		 	letter-spacing: -1px;
+
+			&.dollar-sign {
+				left: 0px;
+			}
+		 	&.cents:after {
+		 		width: 20px;
+		 		left: 2px;
+		 		top: 28px;
+		 		border-width: 3px;
+		 	}
+		 }
+
 		 @media @bp-sm-md {
 		 	text-align: left;
 		 }

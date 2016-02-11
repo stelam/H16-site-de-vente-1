@@ -25,8 +25,7 @@
 
 		<div class="col-lg-4 col-md-offset-3 col-md-3 col-lg-offset-2 blur-on-full">
 			<div class="price">
-				<span>19 $			<span>par billet</span></span>
-
+				<span><sup class="dollar-sign">$</sup>19<sup class="cents">97</sup><span>par billet</span></span>
 			</div>
 		</div>
 

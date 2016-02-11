@@ -9,8 +9,8 @@
 <div class="row shows small-gutter">
 
 	<?php for ($i = 1; $i < 12; $i++) : ?>
-		<article class="show-item col-sm-12 col-md-6 col-lg-4">
-			<a href="?page=spectacle">
+		<article class="show-item col-sm-12 col-md-6 col-lg-4 <?php echo ($i == 6) ? 'full' : ''; ?>">
+			<a href="?page=spectacle<?php echo ($i == 6) ? '&full=true' : ''; ?>">
 				<img src="images/show-<?= $i ?>.jpg" />
 
 				<span class="show-infos">

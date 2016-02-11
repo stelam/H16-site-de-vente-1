@@ -17,9 +17,13 @@
 		</div>
 	</div>
 	<hr class="visible-sm visible-xs"/>
-	<div class="col-lg-4 col-sm-12 tickets-selection">
+	<div class="col-lg-4 col-sm-12 tickets-selection <?php echo (isset($_GET['full'])) ? 'full' : ''; ?>">
 
-		<div class="col-lg-4 col-md-offset-3 col-md-3 col-lg-offset-2">
+		<?php if(isset($_GET['full'])) : ?>
+			<div class="tag-full" title="Ce spectacle est à guichet fermé.">COMPLET</div>
+		<?php endif; ?>
+
+		<div class="col-lg-4 col-md-offset-3 col-md-3 col-lg-offset-2 blur-on-full">
 			<div class="price">
 				<span>19 $			<span>par billet</span></span>
 
@@ -27,16 +31,16 @@
 		</div>
 
 
-		<div class="col-sm-12 col-md-6 nb-tickets-col">
+		<div class="col-sm-12 col-md-6 nb-tickets-col blur-on-full">
 			<input type="number" value="1" max="6" min="1" class="form-control" />
 		</div>
 		
 		<div class="clear"></div>
-		<select class="form-control input-lg">
+		<select class="form-control input-lg blur-on-full">
 			<option>26 avril 2016</option>
 			<option>4 mai 2016</option>
 		</select>
-		<a class="btn btn-lg btn-add btn-block btn-goevents"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier</a>
+		<a class="btn btn-lg btn-add btn-block btn-goevents blur-on-full"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier</a>
 	</div>
 
 	<hr class="visible-sm visible-xs"/>

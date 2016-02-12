@@ -3,10 +3,11 @@
 </header>
 
 <div class="row featuring small-gutter">
+	
 
 	<?php for ($i = 1; $i < 7; $i++) : ?>
 		<article class="show-item col-sm-6">
-			<a href="?page=spectacle">
+			<a href="?page=spectacle&id=<?= $i ?>">
 				<img src="images/show-<?= $i ?>.jpg" />
 
 				<span class="show-infos">
@@ -21,7 +22,12 @@
 				<a href="#"></a>
 			</div>
 		</article>
+
+		<?php if ($i == 4) : ?>
+			<a onclick="window.open('http://google.com');" title="Publicité" class="paraxify col-sm-12" style='background-image:url("/maquette-statique/images/pseudo-pub-6.jpg")'></a>
+		<?php endif; ?>
 	<?php endfor; ?>
+
 
 
 	<div class="clear"></div>

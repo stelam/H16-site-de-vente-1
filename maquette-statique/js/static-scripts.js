@@ -50,5 +50,7 @@ $(document).ready(function(){
         })
     });
 
+
+	var myParaxify = paraxify('.paraxify');
 })
 

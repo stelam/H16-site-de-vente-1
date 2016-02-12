@@ -3,8 +3,12 @@
 $(window).scroll(function() {
 	if ($(this).scrollTop() > 1){  
 		$('.site-nav').addClass("sticky");
+		$('#admin .footer').css("position","");
+		$('#admin .footer').css("bottom","");
 	}else{
 		$('.site-nav').removeClass("sticky");
+		$('#admin .footer').css("position","absolute");
+		$('#admin .footer').css("bottom","0");
 	}
 });
 

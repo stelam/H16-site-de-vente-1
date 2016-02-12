@@ -1,27 +1,40 @@
 <header>
-	<h2><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Des spectacles à ne pas manquer</h2>
+	<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Des spectacles à ne pas manquer</h1>
 </header>
 
 <div class="row featuring small-gutter">
 	
 
 	<?php for ($i = 1; $i < 7; $i++) : ?>
-		<article class="show-item col-sm-6">
-			<a href="?page=spectacle&id=<?= $i ?>">
-				<img alt="image du spectacle" src="images/show-<?= $i ?>.jpg" />
+		<?php if($i == 2) :  ?>
+			<article class="show-item col-sm-6">
+				<a href="http://google.com" target="_blank">
+					<img alt="Publicité" src="images/pseudo-pub-2.jpg" />
 
-				<div class="show-infos">
-					<h2>Titre du spectacle</h2>
-					<h3>9 janvier au 12 janvier @ Centre Bell</h3>
+					<div class="show-infos">
+						<h3>Publicité</h3>
+					</div>
+
+				</a>
+			</article>
+		<?php else : ?>
+			<article class="show-item col-sm-6">
+				<a href="?page=spectacle&id=<?= $i ?>">
+					<img alt="image du spectacle" src="images/show-<?= $i ?>.jpg" />
+
+					<div class="show-infos">
+						<h2>Titre du spectacle</h2>
+						<h3>9 janvier au 12 janvier @ Centre Bell</h3>
+					</div>
+
+				</a>
+
+				<div class="quick-links">
+					<a href="#"></a>
+					<a href="#"></a>
 				</div>
-
-			</a>
-
-			<div class="quick-links">
-				<a href="#"></a>
-				<a href="#"></a>
-			</div>
-		</article>
+			</article>
+		<?php endif; ?>
 
 		<?php if ($i == 4) : ?>
 			<a onclick="window.open('http://google.com');" title="Publicité" class="paraxify col-sm-12" style='background-image:url("/maquette-statique/images/pseudo-pub-6.jpg")'></a>

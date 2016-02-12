@@ -1,13 +1,22 @@
 .shows-header {
 	#calendar {
 		display: inline-block;
-		width: 20px;
+		width: 1em;
+		height: 1em;
 		input {width:0px; height: 0px; opacity: 0;}
 		.input-group-addon {
 			background: none;
 			border: none;
+			position: absolute;
+			top: 5px;
+			left: 0px;
+
+			&:hover .glyphicon{
+				color: @almost-white !important;
+			}
 		}
 		.glyphicon-calendar {
+			transition: all 0.2s;
 			font-size: 36px;
 		}
 	}

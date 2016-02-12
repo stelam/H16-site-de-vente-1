@@ -8,12 +8,12 @@
 	<?php for ($i = 1; $i < 7; $i++) : ?>
 		<article class="show-item col-sm-6">
 			<a href="?page=spectacle&id=<?= $i ?>">
-				<img src="images/show-<?= $i ?>.jpg" />
+				<img alt="image du spectacle" src="images/show-<?= $i ?>.jpg" />
 
-				<span class="show-infos">
-					<h3>Titre du spectacle</h3>
-					<h4>9 janvier @ Centre Bell</h4>
-				</span>
+				<div class="show-infos">
+					<h2>Titre du spectacle</h2>
+					<h3>9 janvier au 12 janvier @ Centre Bell</h3>
+				</div>
 
 			</a>
 
@@ -32,7 +32,7 @@
 
 	<div class="clear"></div>
 	<div class="row bottom-actions">
-		<a class="btn btn-goevents btn-lg" href="?page=spectacles">Voir tous les spectacles <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></a>
+		<a class="btn btn-goevents btn-lg" href="?page=spectacles">Voir tous les spectacles <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 	</div>	
 
 </div>

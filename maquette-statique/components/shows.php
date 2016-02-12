@@ -25,11 +25,11 @@
 	<?php for ($i = 1; $i < 12; $i++) : ?>
 		<article class="show-item col-sm-12 col-md-6 col-lg-4 <?php echo ($i == 6) ? 'full' : ''; ?>">
 			<a href="?page=spectacle&id=<?= $i ?><?php echo ($i == 6) ? '&full=true' : ''; ?>">
-				<img src="images/show-<?= $i ?>.jpg" />
+				<img alt="image du spectacle" src="images/show-<?= $i ?>.jpg" />
 
 				<span class="show-infos">
 					<h2>Titre du spectacle</h2>
-					<h3>9 janvier @ Centre Bell</h3>
+					<h3>9 janvier au 12 janvier @ Centre Bell</h3>
 				</span>
 
 			</a>
@@ -49,7 +49,7 @@
 	<?php if (!isset($_GET['recherche'])) : ?>
 		<div class="clear"></div>
 		<div class="row bottom-actions">
-			<a class="btn btn-goevents btn-lg">Afficher plus de spectacles <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></a>
+			<a class="btn btn-goevents btn-lg">Afficher plus de spectacles <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
 		</div>	
 	<?php endif; ?>
 

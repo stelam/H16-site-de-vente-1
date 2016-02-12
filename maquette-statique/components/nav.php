@@ -18,7 +18,7 @@
 	</nav>
 
 	<div class="col-sm-1 col-lg-4 pull-right right-actions">
-		<form method="GET" action="" class="search-wrapper col-sm-10">
+		<form method="GET" action="./" class="search-wrapper col-sm-10">
 			<input id="search" name="recherche" class="search form-control input-lg" placeholder="Rechercher un spectacle ou un artiste..."/>
 			<input type="hidden" name="page" value="spectacles" />
 		</form>

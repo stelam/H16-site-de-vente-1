@@ -1,3 +1,18 @@
+.shows-header {
+	#calendar {
+		display: inline-block;
+		width: 20px;
+		input {width:0px; height: 0px; opacity: 0;}
+		.input-group-addon {
+			background: none;
+			border: none;
+		}
+		.glyphicon-calendar {
+			font-size: 36px;
+		}
+	}
+}
+
 .featuring,
 .shows {
 	margin-left: -5px;
@@ -11,6 +26,22 @@
 			display: block; 		
 			position: relative;
 			&:hover {transform: scale(1.02);}
+		}
+
+		&.full:after {
+			content: "COMPLET";
+			color: @pastel-red;
+			font-weight: 800;
+			text-shadow: -1px -1px 3px rgba(0, 0, 0, 0.87);
+			box-shadow: -1px -1px 3px rgba(0, 0, 0, 0.65);
+			border: 4px solid @pastel-red;
+			padding: 2px 10px;
+			position: absolute;
+			font-size: 2em;
+			top:30px;
+			right: -25px;
+			transform: rotateZ(45deg);
+			z-index: 200;
 		}
 	}
 

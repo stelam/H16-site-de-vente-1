@@ -21,6 +21,8 @@
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="css/styles.css?v=1.0">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/less" href="css/vendors/bootstrap-datetimepicker.min.css">
+
 		<link rel="stylesheet" type="text/less" href="css/styles.less">
 
 
@@ -45,7 +47,11 @@
 
 		<script>less = { env: 'development'};</script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.6.0/less.min.js"></script>
-		<script>less.watch();</script>
+		<script>//less.watch();</script>
+
+		<script src="js/vendors/moments.min.js"></script>
+		<script src="js/vendors/locale/fr-ca.js"></script>
+		<script src="js/vendors/bootstrap-datetimepicker.js"></script>
 
 		<script src="js/static-scripts.js"></script>
 		

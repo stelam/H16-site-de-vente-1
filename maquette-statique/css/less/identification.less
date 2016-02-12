@@ -31,4 +31,17 @@
 	h2 {text-align: center; margin-top: 0px; margin-bottom: 30px;}
 
 	& > div {margin-bottom: 30px;}
+
+	@media @bp-xs {
+		.pull-right.col-sm-6 {
+			display: block !important;
+			float: none !important;
+		}
+	}
+
+	@media only screen and (min-width: 480px) and (max-width: 768px) {
+		.pull-right.col-sm-6 {
+			float: none !important;
+		}
+	}
 }

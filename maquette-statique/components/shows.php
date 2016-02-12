@@ -1,16 +1,30 @@
-<header>
+<header class="shows-header">
 	<?php if (isset($_GET['recherche'])) : ?>
 		<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 11 spectacles correspondants à '<?= $_GET['recherche']; ?>'</h1>
 	<?php else : ?>
-		<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Tous les spectacles à l'affiche</h1>
+		<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 
+			<?php if (isset($_GET['date'])) : ?>
+				Spectacles du <?= $_GET['date'] ?>
+			<?php else : ?>
+				Tous les spectacles à l'affiche 
+			<?php endif; ?>
+			
+			<div id="calendar" class='input-group date'>
+				<input type='text' class='' />
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-calendar" title="Voir les spectacles pour une date spécifique" aria-hidden="true"></span>
+				</span>
+			</div>
+		</h1>
 	<?php endif; ?>
 </header>
 
+  
 <div class="row shows small-gutter">
 
 	<?php for ($i = 1; $i < 12; $i++) : ?>
-		<article class="show-item col-sm-12 col-md-6 col-lg-4">
-			<a href="?page=spectacle">
+		<article class="show-item col-sm-12 col-md-6 col-lg-4 <?php echo ($i == 6) ? 'full' : ''; ?>">
+			<a href="?page=spectacle&id=<?= $i ?><?php echo ($i == 6) ? '&full=true' : ''; ?>">
 				<img src="images/show-<?= $i ?>.jpg" />
 
 				<span class="show-infos">

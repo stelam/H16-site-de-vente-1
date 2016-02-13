@@ -4,7 +4,7 @@
 			<label for="inputName" class="col-sm-2 control-label">Nom</label>
 
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="inputName" placeholder="Nom">
+				<input type="text" class="form-control" id="inputName" placeholder="Nom" value="">
 			</div>
 		</div>
 
@@ -12,7 +12,7 @@
 			<label for="inputArtiste" class="col-sm-2 control-label">Artiste</label>
 			
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="inputArtiste" placeholder="Artiste">
+				<input type="text" class="form-control" id="inputArtiste" placeholder="Artiste" value="">
 			</div>
 		</div>
 
@@ -20,7 +20,7 @@
 			<label for="inputDate" class="col-sm-2 control-label">Date</label>
 			
 			<div class="col-sm-10">
-				<input type="date" class="form-control" id="inputDate" placeholder="Date">
+				<input type="date" class="form-control" id="inputDate" placeholder="Date" value="">
 			</div>
 		</div>
 
@@ -28,7 +28,7 @@
 			<label for="inputSalle" class="col-sm-2 control-label">Salle</label>
 			
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="inputSalle" placeholder="Salle">
+				<input type="text" class="form-control" id="inputSalle" placeholder="Salle" value="">
 			</div>
 		</div>
 
@@ -44,7 +44,7 @@
 			<label for="inputPrix" class="col-sm-2 control-label">Prix ($)</label>
 			
 			<div class="col-sm-10">
-				<input type="number" class="form-control" id="inputPrix" placeholder="Prix">
+				<input type="number" class="form-control" id="inputPrix" placeholder="Prix" value="">
 			</div>
 		</div>
 
@@ -76,7 +76,7 @@
 
 			<!-- Visible ou pas -->
 			<div class="form-group">
-				<label for="radioVisible" class="col-sm-2 control-label">Visible ?</label>
+				<label for="radioVisible" class="col-sm-2 control-label">En vedette ?</label>
 				
 				<div class="col-sm-10">
 					<label class="radio-inline">

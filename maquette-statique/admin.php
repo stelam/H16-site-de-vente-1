@@ -17,10 +17,6 @@
 
         <div class="container">
             <div class="tab-content">
-                <?php include("components/admin_accueil.php"); ?>
-
-                <?php include("components/admin_vedette.php"); ?>
-
                 <?php include("components/admin_spectacles.php"); ?>
 
                 <?php include("components/admin_salles.php"); ?>
@@ -28,6 +24,8 @@
                 <?php include("components/admin_creationSpectacle.php"); ?>
 
                 <?php include("components/admin_creationSalle.php"); ?>
+
+                <?php include("components/admin_aide.php"); ?>
             </div>
         </div>
 

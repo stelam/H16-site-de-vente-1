@@ -55,8 +55,6 @@
 		<script src="js/vendors/locale/fr-ca.js"></script>
 		<script src="js/vendors/bootstrap-datetimepicker.js"></script>
 
-		<script src="js/vendors/paraxify.min.js"></script>
-
 		<script src="js/static-scripts.js"></script>
 		
 	</body>

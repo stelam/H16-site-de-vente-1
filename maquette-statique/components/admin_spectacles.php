@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h4>
-                    <a class="titleShow" href="components/admin_spectacle.php">
+                    <a class="titleShow" href="#adminSpectacle" aria-controls="spectacles" role="tab" data-toggle="tab" >
                         Spectacle non-publiés <?= $i ?>
                     </a>
                 </h4>
@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h4>
-                    <a class="titleShow" href="components/admin_spectacle.php">
+                    <a class="titleShow" href="#adminSpectacle" aria-controls="spectacles" role="tab" data-toggle="tab">
                         Spectacle en vedette <?= $i ?>
                     </a>
                     <span class="label label-success">34 bilets vendus</span>
@@ -50,7 +50,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h4>
-                    <a class="titleShow" href="components/admin_spectacle.php">
+                    <a class="titleShow" href="#adminSpectacle" aria-controls="spectacles" role="tab" data-toggle="tab">
                         Spectacle <?= $i ?>
                     </a>
                     <span class="label label-success">34 bilets vendus</span>

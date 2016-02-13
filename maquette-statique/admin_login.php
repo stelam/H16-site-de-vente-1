@@ -13,7 +13,7 @@
 
   <body id="adminLogin">
     <div class="container">
-      <form class="form-signin">
+      <form class="form-signin" action="admin.php">
         <h2 class="form-signin-heading ">Panneau administrateur</h2>
 
         <label for="inputEmail" class="sr-only">Nom d'utilisateur</label>

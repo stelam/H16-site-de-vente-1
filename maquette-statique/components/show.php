@@ -48,7 +48,7 @@
 		<a class="btn btn-goevents btn-lg" href="?page=spectacles"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Revenir</a>
 	</div>	
 
-	<div class="backdrop" ><div style='background-image:url("/maquette-statique/images/show-<?= $_GET['id'] ?>.jpg")'></div></div>
+	<div class="backdrop" ><div style='background-image:url("images/show-<?= $_GET['id'] ?>.jpg")'></div></div>
 
 </article>
 

@@ -12,6 +12,19 @@ $(window).scroll(function() {
 	}
 });
 
+
+$(function(){
+  var hash = window.location.hash;
+  hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+  $('.navbar-nav a, .titleShow').click(function (e) {
+    $(this).tab('show');
+    var scrollmem = $('body').scrollTop();
+    window.location.hash = this.hash;
+    $('html,body').scrollTop(scrollmem);
+  });
+});
+
 $(document).ready(function(){
 	$('html').click(function(e) {
 		if (!$(e.target).hasClass('popover') && $(e.target).closest('.popover').length < 1){

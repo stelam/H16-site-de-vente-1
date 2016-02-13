@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h4>
-                    <a class="titleShow" href="components/admin_salle.php">
+                    <a class="titleShow" href="#adminSalle" aria-controls="adminSalle" role="tab" data-toggle="tab">
                         Salles <?= $i ?>
                     </a>
                 </h4>

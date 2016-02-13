@@ -56,7 +56,7 @@
 
 
 		<?php if ($i == 6) : ?>
-			<a onclick="window.open('http://google.com');" title="Publicité" class="paraxify col-sm-12" style='background-image:url("/maquette-statique/images/pseudo-pub-7.jpg")'></a>
+			<a onclick="window.open('http://google.com');" title="Publicité" class="paraxify col-sm-12" style='background-image:url("images/pseudo-pub-7.jpg")'></a>
 		<?php endif; ?>
 
 	<?php endfor; ?>

@@ -45,6 +45,18 @@
 	                Créer une salle
 	              </a>
 	            </li>
+
+	            <li role="presentation hidden">
+	              <a href="#adminSalle" aria-controls="adminSalle" role="tab" data-toggle="tab">
+	                Gérer une salle
+	              </a>
+	            </li>
+
+	            <li role="presentation hidden">
+	              <a href="#adminSpectacle" aria-controls="adminSpectacle" role="tab" data-toggle="tab">
+	                Gérer un spectacle
+	              </a>
+	            </li>
 	          </ul>
 	        </li>
       	</ul>

@@ -26,9 +26,20 @@
 #admin {
 	background-color: #333;
 	padding-top: 0px;
+
+	#spectacles {
+		@media @bp-md {
+			.titleShow {
+				display: inline-block;
+				height: 26px;
+			}
+		}
+	}
 }
 
 #admin .container {
+	// la hauteur du footer
+	padding-bottom: 50px;
 }
 
 #enVedette h4 a.titleShow {

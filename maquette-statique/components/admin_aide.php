@@ -1,4 +1,4 @@
-<div role="tabpanel" class="tab-pane active" id="accueil">
+<div role="tabpanel" class="tab-pane" id="aide">
     <h3>Le système permet :</h3>
     <h4>Général</h4>
     <ul>

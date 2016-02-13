@@ -4,7 +4,7 @@
 			<label for="inputName" class="col-sm-2 control-label">Nom</label>
 
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="inputName" placeholder="Nom">
+				<input type="text" class="form-control" id="inputName" placeholder="Nom" value="">
 			</div>
 		</div>
 
@@ -12,7 +12,7 @@
 			<label for="inputAdresse" class="col-sm-2 control-label">Adresse</label>
 			
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="inputAdresse" placeholder="Adresse">
+				<input type="text" class="form-control" id="inputAdresse" placeholder="Adresse" value="">
 			</div>
 		</div>
 
@@ -20,7 +20,7 @@
 			<label for="inputCapacite" class="col-sm-2 control-label">Capacite</label>
 			
 			<div class="col-sm-10">
-				<input type="number" class="form-control" id="inputCapacite" placeholder="Capacite">
+				<input type="number" class="form-control" id="inputCapacite" placeholder="Capacite" value="">
 			</div>
 		</div>
 

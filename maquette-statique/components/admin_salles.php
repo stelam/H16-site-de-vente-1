@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h4>
-                    <a class="titleShow" href="#">
+                    <a class="titleShow" href="components/admin_salle.php">
                         Salles <?= $i ?>
                     </a>
                 </h4>

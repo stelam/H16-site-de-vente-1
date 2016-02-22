@@ -1,0 +1,47 @@
+.identication-federation,
+.identification-anon,
+.identification-or {
+	text-align: center;
+	h2 {margin-top: 0px;}
+	.btn {margin: 0 auto; display: inline-block;}
+
+	img {max-height: 100%; width: auto;  opacity: 0.3;}
+}
+
+.identification-anon:after {
+	transition: all 0.3s;
+	opacity: 0;
+	min-height: 300px;
+	z-index: -1;
+	background-repeat: no-repeat;
+	content: " ";
+	width: 100%;
+	height: 100%;
+	background:url("okay-guy.png") right center no-repeat;
+	background-size: contain;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+.identification-anon:hover:after {
+	opacity: 0.1;
+}
+
+.anon-form {
+	h2 {text-align: center; margin-top: 0px; margin-bottom: 30px;}
+
+	& > div {margin-bottom: 30px;}
+
+	@media @bp-xs {
+		.pull-right.col-sm-6 {
+			display: block !important;
+			float: none !important;
+		}
+	}
+
+	@media only screen and (min-width: 480px) and (max-width: 768px) {
+		.pull-right.col-sm-6 {
+			float: none !important;
+		}
+	}
+}

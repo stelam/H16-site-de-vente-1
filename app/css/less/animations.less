@@ -1,0 +1,29 @@
+@keyframes scalepulse {
+	0%   { transform: scale(1); }
+	40%   { transform: scale(4); }
+	100% { transform: scale(1); }
+}
+
+
+/* The starting CSS styles for the enter animation */
+.ng-fade.ng-enter {
+	transform: scale(0);
+	transition:0.2s ease-out all;
+	opacity:0;
+}
+
+
+.ng-fade.ng-enter-stagger {
+  /* this will have a 100ms delay between each successive leave animation */
+  transition-delay: 0.1s;
+
+  /* As of 1.4.4, this must always be set: it signals ngAnimate
+    to not accidentally inherit a delay property from another CSS class */
+  transition-duration: 0s;
+}
+
+/* The finishing CSS styles for the enter animation */
+.ng-fade.ng-enter.ng-enter-active {
+	transform: scale(1);
+	opacity:1;
+}

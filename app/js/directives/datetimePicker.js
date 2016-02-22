@@ -14,7 +14,11 @@
 			        	var date = moment(e.date._d);
 			        	moment.locale("fr-CA");
 			        	var dateString = moment(date).format('DD/MM/YYYY');
-			        	window.location.href = 'spectacles-date.html'
+			        	//window.location.href = '#spectacles-date.html'
+			        	scope.$apply(function(){
+			        		$location.path("/spectacles/"+dateString);
+			        	})
+			        	
 			        })
                 }
             }

@@ -2,12 +2,15 @@
  "use strict";
 
   angular.module('app')
-    .controller('showListController', [ "showService", "$scope", "$q", function(showService, $scope, $q){
+    .controller('showListController', [ "showService", "$scope", "$q", "$routeParams", function(showService, $scope, $q, $routeParams){
     	$scope.shows = [];
+        $scope.dateFilter = false;
+        var self = this;
 
     	var init = function(){
     		loadingScreen.show();
 
+            self.checkForDateFilter();
 
     		return $q.all([
     			showService.getListShows(),
@@ -19,6 +22,12 @@
     			}
     		})
     	}
+
+        this.checkForDateFilter = function(){
+            if ($routeParams.dd && $routeParams.mm && $routeParams.yyyy){
+                $scope.dateFilter = $routeParams;
+            }
+        }
 
 
 

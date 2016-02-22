@@ -1,7 +1,10 @@
 <header class="shows-header">
 	<h1>
 		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 
-		Tous les spectacles à l'affiche 
+		
+		<span ng-if="!dateFilter">Tous les spectacles à l'affiche </span>
+		<span ng-if="dateFilter">Spectacles du {{dateFilter.dd}}/{{dateFilter.mm}}/{{dateFilter.yyyy}}</span>
+
 		<span id="calendar" class='input-group date' datetime-picker>
 			<input type='text' class='' />
 			<span class="input-group-addon">

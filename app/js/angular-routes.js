@@ -10,6 +10,9 @@
 	      }).when('/spectacles', {
 	        templateUrl: 'partials/show-list.html',
 	        controller: 'showListController'
+	      }).when('/spectacles/:dd/:mm/:yyyy', {
+	        templateUrl: 'partials/show-list.html',
+	        controller: 'showListController'
 	      }).
 	      otherwise({
 	        redirectTo: '/'

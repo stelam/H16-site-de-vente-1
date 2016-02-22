@@ -6,7 +6,7 @@
 	    $routeProvider.
 	      when('/featuring', {
 	        templateUrl: 'partials/featuring-list.html',
-	        controller: 'showListController'
+	        controller: 'featuredShowListController'
 	      }).
 	      otherwise({
 	        redirectTo: '/featuring'

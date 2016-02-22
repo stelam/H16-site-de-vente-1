@@ -8,15 +8,20 @@
         var self = this;
 
     	var init = function(){
-    		loadingScreen.show();
+            var asyncCalls = [];
 
+    		loadingScreen.show();
             self.checkForDateFilter();
 
-    		return $q.all([
-    			showService.getListShows(),
-    			// d'autres appels asynchrones peuvent être faits ici
+            // si un filtre de date a été passé, mettre dans la queue
+            // la méthode qui va chercher les spectacles pour une date donnée
+            if ($scope.dateFilter) {
+                asyncCalls.push(showService.getListShowsByDate($scope.dateFilter.dd, $scope.dateFilter.mm, $scope.dateFilter.yyyy))
+            } else {
+                asyncCalls.push(showService.getListShows());
+            }
 
-    		]).then(function(res){
+    		return $q.all(asyncCalls).then(function(res){
     			return {
     				featuredShows : res[0].data.shows
     			}

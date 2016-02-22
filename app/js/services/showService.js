@@ -18,6 +18,14 @@
 					method: 'GET',
 					url: 'http://demo5168961.mockable.io/shows/'
 			    });
+	    	},
+
+	    	getListShowsByDate : function(dd, mm, yyyy){
+	    		return $http({
+					method: 'GET',
+					url: 'http://demo5168961.mockable.io/shows/date/',
+					params: 'dd=' + dd + ', mm=' + mm + ', yyyy=' + yyyy
+			    });
 	    	}
 	    } 
     }])

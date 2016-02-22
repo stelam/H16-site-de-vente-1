@@ -5,14 +5,18 @@
         .directive('datetimePicker', ['$location', function ($location) {
             return {
                 restrict: 'A',
-                scope: false,
+                scope: {
+                	dateObj : "="
+                },
                 link: function (scope, element) {
+                	moment.locale("fr-CA");
 
-			        $(element).datetimepicker({useCurrent: false, debug: false});
+                	var currentDate = (scope.dateObj) ? moment(scope.dateObj.dd + "/" + scope.dateObj.mm + "/" + scope.dateObj.yyyy, "DD/MM/YYYY") : false;
+			        $(element).datetimepicker({useCurrent: false, debug: false, defaultDate: currentDate});
 
 			        $(element).on('dp.change', function(e){
 			        	var date = moment(e.date._d);
-			        	moment.locale("fr-CA");
+			        	
 			        	var dateString = moment(date).format('DD/MM/YYYY');
 			        	//window.location.href = '#spectacles-date.html'
 			        	scope.$apply(function(){

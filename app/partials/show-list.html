@@ -5,7 +5,7 @@
 		<span ng-if="!dateFilter">Tous les spectacles à l'affiche </span>
 		<span ng-if="dateFilter">Spectacles du {{dateFilter.dd}}/{{dateFilter.mm}}/{{dateFilter.yyyy}}</span>
 
-		<span id="calendar" class='input-group date' datetime-picker>
+		<span id="calendar" class='input-group date' datetime-picker date-obj="dateFilter">
 			<input type='text' class='' />
 			<span class="input-group-addon">
 			<span class="glyphicon glyphicon-calendar" title="Voir les spectacles pour une date spécifique" aria-hidden="true"></span>

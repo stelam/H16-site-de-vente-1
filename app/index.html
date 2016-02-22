@@ -15,16 +15,16 @@
 			<header class="site-nav row">
 				<nav class="col-sm-12 col-lg-8">
 					<h2 class="logo">
-						<a href="accueil.html">
+						<a href="#/">
 						<img src="images/logo.png" alt="GO EVENTS!" />
 						</a>
 					</h2>
-					<ul class="menu">
-						<li class="active">
-							<a href="accueil.html">Accueil</a>
+					<ul class="menu" active-menu>
+						<li>
+							<a href="#/">Accueil</a>
 						</li>
-						<li class="">
-							<a href="spectacles.html">Spectacles</a>
+						<li>
+							<a href="#/spectacles">Spectacles</a>
 						</li>
 					</ul>
 				</nav>
@@ -78,9 +78,13 @@
 
 		<!-- controllers -->
 		<script src="js/controllers/featuredShowListController.js"></script>
+		<script src="js/controllers/showListController.js"></script>
 
 		<!-- services -->
 		<script src="js/services/showService.js"></script>
+
+		<!-- directives -->
+		<script src="js/directives/activeMenu.js"></script>
 
 
 		<script src="js/static-scripts.js"></script>

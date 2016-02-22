@@ -4,12 +4,15 @@
   angular.module('app')
     .config(['$routeProvider', function($routeProvider){
 	    $routeProvider.
-	      when('/featuring', {
+	      when('/', {
 	        templateUrl: 'partials/featuring-list.html',
 	        controller: 'featuredShowListController'
+	      }).when('/spectacles', {
+	        templateUrl: 'partials/show-list.html',
+	        controller: 'showListController'
 	      }).
 	      otherwise({
-	        redirectTo: '/featuring'
+	        redirectTo: '/'
 	      });
     }])
 })();

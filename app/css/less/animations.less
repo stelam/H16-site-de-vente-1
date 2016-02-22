@@ -7,7 +7,8 @@
 
 /* The starting CSS styles for the enter animation */
 .ng-fade.ng-enter {
-	transition:0.5s linear all;
+	transform: scale(0);
+	transition:0.2s ease-out all;
 	opacity:0;
 }
 
@@ -23,5 +24,6 @@
 
 /* The finishing CSS styles for the enter animation */
 .ng-fade.ng-enter.ng-enter-active {
+	transform: scale(1);
 	opacity:1;
 }

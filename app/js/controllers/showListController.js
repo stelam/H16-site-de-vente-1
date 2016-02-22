@@ -8,6 +8,7 @@
     	var init = function(){
     		loadingScreen.show();
 
+
     		return $q.all([
     			showService.getListShows(),
     			// d'autres appels asynchrones peuvent être faits ici

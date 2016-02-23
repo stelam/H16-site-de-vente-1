@@ -7,19 +7,23 @@
 	      when('/', {
 	        templateUrl: 'partials/featuring-list.html',
 	        controller: 'featuredShowListController',
-	        ident: 'accueil'
+	        ident: 'accueil',
+	        title: 'Spectacles en vedette'
 	      }).when('/spectacles', {
 	        templateUrl: 'partials/show-list.html',
 	        controller: 'showListController',
-	        ident: 'spectacles'
+	        ident: 'spectacles',
+	        title: 'Tous les spectacles'
 	      }).when('/spectacles/:dd/:mm/:yyyy', {
 	        templateUrl: 'partials/show-list.html',
 	        controller: 'showListController',
-	        ident: 'spectacles'
+	        ident: 'spectacles',
+	        title: ''
 	      }).when('/spectacle/:showId', {
 	        templateUrl: 'partials/show-details.html',
 	        controller: 'showDetailsController',
-	        ident: 'spectacle'
+	        ident: 'spectacle',
+	        title: ''
 	      }).
 	      otherwise({
 	        redirectTo: '/'

@@ -2,7 +2,7 @@
  "use strict";
 
   angular.module('app')
-    .controller('showDetailsController', [ "showService", "$scope", "$q", "$routeParams", function(showService, $scope, $q, $routeParams){
+    .controller('showDetailsController', [ "showService", "$scope", "$q", "$routeParams", "$rootScope", function(showService, $scope, $q, $routeParams, $rootScope){
     	$scope.show = {};
         $scope.showId = $routeParams.showId;
 
@@ -26,6 +26,8 @@
     		loadingScreen.hide();
 
     		$scope.show = res.show;
+
+            $rootScope.title = $scope.show.title + " - " + $scope.show.artist + " - du " + $scope.show.date;   
     	});
 
     }])

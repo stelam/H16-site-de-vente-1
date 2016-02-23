@@ -7,8 +7,8 @@
 
 	angular.module('app').run(function($rootScope){
 
-	    $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
-	        $rootScope.containerClass = toState.containerClass;
+	    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+	        $rootScope.title = current.$$route.title;
 	    });
 
 	});

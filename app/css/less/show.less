@@ -7,6 +7,13 @@ body.page-spectacle {background:url("film-noise.jpg") repeat;}
   -o-filter: blur(2px);
   -ms-filter: blur(2px);
   filter: blur(2px);
+
+    -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 5s; /* Firefox < 16 */
+        -ms-animation: fadein 5s; /* Internet Explorer */
+         -o-animation: fadein 5s; /* Opera < 12.1 */
+            animation: fadein 5s;
+
 }
 
 .backdrop {min-width: 100%; min-height: 100%; position: fixed; top:0px; left: 0px; z-index: -1; background-size: cover !important; transition: all 11s; background-repeat: no-repeat; background-position: center center;}

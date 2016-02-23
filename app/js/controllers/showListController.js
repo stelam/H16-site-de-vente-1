@@ -23,7 +23,7 @@
 
     		return $q.all(asyncCalls).then(function(res){
     			return {
-    				featuredShows : res[0].data.shows
+    				shows : res[0].data.shows
     			}
     		})
     	}
@@ -39,7 +39,7 @@
     	init().then(function(res){
     		loadingScreen.hide();
 
-    		$scope.shows = res.featuredShows;
+    		$scope.shows = res.shows;
     	});
 
     }])

@@ -6,13 +6,20 @@
 	    $routeProvider.
 	      when('/', {
 	        templateUrl: 'partials/featuring-list.html',
-	        controller: 'featuredShowListController'
+	        controller: 'featuredShowListController',
+	        ident: 'accueil'
 	      }).when('/spectacles', {
 	        templateUrl: 'partials/show-list.html',
-	        controller: 'showListController'
+	        controller: 'showListController',
+	        ident: 'spectacles'
 	      }).when('/spectacles/:dd/:mm/:yyyy', {
 	        templateUrl: 'partials/show-list.html',
-	        controller: 'showListController'
+	        controller: 'showListController',
+	        ident: 'spectacles'
+	      }).when('/spectacle/:showId', {
+	        templateUrl: 'partials/show-details.html',
+	        controller: 'showDetailsController',
+	        ident: 'spectacle'
 	      }).
 	      otherwise({
 	        redirectTo: '/'

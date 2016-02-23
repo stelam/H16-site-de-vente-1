@@ -2,19 +2,20 @@
  "use strict";
 
   angular.module('app')
-    .controller('featuredShowListController', [ "showService", "$scope", "$q", function(showService, $scope, $q){
-    	$scope.shows = [];
+    .controller('showDetailsController', [ "showService", "$scope", "$q", "$routeParams", function(showService, $scope, $q, $routeParams){
+    	$scope.show = {};
+        $scope.showId = $routeParams.showId;
 
     	var init = function(){
     		loadingScreen.show();
 
     		return $q.all([
-    			showService.getListFeaturedShows(),
+    			showService.getShowById($scope.showId),
     			// d'autres appels asynchrones peuvent être faits ici
 
     		]).then(function(res){
     			return {
-    				featuredShows : res[0].data.featuredShows
+    				show : res[0].data.show
     			}
     		})
     	}
@@ -24,7 +25,7 @@
     	init().then(function(res){
     		loadingScreen.hide();
 
-    		$scope.shows = res.featuredShows;
+    		$scope.show = res.show;
     	});
 
     }])

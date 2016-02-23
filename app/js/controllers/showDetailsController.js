@@ -1,3 +1,8 @@
+/*
+* Ce contrôleur gère la page de détails d'un spectacle
+*
+*/
+
 (function(){   
  "use strict";
 

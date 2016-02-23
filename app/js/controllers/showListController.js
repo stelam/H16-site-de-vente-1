@@ -1,3 +1,10 @@
+/*
+* Ce contrôleur gère les pages de : 
+*   - liste de tous les spectacles
+*   - résultats de recherche
+*   - spectacles pour une date donnée
+*
+*/
 (function(){   
  "use strict";
 

@@ -1,3 +1,7 @@
+/*
+* Ce contrôleur gère la page des spectacles en vedette
+*
+*/
 (function(){   
  "use strict";
 

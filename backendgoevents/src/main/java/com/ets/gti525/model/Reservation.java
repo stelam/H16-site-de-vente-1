@@ -1,4 +1,4 @@
-package com.ets.goevents.model;
+package com.ets.gti525.model;
 
 
 public class Reservation {

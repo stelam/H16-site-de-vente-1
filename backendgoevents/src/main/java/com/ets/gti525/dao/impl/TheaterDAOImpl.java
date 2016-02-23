@@ -1,11 +1,13 @@
-package com.ets.goevents.dao.impl;
+package com.ets.gti525.dao.impl;
 
-import com.ets.goevents.dao.TheaterDAO;
-import com.ets.goevents.model.Theater;
+
+import com.ets.gti525.dao.TheaterDAO;
+import com.ets.gti525.model.Theater;
 
 import java.util.List;
 
 public class TheaterDAOImpl implements TheaterDAO {
+
     @Override
     public Theater addTheater(Theater theater) {
         return null;

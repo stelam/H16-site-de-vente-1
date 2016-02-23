@@ -1,7 +1,7 @@
-package com.ets.goevents.dao;
+package com.ets.gti525.dao;
 
 
-import com.ets.goevents.model.Theater;
+import com.ets.gti525.model.Theater;
 
 import java.util.List;
 

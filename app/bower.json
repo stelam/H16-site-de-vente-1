@@ -24,6 +24,7 @@
     "angular-slugify": "~1.0.1",
     "eonasdan-bootstrap-datetimepicker": "https://github.com/Eonasdan/bootstrap-datetimepicker.git#~4.17.37",
     "moment": "~2.11.2",
-    "bootstrap": "~3.3.6"
+    "bootstrap": "~3.3.6",
+    "less": "~2.6.0"
   }
 }

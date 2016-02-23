@@ -2,7 +2,7 @@
 <html lang="en" ng-app="app">
 	<head>
 		<meta charset="utf-8">
-		<title>Accueil - GOEVENTS!</title>
+		<title ng-bind="'GOEVENTS! &mdash; ' + title">GOEVENTS!</title>
 		<meta name="description" content="Static site - GOEVENTS!">
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="css/styles.css?v=1.0">
@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="css/vendors/bootstrap-datetimepicker.min.css">
 		<link rel="stylesheet" type="text/less" href="css/styles.less">
 	</head>
-	<body class="page-accueil">
+	<body route-class>
 		<div class="container-fluid">
 			<header class="site-nav row">
 				<nav class="col-sm-12 col-lg-8">
@@ -69,6 +69,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-sanitize.min.js"></script>
 
 		<script src="js/custom-plugins/loading-screen.jquery.js"></script>
 
@@ -79,6 +80,7 @@
 		<!-- controllers -->
 		<script src="js/controllers/featuredShowListController.js"></script>
 		<script src="js/controllers/showListController.js"></script>
+		<script src="js/controllers/showDetailsController.js"></script>
 
 		<!-- services -->
 		<script src="js/services/showService.js"></script>
@@ -86,6 +88,8 @@
 		<!-- directives -->
 		<script src="js/directives/activeMenu.js"></script>
 		<script src="js/directives/datetimePicker.js"></script>
+		<script src="js/directives/routeClass.js"></script>
+		<script src="js/directives/backButton.js"></script>
 
 
 		<script src="js/static-scripts.js"></script>

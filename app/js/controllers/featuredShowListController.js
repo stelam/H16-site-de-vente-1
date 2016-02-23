@@ -6,7 +6,7 @@
     	$scope.shows = [];
 
     	var init = function(){
-    		loadingScreen.showFor(500);
+    		loadingScreen.show();
 
     		return $q.all([
     			showService.getListFeaturedShows(),

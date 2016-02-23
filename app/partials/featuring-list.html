@@ -3,7 +3,7 @@
 				</header>
 				<div class="row featuring small-gutter">
 					<article class="show-item col-sm-6 ng-fade" ng-repeat-start="show in shows">
-						<a href="spectacle.html">
+						<a href="#/spectacle/{{show.id}}">
 							<img alt="image du spectacle" ng-src="images/show-{{show.id}}.jpg" />
 							<div class="show-infos">
 								<h2>{{show.title}}</h2>
@@ -30,6 +30,6 @@
 
 					<div class="clear"></div>
 					<div class="row bottom-actions">
-						<a class="btn btn-goevents btn-lg" href="spectacles.html">Voir tous les spectacles <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+						<a class="btn btn-goevents btn-lg" href="#/spectacles">Voir tous les spectacles <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 					</div>
 				</div>

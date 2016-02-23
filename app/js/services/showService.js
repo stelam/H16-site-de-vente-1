@@ -26,6 +26,13 @@
 					url: 'http://demo5168961.mockable.io/shows/date/',
 					params: 'dd=' + dd + ', mm=' + mm + ', yyyy=' + yyyy
 			    });
+	    	},
+
+	    	getShowById : function(dd, mm, yyyy){
+	    		return $http({
+					method: 'GET',
+					url: 'http://demo5168961.mockable.io/show/1' // TODO: mettre le vrai id du spectacle
+			    });
 	    	}
 	    } 
     }])

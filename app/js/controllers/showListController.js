@@ -2,7 +2,7 @@
  "use strict";
 
   angular.module('app')
-    .controller('showListController', [ "showService", "$scope", "$q", "$routeParams", function(showService, $scope, $q, $routeParams){
+    .controller('showListController', [ "showService", "$scope", "$q", "$routeParams", "$rootScope", function(showService, $scope, $q, $routeParams, $rootScope){
     	$scope.shows = [];
         $scope.dateFilter = false;
         var self = this;
@@ -23,7 +23,7 @@
 
     		return $q.all(asyncCalls).then(function(res){
     			return {
-    				featuredShows : res[0].data.shows
+    				shows : res[0].data.shows
     			}
     		})
     	}
@@ -39,7 +39,11 @@
     	init().then(function(res){
     		loadingScreen.hide();
 
-    		$scope.shows = res.featuredShows;
+    		$scope.shows = res.shows;
+
+            if ($scope.dateFilter) {
+                $rootScope.title = "Spectacles du " + $scope.dateFilter.dd + "/" + $scope.dateFilter.mm + "/" + $scope.dateFilter.yyyy;
+            }
     	});
 
     }])

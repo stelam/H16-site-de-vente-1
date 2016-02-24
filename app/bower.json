@@ -25,6 +25,7 @@
     "eonasdan-bootstrap-datetimepicker": "https://github.com/Eonasdan/bootstrap-datetimepicker.git#~4.17.37",
     "moment": "~2.11.2",
     "bootstrap": "~3.3.6",
-    "less": "~2.6.0"
+    "less": "~2.6.0",
+    "angular-local-storage": "~0.2.5"
   }
 }

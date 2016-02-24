@@ -27,7 +27,7 @@
 			<option>26 avril 2016</option>
 			<option>4 mai 2016</option>
 		</select>
-		<a ng-click="addToCart()" class="btn btn-lg btn-add btn-block btn-goevents blur-on-full"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier</a>
+		<a ng-click="addToCart(); $event.stopPropagation();" class="btn btn-lg btn-add btn-block btn-goevents blur-on-full"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier</a>
 	</div>
 	<hr class="visible-sm visible-xs"/>
 	<div class="clear"></div>

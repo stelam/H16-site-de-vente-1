@@ -27,6 +27,7 @@
     "bootstrap": "~3.3.6",
     "less": "~2.6.0",
     "angular-local-storage": "~0.2.5",
-    "lodash": "~4.5.1"
+    "lodash": "~4.5.1",
+    "ui-bootstrap": "~1.1.2"
   }
 }

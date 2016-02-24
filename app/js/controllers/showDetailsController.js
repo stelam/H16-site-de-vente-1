@@ -7,9 +7,12 @@
  "use strict";
 
   angular.module('app')
-    .controller('showDetailsController', [ "showService", "$scope", "$q", "$routeParams", "$rootScope", function(showService, $scope, $q, $routeParams, $rootScope){
+    .controller('showDetailsController', [ "showService", "$scope", "$q", "$routeParams", "$rootScope", "Slug", "$location",
+    function(showService, $scope, $q, $routeParams, $rootScope, Slug, $location){
+
     	$scope.show = {};
         $scope.showId = $routeParams.showSlug.split("-").pop();
+        var self = this;
 
     	var init = function(){
     		loadingScreen.show();
@@ -26,13 +29,24 @@
     	}
 
 
+        this.validateSlug = function(show){
+            return ($routeParams.showSlug == Slug.slugify(show.title+"-"+show.artist+"-"+$scope.showId));
+        }
+
+
 
     	init().then(function(res){
     		loadingScreen.hide();
 
-    		$scope.show = res.show;
+            if (self.validateSlug(res.show)) {
+                $scope.show = res.show;
 
-            $rootScope.title = $scope.show.title + " - " + $scope.show.artist + " - du " + $scope.show.date;   
+                $rootScope.title = $scope.show.title + " - " + $scope.show.artist + " - du " + $scope.show.date;   
+            } else {
+                $location.path("/404");
+            }
+
+
     	});
 
     }])

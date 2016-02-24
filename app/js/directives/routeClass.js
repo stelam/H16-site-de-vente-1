@@ -13,13 +13,16 @@
                 },
                 link: function (scope, element) {
                     scope.$on('$routeChangeSuccess', function() {
-                        scope.class = $route.current.$$route.ident;
+                        if ($route.current.$$route) {
+                            scope.class = $route.current.$$route.ident;
 
-                        $(element).removeClass (function (index, css) {
-                            return (css.match (/(^|\s)page-\S+/g) || []).join(' ');
-                        });
+                            $(element).removeClass (function (index, css) {
+                                return (css.match (/(^|\s)page-\S+/g) || []).join(' ');
+                            });
 
-                        $(element).addClass("page-" + scope.class);
+                            $(element).addClass("page-" + scope.class);  
+                        }
+                        
                     }) 
 
                 }

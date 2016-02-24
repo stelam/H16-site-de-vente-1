@@ -19,7 +19,7 @@
 	        controller: 'showListController',
 	        ident: 'spectacles',
 	        title: ''
-	      }).when('/spectacle/:showId', {
+	      }).when('/spectacle/:showSlug', {
 	        templateUrl: 'partials/show-details.html',
 	        controller: 'showDetailsController',
 	        ident: 'spectacle',

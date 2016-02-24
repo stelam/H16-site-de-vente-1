@@ -31,7 +31,7 @@
 	    	getShowById : function(dd, mm, yyyy){
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/show/1' // TODO: mettre le vrai id du spectacle
+					url: SHOW_API_BASE_URL+'/show/1' // TODO: mettre le vrai id du spectacle quand le vrai service web sera disponible
 			    });
 	    	}
 	    } 

@@ -2,7 +2,7 @@
 
 /* App Module */
 (function(){
-	angular.module('app', ['ngRoute', 'ngAnimate', 'ngSanitize']);
+	angular.module('app', ['ngRoute', 'ngAnimate', 'ngSanitize', 'slugifier']);
 
 	angular.module('app').constant({
 		SHOW_API_BASE_URL : "http://demo5168961.mockable.io"

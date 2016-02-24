@@ -9,7 +9,7 @@
   angular.module('app')
     .controller('showDetailsController', [ "showService", "$scope", "$q", "$routeParams", "$rootScope", function(showService, $scope, $q, $routeParams, $rootScope){
     	$scope.show = {};
-        $scope.showId = $routeParams.showId;
+        $scope.showId = $routeParams.showSlug.split("-").pop();
 
     	var init = function(){
     		loadingScreen.show();

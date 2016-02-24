@@ -26,6 +26,7 @@
     "moment": "~2.11.2",
     "bootstrap": "~3.3.6",
     "less": "~2.6.0",
-    "angular-local-storage": "~0.2.5"
+    "angular-local-storage": "~0.2.5",
+    "lodash": "~4.5.1"
   }
 }

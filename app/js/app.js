@@ -9,7 +9,8 @@
 		CART : {
 			RESERVATION_TIME : 1200,
 			INACTIVITY_TIME : 600
-		}
+		},
+		DIRECTIVE_TEMPLATE_PATH : "js/directives/templates"
 	});
 
 

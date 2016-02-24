@@ -5,10 +5,15 @@
     .factory('cartService', ["$http", 'localStorageService', "SHOW_API_BASE_URL", "CART", 
 	function($http,localStorageService, SHOW_API_BASE_URL, CART){
     	var self = this;
+    	var currentCart = {
+    		items: []
+    	}
 
     	this.initCart = function(){
     		if (!localStorageService.get("cart")) {
-    			localStorageService.set("cart", '{"items": []}');
+    			localStorageService.set("cart", JSON.stringify(currentCart));
+    		} else {
+    			currentCart = JSON.parse(localStorageService.get("cart"));
     		}
     	}
 
@@ -18,7 +23,6 @@
 	    return {
 	    	// TODO : grouper par item id
 	    	addItem : function(item){
-	    		var currentCart = JSON.parse(localStorageService.get("cart"));
 	    		currentCart.items.push(item);
 	    		localStorageService.set("cart", JSON.stringify(currentCart));
 
@@ -28,7 +32,13 @@
 					params: 'limit=10, sort_by=created:desc', // exemple de params
 					headers: {'Authorization': 'Token token=xxxxYYYYZzzz'} // exemple de token si on utilise cette méthode d'authentification
 			    });
-	    	}
+	    	},
+
+	    	getNbItems : function(){
+	    		return currentCart.items.length;
+	    	},
+
+	    	currentCart : currentCart
 	    } 
     }])
 })();

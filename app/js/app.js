@@ -8,7 +8,8 @@
 		SHOW_API_BASE_URL : "http://demo5168961.mockable.io",
 		CART : {
 			RESERVATION_TIME : 1200,
-			INACTIVITY_TIME : 600
+			INACTIVITY_TIME : 600,
+			MAX_SHOW_PURCHASE_QUANTITY : 6
 		},
 		DIRECTIVE_TEMPLATE_PATH : "js/directives/templates"
 	});

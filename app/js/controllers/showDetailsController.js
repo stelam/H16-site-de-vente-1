@@ -58,7 +58,7 @@
                 itemId : $scope.showId,
                 quantity: $scope.itemOptions.quantity
             }
-            cartService.addItem(item);
+            cartService.addItem(item, $scope.itemOptions.quantity);
         }
 
     }])

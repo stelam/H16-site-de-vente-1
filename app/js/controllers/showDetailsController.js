@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('showDetailsController', [ "showService", "cartService", "$scope", "$q", "$routeParams", "$rootScope", "Slug", "$location",
-    function(showService, cartService, $scope, $q, $routeParams, $rootScope, Slug, $location){
+    .controller('showDetailsController', [ "showService", "messageService", "cartService", "$scope", "$q", "$routeParams", "$rootScope", "Slug", "$location",
+    function(showService, messageService, cartService, $scope, $q, $routeParams, $rootScope, Slug, $location){
 
     	$scope.show = {};
         $scope.showId = $routeParams.showSlug.split("-").pop();
@@ -54,11 +54,16 @@
 
 
         $scope.addToCart = function(){
+            loadingScreen.show();
             var item = {
                 itemId : $scope.showId,
                 quantity: $scope.itemOptions.quantity
             }
-            cartService.addItem(item, $scope.itemOptions.quantity);
+            cartService.addItem(item, $scope.itemOptions.quantity).then(function(){
+                loadingScreen.hide();
+            }).catch(function(e){
+                console.log(e);
+            })
         }
 
     }])

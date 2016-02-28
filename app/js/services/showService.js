@@ -2,7 +2,7 @@
  "use strict";
 
   angular.module('app')
-    .factory('showService', ["$http", "SHOW_API_BASE_URL", function($http, SHOW_API_BASE_URL){
+    .factory('showService', ["$http", "SHOW_API_BASE_URL", "Slug", function($http, SHOW_API_BASE_URL, Slug){
 	    return {
 	    	getListFeaturedShows : function(){
 	    		return $http({
@@ -35,12 +35,47 @@
 			    });
 	    	},
 
-	    	isShowAvailable : function(showId, quantity) {
+	    	getShowByTicketId : function(){
+	    		return $http({
+					method: 'GET',
+					url: SHOW_API_BASE_URL+'/ticket/1/show'
+			    });	 
+	    	},
+
+	    	isTicketAvailable : function(showId, quantity) {
 	    		return $http({
 					method: 'GET',
 					url: SHOW_API_BASE_URL+'/ticket/1/available' // TODO: mettre le vrai id du spectacle quand le vrai service web sera disponible
 					// et mettre en paramètre la quantité
 			    });	    		
+	    	},
+
+	    	getShowSlug : function(show, options) {
+	    		var slug = Slug.slugify(show.title+"-"+show.artist+"-"+show.id);
+				if (options.date) {
+					slug += "/" + options.date;
+				}
+				return slug;
+	    	},
+
+	    	getTicketInShowObjByTicketId : function(show, ticketId) {
+	    		var found = false;
+	    		show.tickets.forEach(function(ticket){
+	    			if (parseInt(ticket.id) == parseInt(ticketId)) {
+	    				found = ticket;
+	    			}
+	    		})
+	    		return found;
+	    	},
+
+	    	getTicketInShowObjByTicketDate : function(show, ticketDate) {
+	    		var found = false;
+	    		show.tickets.forEach(function(ticket){
+	    			if ((ticket.date) == (ticketDate)) {
+	    				found = ticket;
+	    			}
+	    		})
+	    		return found;
 	    	},
 
 	    	test: function(){

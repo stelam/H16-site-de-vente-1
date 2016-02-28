@@ -7,7 +7,8 @@
     	var self = this;
     	var currentCart = {
     		items: [],
-    		totalNbItems : 0
+    		totalNbItems : 0,
+    		expiredItems: []
     	}
     	
 
@@ -17,13 +18,16 @@
 
     			if (item.remainingReservationTime <= 0) {
     				self.removeItemById(item.itemId);
+    				self.addExpiredItem(item);
+    				self.commitToLocalStorage();
     				// TODO : informer le user
+    				// TODO : commiter au backend aussi
     			}
     		})
     	}
 
     	this.initCart = function(){
-    		if (localStorageService.get("cart")) {
+    		if (!localStorageService.get("cart")) {
     			localStorageService.set("cart", JSON.stringify(currentCart));
     		} else {
     			currentCart = JSON.parse(localStorageService.get("cart"));
@@ -112,13 +116,30 @@
     	this.addItem = function(item) {
     		if(!self.replaceItem(item)){
     			currentCart.items.push(item);
+    			self.recountTotalNbItems();
     		}
     	}	
+
+    	// autocommit au LS
+    	this.addExpiredItem = function(item){
+    		currentCart.expiredItems.push(item);
+    		self.commitToLocalStorage();
+    	}
+
+    	// autocommit au LS
+    	this.removeExpiredItem = function(item){
+			currentCart.expiredItems.forEach(function(thisItem, index){
+    			if (parseInt(thisItem.itemId) == parseInt(item.itemId)){
+    				currentCart.expiredItems.splice(index, 1);	
+    				self.commitToLocalStorage();
+    			}
+    		})
+    	}
 
     	this.isItemAvailable = function(itemId, quantity) {
     		var deferred = $q.defer();
 
-    		showService.isShowAvailable(itemId, quantity).then(function(data){
+    		showService.isTicketAvailable(itemId, quantity).then(function(data){
     			if (data.data.available && data.data.maxQuantity >= quantity) {
     				deferred.resolve(true);
     			} else {
@@ -178,7 +199,6 @@
     	// commit les changements localstorage
     	this.commitToLocalStorage = function(){
     		var deferred = $q.defer();
-    		console.log(currentCart);
     		localStorageService.set("cart", JSON.stringify(currentCart));
     		deferred.resolve(currentCart);
 
@@ -188,18 +208,21 @@
 		this.initCart();
 
 	    return {
-	    	// TODO : séparer ça en sous-méthodes
 	    	addItem : function(item, quantity){
 	    		return self.isItemAvailable(item.itemId, quantity)
 	    			.then(function(data){return self.incrementItemQuantity(item, quantity)})
 	    			.then(function(data){return self.validateItemQuantity(item)})
 	    			.then(function(data){return self.reserveItem(item)})
-	    			.then(function(data){return self.commitToLocalStorage});
+	    			.then(function(data){return self.commitToLocalStorage()});
 
 	    	},
 
 	    	getNbItems : function(){
 	    		return currentCart.items.length;
+	    	},
+
+	    	removeExpiredItem : function(item) {
+	    		return self.removeExpiredItem(item);
 	    	},
 
 	    	getItemById: self.getItemById,

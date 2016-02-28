@@ -51,8 +51,19 @@
                     ticket.quantity = 1;
                 })
 
-                // sélectionner la première présentation par défaut
-                $scope.itemOptions = $scope.show.tickets[0];
+                // si une date a été spécifiée dans l'URL, présélectionner le billet correspondant à cette date
+                // sinon, sélectionner la première présentation par défaut
+                if ($routeParams.dd && $routeParams.mm && $routeParams.yyyy) {
+                    var preselectedTicket = showService.getTicketInShowObjByTicketDate($scope.show, $routeParams.dd+"/"+$routeParams.mm+"/"+$routeParams.yyyy);
+                    if (preselectedTicket) {
+                        $scope.itemOptions = preselectedTicket;
+                    } else {
+                        $scope.itemOptions = $scope.show.tickets[0];
+                    }
+                } else {
+                    $scope.itemOptions = $scope.show.tickets[0];
+                }
+                
 
                 // séparer les dollars et les cents
                 $scope.show.dollars = $scope.show.price.toString().split(".")[0];

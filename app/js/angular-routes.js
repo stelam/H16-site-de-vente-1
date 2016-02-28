@@ -24,6 +24,11 @@
 	        controller: 'showDetailsController',
 	        ident: 'spectacle',
 	        title: ''
+	      }).when('/spectacle/:showSlug/:dd/:mm/:yyyy', {
+	        templateUrl: 'partials/show-details.html',
+	        controller: 'showDetailsController',
+	        ident: 'spectacle',
+	        title: ''
 	      }).
 	      otherwise({
 	        redirectTo: '/'

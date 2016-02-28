@@ -34,9 +34,7 @@
 						<input type="hidden" name="page" value="spectacles" />
 					</form>
 					<div class="cart-wrapper col-sm-2">
-						<a id="cart-btn" data-toggle="popover" href="panier.html" title="Spectacle ajouté au panier" data-content="<p>Vos billets vous seront réservés pour une durée de 20 minutes.</p> <a href='panier.html' class='btn btn-block btn-goevents'>Passer à la caisse</a>" class="glyphicon glyphicon-shopping-cart">
-						<span class="nb-cart-items">0</span>
-						</a>
+						<cart></cart>
 					</div>
 					<a id="search-toggle-btn" class="glyphicon glyphicon-search hidden-lg">
 					</a>
@@ -57,22 +55,29 @@
 			</footer>
 		</div>
 
+
+
+		<!-- Modal content-->
+		<modal></modal>
+
 		<!-- BOWER components -->
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 		<script>less = { env: 'development'};</script>
 		<script src="bower_components/less/dist/less.min.js"></script>
-		<script>less.watch();</script>
+		<script>//less.watch();</script>
 		<script src="bower_components/moment/min/moment.min.js"></script>
 		<script src="bower_components/moment/locale/fr-ca.js"></script>
 		<script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="bower_components/lodash/dist/lodash.min.js"></script>
 
 		<script src="bower_components/angular/angular.min.js"></script>
 		<script src="bower_components/angular-route/angular-route.min.js"></script>
 		<script src="bower_components/angular-animate/angular-animate.min.js"></script>
 		<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 		<script src="bower_components/angular-slugify/angular-slugify.js"></script>
+		<script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
 
 		<!-- NON BOWER VENDOR SCRIPTS -->
 		<script src="js/vendors/class.js"></script>
@@ -91,13 +96,16 @@
 
 		<!-- services -->
 		<script src="js/services/showService.js"></script>
+		<script src="js/services/cartService.js"></script>
+		<script src="js/services/messageService.js"></script>
 
 		<!-- directives -->
 		<script src="js/directives/activeMenu.js"></script>
 		<script src="js/directives/datetimePicker.js"></script>
 		<script src="js/directives/routeClass.js"></script>
 		<script src="js/directives/backButton.js"></script>
-
+		<script src="js/directives/cart.js"></script>
+		<script src="js/directives/modal.js"></script>
 
 		<script src="js/static-scripts.js"></script>
 	</body>

@@ -33,13 +33,24 @@
 	    		var deferred = $q.defer();
 
 	    		showService.isShowAvailable(item.itemId, quantity).then(function(data){
-	    			if (data.data.available) {
+	    			if (data.data.available && data.data.maxQuantity >= quantity) {
 			    		var itemIndex = _.findIndex(currentCart.items, "itemId", item.itemId);
 
 			    		// si l'article est déjà dans le panier, on incrémente la quantité
 			    		if (itemIndex > -1) {
 			    			var existingItem = _.find(currentCart.items, "itemId", item.itemId);
-			    			item.quantity = (existingItem.quantity + quantity <= CART.MAX_SHOW_PURCHASE_QUANTITY) ? existingItem.quantity + quantity : CART.MAX_SHOW_PURCHASE_QUANTITY;
+			    			item.quantity = existingItem.quantity + quantity;
+			    		}
+
+			    		// si l'utilisateur tente d'acheter trop de billets
+			    		if (item.quantity > CART.MAX_SHOW_PURCHASE_QUANTITY) {
+			    			deferred.reject({
+			    				type: "error",
+			    				code: "CS5",
+			    				title: "Erreur",
+			    				message: "Désolé, vous ne pouvez réserver un total de plus de " + CART.MAX_SHOW_PURCHASE_QUANTITY + " billets pour un spectacle."
+			    			})
+			    			return;
 			    		}
 
 			    		// appel pour enregistrer la réservation au backend
@@ -57,6 +68,7 @@
 			    				deferred.reject({
 				    				type: "error",
 				    				code: "CS1",
+				    				title: "Erreur",
 				    				message: "Erreur lors de l'ajout de l'article au panier."
 				    			});
 			    			}
@@ -66,15 +78,21 @@
 			    			deferred.reject({
 			    				type: "error",
 			    				code: "CS2",
+			    				title: "Erreur",
 			    				message: "Erreur, veuillez recommencer."
 			    			});
 			    		})
 	    			} else {
-	    				//retourner une erreur (item non disponible)
+	    				//retourner une erreur (item non disponible pour la quantité désirée)
+	    				var message = (data.data.available) 
+	    					? "Désolé, il ne reste que " + data.data.maxQuantity + " billets disponibles." 
+	    					: "Désolé, tous les billets sont maintenant réservés ou vendus."
+
 	    				deferred.reject({
 		    				type: "error",
 		    				code: "CS3",
-		    				message: "Désolé, l'item n'est plus disponible."
+		    				title: "Erreur",
+		    				message: message
 		    			});
 	    			}1
 	    		}, function(){
@@ -82,6 +100,7 @@
 	    			deferred.reject({
 	    				type: "error",
 	    				code: "CS4",
+	    				title: "Erreur",
 	    				message: "Erreur, veuillez recommencer."
 	    			});
 	    		})

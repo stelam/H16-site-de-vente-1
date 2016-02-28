@@ -62,6 +62,8 @@
             cartService.addItem(item, $scope.itemOptions.quantity).then(function(){
                 loadingScreen.hide();
             }).catch(function(e){
+                loadingScreen.hide();
+                messageService.showMessage(e);
                 console.log(e);
             })
         }

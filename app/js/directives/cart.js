@@ -17,7 +17,7 @@
                     scope.initialized = false;
 
                     // écouter les changements faits au panier
-                    scope.$watch('currentCart', function(newCart){
+                    scope.$watch('currentCart.totalNbItems', function(newCart){
                         if (scope.initialized)
                             scope.flashCart();
                         else {

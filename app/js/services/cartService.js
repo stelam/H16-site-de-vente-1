@@ -2,11 +2,18 @@
  "use strict";
 
   angular.module('app')
-    .factory('cartService', ["$http", "$q", 'localStorageService', "SHOW_API_BASE_URL", "CART", "showService", 
-	function($http, $q, localStorageService, SHOW_API_BASE_URL, CART, showService, messageService){
+    .factory('cartService', ["$http", "$q", "$interval", 'localStorageService', "SHOW_API_BASE_URL", "CART", "showService", 
+	function($http, $q, $interval, localStorageService, SHOW_API_BASE_URL, CART, showService, messageService){
     	var self = this;
     	var currentCart = {
-    		items: []
+    		items: [],
+    		totalNbItems : 0
+    	}
+
+    	this.updateTimers = function(){
+    		currentCart.items.forEach(function(item){
+    			item.remainingReservationTime = item.timestampReservationEnd - Date.now();
+    		})
     	}
 
     	this.initCart = function(){
@@ -15,6 +22,8 @@
     		} else {
     			currentCart = JSON.parse(localStorageService.get("cart"));
     		}
+
+    		$interval(self.updateTimers, 1000);
     	}
 
 
@@ -27,18 +36,43 @@
 		    });	    
     	}
 
+    	this.recountTotalNbItems = function(){
+    		var t = 0;
+    		currentCart.items.forEach(function(item){
+    			t += item.quantity;
+    		})
+    		currentCart.totalNbItems = t;
+    	}
+
+    	this.getItemById = function(itemId){
+    		var found = false;
+    		currentCart.items.forEach(function(item){
+    			if (parseInt(item.itemId) == parseInt(itemId))
+    				found = item;
+    		})
+
+    		return found;
+    	}
+
+    	this.removeItemById = function(itemId) {
+    		currentCart.items.forEach(function(item, index){
+    			if (parseInt(item.itemId) == parseInt(itemId))
+    				currentCart.items.splice(index, 1);	
+    		})
+    	}
+
+
 	    return {
-	    	// TODO : grouper par item id
+	    	// TODO : séparer ça en sous-méthodes
 	    	addItem : function(item, quantity){
 	    		var deferred = $q.defer();
 
 	    		showService.isShowAvailable(item.itemId, quantity).then(function(data){
 	    			if (data.data.available && data.data.maxQuantity >= quantity) {
-			    		var itemIndex = _.findIndex(currentCart.items, "itemId", item.itemId);
+			    		var existingItem = self.getItemById(item.itemId);
 
 			    		// si l'article est déjà dans le panier, on incrémente la quantité
-			    		if (itemIndex > -1) {
-			    			var existingItem = _.find(currentCart.items, "itemId", item.itemId);
+			    		if (existingItem) {
 			    			item.quantity = existingItem.quantity + quantity;
 			    		}
 
@@ -57,9 +91,12 @@
 			    		return self.reserveItem(item.itemId, item.quantity).then(function(data){
 			    			if (data.data.success) {
 								// enregistrer les modifications dans le localstorage
-								currentCart.items[itemIndex] = item;
-				    			_.remove(currentCart.items, {itemId: item.itemId});
+								item.timestampAdded = Date.now();
+								item.timestampReservationEnd = item.timestampAdded + CART.RESERVATION_TIME * 60000;
+
+								self.removeItemById(item.itemId);
 								currentCart.items.push(item);
+								self.recountTotalNbItems();
 					    		localStorageService.set("cart", JSON.stringify(currentCart));
 					    		deferred.resolve(currentCart);
 
@@ -113,6 +150,8 @@
 	    	getNbItems : function(){
 	    		return currentCart.items.length;
 	    	},
+
+	    	getItemById: self.getItemById,
 
 	    	currentCart : currentCart
 	    } 

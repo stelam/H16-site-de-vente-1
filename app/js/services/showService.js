@@ -38,7 +38,7 @@
 	    	isShowAvailable : function(showId, quantity) {
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/show/1/available' // TODO: mettre le vrai id du spectacle quand le vrai service web sera disponible
+					url: SHOW_API_BASE_URL+'/ticket/1/available' // TODO: mettre le vrai id du spectacle quand le vrai service web sera disponible
 					// et mettre en paramètre la quantité
 			    });	    		
 	    	},

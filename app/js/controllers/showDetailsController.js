@@ -15,6 +15,8 @@
         $scope.itemOptions = {
             quantity : 1
         }
+        $scope.cart = cartService;
+
         var self = this;
 
     	var init = function(){
@@ -44,6 +46,18 @@
             if (self.validateSlug(res.show)) {
                 $scope.show = res.show;
 
+                // setter les quantités par défaut à 1 pour les billets
+                $scope.show.tickets.forEach(function(ticket){
+                    ticket.quantity = 1;
+                })
+
+                // sélectionner la première présentation par défaut
+                $scope.itemOptions = $scope.show.tickets[0];
+
+                // séparer les dollars et les cents
+                $scope.show.dollars = $scope.show.price.toString().split(".")[0];
+                $scope.show.cents = $scope.show.price.toString().split(".")[1];
+
                 $rootScope.title = $scope.show.title + " - " + $scope.show.artist + " - du " + $scope.show.date;   
             } else {
                 $location.path("/404");
@@ -56,7 +70,7 @@
         $scope.addToCart = function(){
             loadingScreen.show();
             var item = {
-                itemId : $scope.showId,
+                itemId : parseInt($scope.itemOptions.id),
                 quantity: $scope.itemOptions.quantity
             }
             cartService.addItem(item, $scope.itemOptions.quantity).then(function(){
@@ -64,8 +78,16 @@
             }).catch(function(e){
                 loadingScreen.hide();
                 messageService.showMessage(e);
-                console.log(e);
+
+                // peut-être checker si le spectacle est devenu "sold out"
+                // et changer l'état du spectacle en conséquence
             })
+        }
+
+        // vérifie si le billet présentement sélectionné est dans le panier
+        // si oui, obtient aussi la quantité, le temps restant
+        $scope.isTicketInCart = function(){
+            return (cartService.getItemById($scope.itemOptions.id));
         }
 
     }])

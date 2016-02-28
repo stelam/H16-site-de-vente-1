@@ -7,8 +7,8 @@
 	angular.module('app').constant({
 		SHOW_API_BASE_URL : "http://demo5168961.mockable.io",
 		CART : {
-			RESERVATION_TIME : 1200,
-			INACTIVITY_TIME : 600,
+			RESERVATION_TIME : 20, //minutes
+			INACTIVITY_TIME : 10,
 			MAX_SHOW_PURCHASE_QUANTITY : 6
 		},
 		DIRECTIVE_TEMPLATE_PATH : "js/directives/templates"

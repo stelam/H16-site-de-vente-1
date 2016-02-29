@@ -29,6 +29,11 @@
 	        controller: 'showDetailsController',
 	        ident: 'spectacle',
 	        title: ''
+	      }).when('/caisse/revue', {
+	        templateUrl: 'partials/checkout-review.html',
+	        controller: 'checkoutReviewController',
+	        ident: 'checkout-review',
+	        title: 'Caisse - Revue des items du panier'
 	      }).
 	      otherwise({
 	        redirectTo: '/'

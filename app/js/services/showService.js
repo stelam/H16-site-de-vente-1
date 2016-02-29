@@ -28,10 +28,20 @@
 			    });
 	    	},
 
-	    	getShowById : function(dd, mm, yyyy){
+	    	getShowById : function(){
 	    		return $http({
 					method: 'GET',
 					url: SHOW_API_BASE_URL+'/show/1' // TODO: mettre le vrai id du spectacle quand le vrai service web sera disponible
+			    });
+	    	},
+
+	    	getShowsById : function(listShowsId){
+	    		listShowsId = [2,6]; // temporaire
+	    		var ids = listShowsId.join(",");
+
+	    		return $http({
+					method: 'GET',
+					url: SHOW_API_BASE_URL+'/shows/' + ids // TODO: mettre les vrais ids des spectacle quand le vrai service web sera disponible
 			    });
 	    	},
 

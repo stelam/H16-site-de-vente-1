@@ -73,7 +73,7 @@
                     scope.showPopover = function(options) {
                 
                         if (options.type == "itemsAdded") {
-                            scope.popover.content = "<p>Vos billets vous seront réservés pour une durée de 20 minutes.</p> <a href='panier.html' class='btn btn-block btn-goevents'>Passer à la caisse</a>";
+                            scope.popover.content = "<p>Vos billets vous seront réservés pour une durée de 20 minutes.</p> <a href='#/caisse/revue' class='btn btn-block btn-goevents'>Passer à la caisse</a>";
                         } else if (options.type == "expiredItem") {
                             var ticket = showService.getTicketInShowObjByTicketId(options.show, options.item.itemId);
                             var slugOptions = (ticket) ? {date:ticket.date} : {};

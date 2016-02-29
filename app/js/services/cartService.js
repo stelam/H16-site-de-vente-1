@@ -171,6 +171,16 @@
     		return deferred.promise;
     	}
 
+        // retourne la liste des IDs des spectacles qui correspondent
+        // aux billets présentement dans le panier
+        this.getListShowsId = function(){
+            var listShowsId = [];
+            currentCart.items.forEach(function(item){
+                listShowsId.push(item.showId);
+            })
+            return listShowsId;
+        }
+
     	// commit les changements localstorage
     	this.commitToLocalStorage = function(){
     		var deferred = $q.defer();
@@ -202,7 +212,9 @@
 
 	    	getItemById: self.getItemById,
 
-	    	currentCart : currentCart
+	    	currentCart : currentCart,
+
+            getListShowsId : self.getListShowsId
 	    } 
     }])
 })();

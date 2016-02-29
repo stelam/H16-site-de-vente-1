@@ -82,7 +82,10 @@
             loadingScreen.show();
             var item = {
                 itemId : parseInt($scope.itemOptions.id),
-                quantity: $scope.itemOptions.quantity
+                quantity: $scope.itemOptions.quantity,
+                show: $scope.show,
+                date: $scope.itemOptions.date,
+                time: $scope.itemOptions.time
             }
             cartService.addItem(item, $scope.itemOptions.quantity).then(function(){
                 loadingScreen.hide();

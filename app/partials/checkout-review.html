@@ -1,5 +1,8 @@
 <checkout-steps></checkout-steps>
-<div class="col-md-9 col-sm-12 cart-items">
+<div class="col-md-12 col-sm-12 cart-items center" ng-if="cartItems.length == 0">
+	<h2>Aucun article au panier.</h2>
+</div> 
+<div class="col-md-9 col-sm-12 cart-items" ng-if="cartItems.length > 0">
 	<div class="col-sm-12 head">
 		<label class="col-sm-3">&nbsp;</label>
 		<label class="col-sm-2">Date</label>
@@ -8,71 +11,34 @@
 		<label class="col-sm-2">Quantité</label>
 		<label class="col-sm-1">&nbsp;</label>
 	</div>
-	<article class="col-sm-12 cart-item">
+
+	<article class="col-sm-12 cart-item" ng-repeat="item in cartItems">
 		<div class="col-sm-3">
-			Nom de l'artiste - Nom du spectacle
-			<p class="reservation-timer">Ces billets vous sont réservés pour encore 8:32</p>
+			{{item.show.artist}} - {{item.show.title}}
+			<p class="reservation-timer">
+				Ces billets vous sont réservés pour encore 
+				<strong>{{item.remainingReservationTime | date:'m:ss'}}</strong>.
+			</p>
 		</div>
 		<div class="col-sm-2">
-			<p>06/02/2016</p>
+			<p>{{item.date}}</p>
 		</div>
 		<div class="col-sm-2">
-			<p>Centre Bell</p>
+			<p>{{item.show.room}}</p>
 		</div>
 		<div class="col-sm-2">
-			19.99 $
+			{{item.show.price}} $
 		</div>
 		<div class="col-sm-2">
-			<input type="number" class="form-control input-lg" value="1" min="1" max="6" />
-		</div>
-		<div class="col-sm-1 actions">
-			<a class="btn btn-goevents btn-lg"> x</a>
-		</div>
-	</article>
-	<article class="col-sm-12 cart-item">
-		<div class="col-sm-3">
-			Nom de l'artiste - Nom du spectacle
-			<p class="reservation-timer">Ces billets vous sont réservés pour encore 8:32</p>
-		</div>
-		<div class="col-sm-2">
-			<p>06/02/2016</p>
-		</div>
-		<div class="col-sm-2">
-			<p>Centre Bell</p>
-		</div>
-		<div class="col-sm-2">
-			19.99 $
-		</div>
-		<div class="col-sm-2">
-			<input type="number" class="form-control input-lg" value="1" min="1" max="6" />
-		</div>
-		<div class="col-sm-1 actions">
-			<a class="btn btn-goevents btn-lg"> x</a>
-		</div>
-	</article>
-	<article class="col-sm-12 cart-item">
-		<div class="col-sm-3">
-			Nom de l'artiste - Nom du spectacle
-			<p class="reservation-timer">Ces billets vous sont réservés pour encore 8:32</p>
-		</div>
-		<div class="col-sm-2">
-			<p>06/02/2016</p>
-		</div>
-		<div class="col-sm-2">
-			<p>Centre Bell</p>
-		</div>
-		<div class="col-sm-2">
-			19.99 $
-		</div>
-		<div class="col-sm-2">
-			<input type="number" class="form-control input-lg" value="1" min="1" max="6" />
+			<input type="number" class="form-control input-lg" ng-model="item.quantity" min="1" max="6" />
 		</div>
 		<div class="col-sm-1 actions">
 			<a class="btn btn-goevents btn-lg"> x</a>
 		</div>
 	</article>
 </div>
-<div class="col-md-3 col-sm-12 subtotal-container">
+
+<div class="col-md-3 col-sm-12 subtotal-container" ng-if="cartItems.length > 0">
 	<h3>Sous-total : </h3>
 	<div class="subtotal">
 		<span><sup class="dollar-sign">$</sup>59<sup class="cents">97</sup></span>

@@ -20,8 +20,7 @@
     				self.removeItemById(item.itemId);
     				self.addExpiredItem(item);
     				self.commitToLocalStorage();
-    				// TODO : informer le user
-    				// TODO : commiter au backend aussi
+                    self.commitDeleteItem(item);
     			}
     		})
     	}
@@ -37,16 +36,27 @@
     	}
  	
 
-    	this.reserveItem = function(item){
+        // POST : ajout d'une nouvelle réservation
+        // PUT : modification d'une réservation existante
+    	this.commitReserveItem = function(item){
     		var deferred = $q.defer();
-
+            var url = SHOW_API_BASE_URL + '/reservation';
+            console.log(item);
+            var commitMethod = (item.reservationId) ? "PUT" : "POST";
+            if (item.reservationId) {
+                url += "/" + item.reservationId;
+            }
+            console.log(url)
     		$http({
-				method: 'GET',
-				url: SHOW_API_BASE_URL+'/reservation/1' // TODO : mettre les vrais paramètres 
+				method: commitMethod,
+				url: url // TODO : mettre les vrais paramètres 
 		    }).then(function(data){
     			if (data.data.success) {
 					item.timestampAdded = Date.now();
 					item.timestampReservationEnd = item.timestampAdded + CART.RESERVATION_TIME * 60000;
+                    if (data.data.reservationId) {
+                        item.reservationId = data.data.reservationId;
+                    }
 					self.addItem(item);
 					deferred.resolve(true);
 
@@ -60,6 +70,25 @@
 
 		    return deferred.promise;
     	}
+
+        this.commitDeleteItem = function(item){
+            var deferred = $q.defer();
+
+            $http({
+                method: 'DELETE',
+                url: SHOW_API_BASE_URL+'/reservation/' + item.reservationId // TODO : mettre les vrais paramètres 
+            }).then(function(data){
+                if (!data.data.success) {
+                    deferred.reject(messageService.getMessage("ERROR_DELETE_ITEM"));
+                } else {
+                    deferred.resolve(true);
+                }
+            }, function(){
+                deferred.reject(messageService.getMessage("ERROR_API_CALL"));
+            });     
+
+            return deferred.promise;
+        }
 
     	this.recountTotalNbItems = function(){
     		var t = 0;
@@ -126,16 +155,16 @@
     		})
     	}
 
-    	this.isItemAvailable = function(itemId, quantity) {
+    	this.isItemAvailable = function(item, quantity) {
     		var deferred = $q.defer();
 
-    		showService.isTicketAvailable(itemId, quantity).then(function(data){
+    		showService.isTicketAvailable(item.itemId, quantity).then(function(data){
     			if (data.data.available && data.data.maxQuantity >= quantity) {
     				deferred.resolve(true);
     			} else {
     				//retourner une erreur (item non disponible pour la quantité désirée)
     				var message = (data.data.available) 
-    					? "Désolé, il ne reste que " + data.data.maxQuantity + " billets disponibles." 
+    					? "Désolé, il ne reste que " + data.data.maxQuantity + " autres billets disponibles." 
     					: "Désolé, tous les billets sont maintenant réservés ou vendus."
 
     				deferred.reject(messageService.getMessage("ERROR_ITEM_UNAVAILABLE", {messageOverride: message}));
@@ -171,6 +200,15 @@
     		return deferred.promise;
     	}
 
+        this.changeItemQuantity = function(item, quantity) {
+            var deferred = $q.defer();
+
+            item.quantity = quantity;
+            deferred.resolve(true);
+
+            return deferred.promise;
+        }
+
         // retourne la liste des IDs des spectacles qui correspondent
         // aux billets présentement dans le panier
         this.getListShowsId = function(){
@@ -194,17 +232,31 @@
 
 	    return {
 	    	addItem : function(item, quantity){
-	    		return self.isItemAvailable(item.itemId, quantity)
+	    		return self.isItemAvailable(item, quantity)
 	    			.then(function(data){return self.incrementItemQuantity(item, quantity)})
 	    			.then(function(data){return self.validateItemQuantity(item)})
-	    			.then(function(data){return self.reserveItem(item)})
+	    			.then(function(data){return self.commitReserveItem(item)})
 	    			.then(function(data){return self.commitToLocalStorage()});
 
 	    	},
 
+            updateItemQuantity : function(item, newQuantity) {
+                return self.isItemAvailable(item.itemId, newQuantity)
+                    .then(function(data){return self.changeItemQuantity(item, newQuantity)})
+                    .then(function(data){return self.validateItemQuantity(item)})
+                    .then(function(data){return self.commitReserveItem(item)})
+                    .then(function(data){return self.commitToLocalStorage()});
+            },
+
 	    	getNbItems : function(){
 	    		return currentCart.items.length;
 	    	},
+
+            removeItem :function(item){
+                return self.commitDeleteItem(item)
+                    .then(function(data){return self.removeItemById(item.itemId)})
+                    .then(function(data){return self.commitToLocalStorage()});
+            },
 
 	    	removeExpiredItem : function(item) {
 	    		return self.removeExpiredItem(item);

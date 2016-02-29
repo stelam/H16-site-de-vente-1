@@ -20,15 +20,18 @@
     			return {
     				featuredShows : res[0].data.featuredShows
     			}
-    		})
+    		}).catch(function(e){
+                messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
+            })
     	}
 
 
 
     	init().then(function(res){
     		loadingScreen.hide();
-
-    		$scope.shows = res.featuredShows;
+            if (res){
+                $scope.shows = res.featuredShows;
+            }
     	});
 
     }])

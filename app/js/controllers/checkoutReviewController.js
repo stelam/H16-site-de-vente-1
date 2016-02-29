@@ -43,10 +43,8 @@
                 messageService.showMessage(messageService.getMessage("ERROR_MAX_PURCHASE_QUANTITY_EXCEEDED"));
             } else {
                 loadingScreen.show();
-                var delta = parseInt(item.quantity) - parseInt(oldQuantity);
-                item.quantity = parseInt(oldQuantity);
 
-                cartService.addItem(item, delta).then(function(){
+                cartService.updateItemQuantity(item, item.quantity).then(function(){
                     loadingScreen.hide();
                 }).catch(function(e){
                     loadingScreen.hide();

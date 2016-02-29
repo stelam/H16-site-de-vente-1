@@ -2,7 +2,7 @@
  "use strict";
 
   angular.module('app')
-    .factory('cartService', ["$http", "$q", "$interval", 'localStorageService', "SHOW_API_BASE_URL", "CART", "showService", 
+    .factory('cartService', ["$http", "$q", "$interval", 'localStorageService', "SHOW_API_BASE_URL", "CART", "showService", "messageService", 
 	function($http, $q, $interval, localStorageService, SHOW_API_BASE_URL, CART, showService, messageService){
     	var self = this;
     	var currentCart = {
@@ -52,20 +52,10 @@
 
     			} else {
     				// retourner une erreur
-    				deferred.reject({
-	    				type: "error",
-	    				code: "CS1",
-	    				title: "Erreur",
-	    				message: "Erreur lors de l'ajout de l'article au panier."
-	    			});
+    				deferred.reject(messageService.getMessage("ERROR_ADD_ITEM_TO_CART"));
     			}
 		    }, function(){
-    			deferred.reject({
-    				type: "error",
-    				code: "CS2",
-    				title: "Erreur",
-    				message: "Erreur, veuillez recommencer."
-    			});
+                deferred.reject(messageService.getMessage("ERROR_API_CALL"));
 		    });	    
 
 		    return deferred.promise;
@@ -148,20 +138,10 @@
     					? "Désolé, il ne reste que " + data.data.maxQuantity + " billets disponibles." 
     					: "Désolé, tous les billets sont maintenant réservés ou vendus."
 
-    				deferred.reject({
-	    				type: "error",
-	    				code: "CS3",
-	    				title: "Erreur",
-	    				message: message
-	    			});
+    				deferred.reject(messageService.getMessage("ERROR_ITEM_UNAVAILABLE", {messageOverride: message}));
     			}
     		}, function(){
-    			deferred.reject({
-    				type: "error",
-    				code: "CS2",
-    				title: "Erreur",
-    				message: "Erreur, veuillez recommencer."
-    			});
+    			deferred.reject(messageService.getMessage("ERROR_API_CALL"));
     		});
 
     		return deferred.promise;
@@ -173,12 +153,7 @@
     		if (item.quantity <= CART.MAX_SHOW_PURCHASE_QUANTITY) {
     			deferred.resolve(true);
     		} else {
-    			deferred.reject({
-    				type: "error",
-    				code: "CS5",
-    				title: "Erreur",
-    				message: "Désolé, vous ne pouvez réserver un total de plus de " + CART.MAX_SHOW_PURCHASE_QUANTITY + " billets pour un spectacle."
-    			})
+    			deferred.reject(messageService.getMessage("ERROR_MAX_PURCHASE_QUANTITY_EXCEEDED"));
     		}
 
     		return deferred.promise;

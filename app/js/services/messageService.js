@@ -42,7 +42,14 @@
 				code: "CS3",
 				title: "Erreur",
 				message: "Désolé, vous ne pouvez réserver un total de plus de " + CART.MAX_SHOW_PURCHASE_QUANTITY + " billets pour un spectacle."
-			}
+			},
+
+			"ERROR_DELETE_ITEM" : {
+				type: "error",
+				code: "CS4",
+				title: "Erreur",
+				message: "Erreur lors de la suppression de l'item du panier."
+			},
 		};
 
     	return {

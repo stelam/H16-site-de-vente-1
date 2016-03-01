@@ -9,7 +9,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('showListController', [ "showService", "$scope", "$q", "$routeParams", "$rootScope", function(showService, $scope, $q, $routeParams, $rootScope){
+    .controller('showListController', [ "showService", "$scope", "$q", "$routeParams", "$rootScope", "messageService", 
+        function(showService, $scope, $q, $routeParams, $rootScope, messageService){
     	$scope.shows = [];
         $scope.dateFilter = false;
         var self = this;
@@ -32,7 +33,9 @@
     			return {
     				shows : res[0].data.shows
     			}
-    		})
+    		}).catch(function(e){
+                messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
+            })
     	}
 
         this.checkForDateFilter = function(){
@@ -45,8 +48,10 @@
 
     	init().then(function(res){
     		loadingScreen.hide();
-
-    		$scope.shows = res.shows;
+            if (res){
+                $scope.shows = res.shows;
+            }
+    		
 
             if ($scope.dateFilter) {
                 $rootScope.title = "Spectacles du " + $scope.dateFilter.dd + "/" + $scope.dateFilter.mm + "/" + $scope.dateFilter.yyyy;

@@ -30,7 +30,9 @@
     			return {
     				show : res[0].data.show
     			}
-    		})
+    		}).catch(function(e){
+                messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
+            })
     	}
 
 
@@ -43,7 +45,7 @@
     	init().then(function(res){
     		loadingScreen.hide();
 
-            if (self.validateSlug(res.show)) {
+            if (res && self.validateSlug(res.show)) {
                 $scope.show = res.show;
 
                 // setter les quantités par défaut à 1 pour les billets
@@ -82,7 +84,10 @@
             loadingScreen.show();
             var item = {
                 itemId : parseInt($scope.itemOptions.id),
-                quantity: $scope.itemOptions.quantity
+                quantity: $scope.itemOptions.quantity,
+                show: $scope.show,
+                date: $scope.itemOptions.date,
+                time: $scope.itemOptions.time
             }
             cartService.addItem(item, $scope.itemOptions.quantity).then(function(){
                 loadingScreen.hide();

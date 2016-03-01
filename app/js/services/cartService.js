@@ -2,7 +2,7 @@
  "use strict";
 
   angular.module('app')
-    .factory('cartService', ["$http", "$q", "$interval", 'localStorageService', "SHOW_API_BASE_URL", "CART", "showService", "messageService", 
+    .factory('cartService', ["$http", "$q", "$interval", 'localStorageService', "SHOW_API_BASE_URL", "CART", "showService", "messageService",
 	function($http, $q, $interval, localStorageService, SHOW_API_BASE_URL, CART, showService, messageService){
     	var self = this;
     	var currentCart = {
@@ -41,19 +41,29 @@
     	this.commitReserveItem = function(item){
     		var deferred = $q.defer();
             var url = SHOW_API_BASE_URL + '/reservation';
-            console.log(item);
-            var commitMethod = (item.reservationId) ? "PUT" : "POST";
-            if (item.reservationId) {
+
+            var existingItem = self.getItemById(item.itemId);
+
+            var commitMethod = (existingItem) ? "PUT" : "POST";
+            if (existingItem) {
+                existingItem.quantity = item.quantity;
+                item = existingItem;
+                item.reservationId = existingItem.reservationId;
                 url += "/" + item.reservationId;
             }
-            console.log(url)
+
     		$http({
 				method: commitMethod,
 				url: url // TODO : mettre les vrais paramètres 
 		    }).then(function(data){
     			if (data.data.success) {
-					item.timestampAdded = Date.now();
-					item.timestampReservationEnd = item.timestampAdded + CART.RESERVATION_TIME * 60000;
+                    // le timestamp devrait être retourné par l'API
+                    // on utilise des timestamp local (client) pour l'instant
+
+                    if (!item.reservationId) {
+    					item.timestampAdded = Date.now();
+    					item.timestampReservationEnd = item.timestampAdded + CART.RESERVATION_TIME * 60000;
+                    }
                     if (data.data.reservationId) {
                         item.reservationId = data.data.reservationId;
                     }
@@ -91,11 +101,12 @@
         }
 
     	this.recountTotalNbItems = function(){
-    		var t = 0;
+    		/*var t = 0;
     		currentCart.items.forEach(function(item){
     			t += item.quantity;
     		})
-    		currentCart.totalNbItems = t;
+    		currentCart.totalNbItems = t;*/
+            currentCart.totalNbItems = currentCart.items.length;
     	}
 
     	this.getItemById = function(itemId){
@@ -158,16 +169,20 @@
     	this.isItemAvailable = function(item, quantity) {
     		var deferred = $q.defer();
 
+            var existingItem = self.getItemById(item.itemId);
+            var existingItemQuantity = (existingItem && !item.reservationId) ? parseInt(existingItem.quantity) : 0;
+
     		showService.isTicketAvailable(item.itemId, quantity).then(function(data){
-    			if (data.data.available && data.data.maxQuantity >= quantity) {
+    			if (data.data.available && parseInt(data.data.maxQuantity) >= quantity + existingItemQuantity) {
     				deferred.resolve(true);
     			} else {
     				//retourner une erreur (item non disponible pour la quantité désirée)
     				var message = (data.data.available) 
-    					? "Désolé, il ne reste que " + data.data.maxQuantity + " autres billets disponibles." 
+    					? "Désolé, cette quantité de billets n'est pas disponible." 
     					: "Désolé, tous les billets sont maintenant réservés ou vendus."
 
     				deferred.reject(messageService.getMessage("ERROR_ITEM_UNAVAILABLE", {messageOverride: message}));
+
     			}
     		}, function(){
     			deferred.reject(messageService.getMessage("ERROR_API_CALL"));
@@ -228,6 +243,14 @@
     		return deferred.promise;
     	}
 
+        this.updateItemQuantity = function(item, newQuantity) {
+            return self.isItemAvailable(item, newQuantity)
+                .then(function(data){return self.changeItemQuantity(item, newQuantity)})
+                .then(function(data){return self.validateItemQuantity(item)})
+                .then(function(data){return self.commitReserveItem(item)})
+                .then(function(data){return self.commitToLocalStorage()});
+        }
+
 		this.initCart();
 
 	    return {
@@ -241,11 +264,7 @@
 	    	},
 
             updateItemQuantity : function(item, newQuantity) {
-                return self.isItemAvailable(item.itemId, newQuantity)
-                    .then(function(data){return self.changeItemQuantity(item, newQuantity)})
-                    .then(function(data){return self.validateItemQuantity(item)})
-                    .then(function(data){return self.commitReserveItem(item)})
-                    .then(function(data){return self.commitToLocalStorage()});
+                return self.updateItemQuantity(item, newQuantity);
             },
 
 	    	getNbItems : function(){

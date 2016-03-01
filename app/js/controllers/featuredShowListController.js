@@ -6,7 +6,7 @@
  "use strict";
 
   angular.module('app')
-    .controller('featuredShowListController', [ "showService", "$scope", "$q", function(showService, $scope, $q){
+    .controller('featuredShowListController', [ "showService", "$scope", "$q", "messageService", function(showService, $scope, $q, messageService){
     	$scope.shows = [];
 
     	var init = function(){

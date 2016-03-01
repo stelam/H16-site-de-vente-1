@@ -5,8 +5,8 @@
     "use strict";
 
     angular.module('app')
-        .directive('cart', ['cartService', 'showService', 'DIRECTIVE_TEMPLATE_PATH', '$timeout', 'Slug', 
-            function (cartService, showService, DIRECTIVE_TEMPLATE_PATH, $timeout, Slug) {
+        .directive('cart', ['cartService', 'showService', 'DIRECTIVE_TEMPLATE_PATH', "CART", '$timeout', 'Slug', 
+            function (cartService, showService, DIRECTIVE_TEMPLATE_PATH, CART, $timeout, Slug) {
             return {
                 restrict: 'E',
                 scope: {
@@ -73,11 +73,13 @@
                     scope.showPopover = function(options) {
                 
                         if (options.type == "itemsAdded") {
-                            scope.popover.content = "<p>Vos billets vous seront réservés pour une durée de 20 minutes.</p> <a href='#/caisse/revue' class='btn btn-block btn-goevents'>Passer à la caisse</a>";
+                            scope.popover.title = "Billets ajoutés au panier";
+                            scope.popover.content = "<p>Vos billets vous sont réservés pour une durée de " + CART.RESERVATION_TIME +" minutes à partir du moment de l'ajout du premier billet pour un spectacle donné.</p> <a href='#/caisse/revue' class='btn btn-block btn-goevents'>Passer à la caisse</a>";
                         } else if (options.type == "expiredItem") {
                             var ticket = showService.getTicketInShowObjByTicketId(options.show, options.item.itemId);
                             var slugOptions = (ticket) ? {date:ticket.date} : {};
                             var showUrl = "spectacle/" + showService.getShowSlug(options.show, slugOptions);
+                            scope.popover.title = "Billets retirés du panier";
                             scope.popover.content = "<p>Le spectacle '<strong>" +options.show.title+ "</strong>' a été retiré de votre panier car le délais de réservation a expiré.</p> <a href='#/" +showUrl+ "' class='btn btn-block btn-goevents'>Page du spectacle</a>";
                         }
 

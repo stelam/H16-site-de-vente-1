@@ -8,5 +8,6 @@ public class BackendgoeventsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackendgoeventsApplication.class, args);
+		DataManager.initializeData();
 	}
 }

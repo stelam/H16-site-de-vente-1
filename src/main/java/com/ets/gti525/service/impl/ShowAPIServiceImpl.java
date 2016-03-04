@@ -42,21 +42,25 @@ public class ShowAPIServiceImpl implements ShowAPIService {
 
     @Override
     public Show removeShow(@RequestParam int id) {
-        return null;
+        showDAO = BusinessDelegate.getShowDAO();
+        return showDAO.removeShow(id);
     }
 
     @Override
     public Show modifyShow(@RequestBody Show show) {
-        return null;
+        showDAO = BusinessDelegate.getShowDAO();
+        return showDAO.editShow(show);
     }
 
     @Override
-    public Show getNumberOfPlacesLeft(@RequestParam int id) {
-        return null;
+    public int getNumberOfPlacesLeft(@RequestParam int id) {
+        showDAO = BusinessDelegate.getShowDAO();
+        return showDAO.getNumberOfPlacesLeft(id);
     }
 
     @Override
     public List<Show> getShowsList() {
-        return null;
+        showDAO = BusinessDelegate.getShowDAO();
+        return showDAO.getShows();
     }
 }

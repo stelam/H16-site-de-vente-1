@@ -28,7 +28,7 @@ public interface ShowAPIService {
     Show modifyShow(@RequestBody Show show);
 
     @RequestMapping(value = "/getPlacesLeft", method = RequestMethod.GET)
-    Show getNumberOfPlacesLeft(@RequestParam int id);
+    int getNumberOfPlacesLeft(@RequestParam int id);
 
     @RequestMapping(value = "/shows", method = RequestMethod.GET)
     List<Show> getShowsList();

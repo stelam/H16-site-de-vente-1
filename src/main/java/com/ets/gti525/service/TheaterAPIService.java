@@ -20,7 +20,6 @@ public interface TheaterAPIService {
     @RequestMapping(method = RequestMethod.GET)
     Theater getTheaterById(@RequestParam int id);
 
-    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/remove", method = RequestMethod.DELETE)
     Theater removeTheather(@RequestParam int id);
 

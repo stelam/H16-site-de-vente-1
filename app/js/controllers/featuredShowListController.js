@@ -18,7 +18,7 @@
 
     		]).then(function(res){
     			return {
-    				featuredShows : res[0].data.featuredShows
+    				featuredShows : res[0].data
     			}
     		}).catch(function(e){
                 messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
@@ -30,7 +30,15 @@
     	init().then(function(res){
     		loadingScreen.hide();
             if (res){
-                $scope.shows = res.featuredShows;
+                // on affiche seulement les spectacles qui ont au moins une présentation
+                res.featuredShows.forEach(function(fs){
+                    if (fs.showPresentationList && fs.showPresentationList.length > 0){
+                        fs = showService.formatShow(fs);
+                        console.log(fs);
+                        $scope.shows.push(fs);
+                    }
+                        
+                })
             }
     	});
 

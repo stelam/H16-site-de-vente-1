@@ -3,12 +3,24 @@
 
   angular.module('app')
     .factory('showService', ["$http", "SHOW_API_BASE_URL", "Slug", function($http, SHOW_API_BASE_URL, Slug){
+
+    	var _calculateShowDateFromTo = function(show){
+    		var fromDate = 0;
+    		var toDate = 0;
+    		show.showPresentationList.forEach(function(presentation){
+    			fromDate = (!fromDate || parseInt(presentation.timestamp) < fromDate) ? parseInt(presentation.timestamp) : fromDate;
+    			toDate = (!toDate || parseInt(presentation.timestamp) > toDate) ? parseInt(presentation.timestamp) : toDate;
+    		})
+    		show.fromDate = fromDate;
+    		show.toDate = toDate;
+    		return show;
+    	}
+
 	    return {
 	    	getListFeaturedShows : function(){
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/shows/featured',
-					params: 'limit=10, sort_by=created:desc', // exemple de params
+					url: SHOW_API_BASE_URL+'/show/featured',
 					headers: {'Authorization': 'Token token=xxxxYYYYZzzz'} // exemple de token si on utilise cette méthode d'authentification
 			    });
 	    	},
@@ -86,6 +98,10 @@
 	    			}
 	    		})
 	    		return found;
+	    	},
+
+	    	formatShow : function(show){
+	    		return _calculateShowDateFromTo(show);
 	    	},
 
 	    	test: function(){

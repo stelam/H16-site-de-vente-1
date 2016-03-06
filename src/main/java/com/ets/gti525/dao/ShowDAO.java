@@ -12,8 +12,8 @@ public interface ShowDAO {
     List<Show> findShowsByArtist(String name);
     Show removeShow(int id);
     Show editShow(Show show);
-    int getNumberOfPlacesLeft(int id);
     List<Show> getShows();
+    List<Show> getFeaturedShows();
 }
 
 

@@ -5,9 +5,12 @@ public class Theater {
 
     private int id;
     private String name;
+    private String phoneNumber;
+    private String zipCode;
     private String address;
     private int capacity;
     private boolean active;
+    private City city;
 
     public Theater() {
 
@@ -51,5 +54,29 @@ public class Theater {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 }

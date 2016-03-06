@@ -3,11 +3,20 @@ package com.ets.gti525.model;
 
 public class Credential {
 
+    private int id;
     private String username;
     private String password;
 
     public Credential() {
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -25,4 +34,6 @@ public class Credential {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

@@ -1,19 +1,17 @@
 package com.ets.gti525.model;
 
 
+import java.util.List;
+
 public class Show {
 
     private int id;
     private String name;
-    private String date;
     private String artistName;
-    private String image;
+    private String imageUrl;
     private String description;
-    private double price;
     private boolean isFeatured;
-    private int numberOfPlaces;
-    private int numberOfPlacesRemaining;
-    private Theater theater;
+    private List<ShowPresentation> showPresentationList;
 
     public Show() {
 
@@ -35,14 +33,6 @@ public class Show {
         this.name = name;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getArtistName() {
         return artistName;
     }
@@ -51,12 +41,12 @@ public class Show {
         this.artistName = artistName;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getDescription() {
@@ -67,14 +57,6 @@ public class Show {
         this.description = description;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public boolean isFeatured() {
         return isFeatured;
     }
@@ -83,27 +65,12 @@ public class Show {
         isFeatured = featured;
     }
 
-    public int getNumberOfPlaces() {
-        return numberOfPlaces;
+
+    public List<ShowPresentation> getShowPresentationList() {
+        return showPresentationList;
     }
 
-    public void setNumberOfPlaces(int numberOfPlaces) {
-        this.numberOfPlaces = numberOfPlaces;
-    }
-
-    public int getNumberOfPlacesRemaining() {
-        return numberOfPlacesRemaining;
-    }
-
-    public void setNumberOfPlacesRemaining(int numberOfPlacesRemaining) {
-        this.numberOfPlacesRemaining = numberOfPlacesRemaining;
-    }
-
-    public Theater getTheater() {
-        return theater;
-    }
-
-    public void setTheater(Theater theater) {
-        this.theater = theater;
+    public void setShowPresentationList(List<ShowPresentation> showPresentationList) {
+        this.showPresentationList = showPresentationList;
     }
 }

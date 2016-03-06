@@ -4,6 +4,7 @@ import com.ets.gti525.DataManager;
 import com.ets.gti525.dao.ShowDAO;
 import com.ets.gti525.model.Show;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,17 +69,18 @@ public class ShowDAOStub implements ShowDAO {
     }
 
     @Override
-    public int getNumberOfPlacesLeft(int id) {
-        for (Show show : DataManager.getListOfShow()) {
-            if (show.getId() == id) {
-                return show.getNumberOfPlacesRemaining();
-            }
-        }
-        return -1;
+    public List<Show> getShows() {
+        return DataManager.getListOfShow();
     }
 
     @Override
-    public List<Show> getShows() {
-        return DataManager.getListOfShow();
+    public List<Show> getFeaturedShows() {
+        List<Show> featuredShows = new ArrayList<>();
+        for (Show show : DataManager.getListOfShow()) {
+            if (show.isFeatured()) {
+                featuredShows.add(show);
+            }
+        }
+        return featuredShows;
     }
 }

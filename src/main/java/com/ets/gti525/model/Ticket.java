@@ -3,7 +3,7 @@ package com.ets.gti525.model;
 public class Ticket {
 
     private int id;
-    private int showId;
+    private int showPresentationId;
 
     public Ticket() {
 
@@ -17,11 +17,11 @@ public class Ticket {
         this.id = id;
     }
 
-    public int getShowId() {
-        return showId;
+    public int getShowPresentationId() {
+        return showPresentationId;
     }
 
-    public void setShowId(int showId) {
-        this.showId = showId;
+    public void setShowPresentationId(int showPresentationId) {
+        this.showPresentationId = showPresentationId;
     }
 }

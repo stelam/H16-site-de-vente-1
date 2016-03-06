@@ -3,7 +3,11 @@ package com.ets.gti525.service.impl;
 
 import com.ets.gti525.BusinessDelegate;
 import com.ets.gti525.dao.ShowDAO;
+import com.ets.gti525.dao.ShowPresentationDAO;
+import com.ets.gti525.dao.TicketDAO;
 import com.ets.gti525.model.Show;
+import com.ets.gti525.model.ShowPresentation;
+import com.ets.gti525.model.Ticket;
 import com.ets.gti525.service.ShowAPIService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +19,8 @@ import java.util.List;
 public class ShowAPIServiceImpl implements ShowAPIService {
 
     private ShowDAO showDAO;
+    private TicketDAO ticketDAO;
+    private ShowPresentationDAO showPresentationDAO;
 
     @Override
     public Show addShow(@RequestBody Show show) {
@@ -53,14 +59,31 @@ public class ShowAPIServiceImpl implements ShowAPIService {
     }
 
     @Override
-    public int getNumberOfPlacesLeft(@RequestParam int id) {
-        showDAO = BusinessDelegate.getShowDAO();
-        return showDAO.getNumberOfPlacesLeft(id);
+    public boolean isShowAvailable(@RequestParam int presentationShowId) {
+        showPresentationDAO = BusinessDelegate.getShowPresentationDAO();
+        ticketDAO = BusinessDelegate.getTicketDAO();
+
+        ShowPresentation showPresentation = showPresentationDAO.findShowPresentationById(presentationShowId);
+        List<Ticket> ticketList = ticketDAO.getTicketsByShowPresentationId(presentationShowId);
+        int numberOfTicketSold = 0;
+        for (Ticket ticket : ticketList) {
+            if (ticket.getShowPresentationId() == showPresentation.getId()) {
+                numberOfTicketSold++;
+            }
+        }
+
+        return numberOfTicketSold < showPresentation.getNumberOfPlaces();
     }
 
     @Override
     public List<Show> getShowsList() {
         showDAO = BusinessDelegate.getShowDAO();
         return showDAO.getShows();
+    }
+
+    @Override
+    public List<Show> getFeaturedShow() {
+        showDAO = BusinessDelegate.getShowDAO();
+        return showDAO.getFeaturedShows();
     }
 }

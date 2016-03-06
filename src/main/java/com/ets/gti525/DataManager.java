@@ -1,9 +1,12 @@
 package com.ets.gti525;
 
 import com.ets.gti525.model.Show;
+import com.ets.gti525.model.ShowPresentation;
 import com.ets.gti525.model.Theater;
+import com.ets.gti525.model.Ticket;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -12,6 +15,8 @@ public class DataManager {
 
     private static List<Show> listOfShow = new ArrayList<>();
     private static List<Theater> listOfTheater = new ArrayList<>();
+    private static List<Ticket> listOfTicket = new ArrayList<>();
+    private static List<ShowPresentation> listOfShowPresentation = new ArrayList<>();
 
     public static void initializeData() {
         Theater theater = new Theater();
@@ -30,64 +35,70 @@ public class DataManager {
         theater2.setName("Montmorency");
         listOfTheater.add(theater2);
 
+        ShowPresentation showPresentation = new ShowPresentation();
+        showPresentation.setId(0);
+        showPresentation.setNumberOfPlaces(2500);
+        showPresentation.setTheater(theater);
+        showPresentation.setPrice(59.99);
+        showPresentation.setTimestamp("1457211600");
+
+        ShowPresentation showPresentation2 = new ShowPresentation();
+        showPresentation2.setId(1);
+        showPresentation2.setNumberOfPlaces(2500);
+        showPresentation2.setTheater(theater);
+        showPresentation.setPrice(59.99);
+        showPresentation2.setTimestamp("1457298000");
+
+        ShowPresentation showPresentation3 = new ShowPresentation();
+        showPresentation3.setId(2);
+        showPresentation3.setNumberOfPlaces(2000);
+        showPresentation3.setTheater(theater2);
+        showPresentation.setPrice(89.99);
+        showPresentation3.setTimestamp("1457384400");
+
+        listOfShowPresentation.add(showPresentation);
+        listOfShowPresentation.add(showPresentation2);
+        listOfShowPresentation.add(showPresentation3);
+
         Show show = new Show();
         show.setArtistName("Metallica");
         show.setName("Met on tour");
-        show.setDate("12 July 2016");
         show.setDescription("Amazing metallica show yeah");
         show.setFeatured(true);
         show.setId(0);
-        show.setNumberOfPlaces(1000);
-        show.setPrice(150);
-        show.setTheater(theater);
+        show.setShowPresentationList(listOfShowPresentation);
         listOfShow.add(show);
 
         show = new Show();
         show.setArtistName("Muse");
         show.setName("Muse Summer Tour");
-        show.setDate("15 July 2016");
         show.setDescription("Amazing Muse show yeah");
-        show.setFeatured(true);
+        show.setFeatured(false);
         show.setId(1);
-        show.setNumberOfPlaces(2500);
-        show.setPrice(120);
-        show.setTheater(theater);
         listOfShow.add(show);
 
         show = new Show();
         show.setArtistName("Iron Maiden");
         show.setName("Iron Maiden on Fire tour");
-        show.setDate("22 April 2016");
         show.setDescription("Amazing iron maiden show yeah");
         show.setFeatured(true);
         show.setId(2);
-        show.setNumberOfPlaces(2000);
-        show.setPrice(130);
-        show.setTheater(theater2);
         listOfShow.add(show);
 
         show = new Show();
         show.setArtistName("Lamb of God");
         show.setName("Last album tour");
-        show.setDate("29 July 2016");
         show.setDescription("Amazing lamb of god show yeah");
-        show.setFeatured(true);
+        show.setFeatured(false);
         show.setId(3);
-        show.setNumberOfPlaces(1000);
-        show.setPrice(150);
-        show.setTheater(theater2);
         listOfShow.add(show);
 
         show = new Show();
         show.setArtistName("Bullet for my Valentine");
         show.setName("British invasion tour");
-        show.setDate("12 September 2016");
         show.setDescription("Amazing bfmv show yeah");
         show.setFeatured(true);
         show.setId(4);
-        show.setNumberOfPlaces(2100);
-        show.setPrice(75);
-        show.setTheater(theater);
         listOfShow.add(show);
     }
 
@@ -126,5 +137,21 @@ public class DataManager {
 
     public static void removeTheater(Theater theater) {
         DataManager.listOfTheater.remove(theater);
+    }
+
+    public static List<Ticket> getListOfTicket() {
+        return listOfTicket;
+    }
+
+    public static void setListOfTicket(List<Ticket> listOfTicket) {
+        DataManager.listOfTicket = listOfTicket;
+    }
+
+    public static List<ShowPresentation> getListOfShowPresentation() {
+        return listOfShowPresentation;
+    }
+
+    public static void setListOfShowPresentation(List<ShowPresentation> listOfShowPresentation) {
+        DataManager.listOfShowPresentation = listOfShowPresentation;
     }
 }

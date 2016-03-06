@@ -38,12 +38,12 @@ public class ShowDAOImpl implements ShowDAO {
     }
 
     @Override
-    public int getNumberOfPlacesLeft(int id) {
-        return 0;
+    public List<Show> getShows() {
+        return null;
     }
 
     @Override
-    public List<Show> getShows() {
+    public List<Show> getFeaturedShows() {
         return null;
     }
 }

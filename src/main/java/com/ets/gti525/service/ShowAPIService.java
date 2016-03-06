@@ -18,6 +18,9 @@ public interface ShowAPIService {
     @RequestMapping(params = "showName", method = RequestMethod.GET)
     Show getShowByName(@RequestParam() String showName);
 
+    @RequestMapping(value = "/featured", method = RequestMethod.GET)
+    List<Show> getFeaturedShow();
+
     @RequestMapping(params = "artistName", method = RequestMethod.GET)
     List<Show> getShowsByArtist(@RequestParam() String artistName);
 
@@ -27,8 +30,8 @@ public interface ShowAPIService {
     @RequestMapping(value = "/modify", method = RequestMethod.PUT)
     Show modifyShow(@RequestBody Show show);
 
-    @RequestMapping(value = "/getPlacesLeft", method = RequestMethod.GET)
-    int getNumberOfPlacesLeft(@RequestParam int id);
+    @RequestMapping(value = "/isShowAvailable", method = RequestMethod.GET)
+    boolean isShowAvailable(@RequestParam int presentationShowId);
 
     @RequestMapping(value = "/shows", method = RequestMethod.GET)
     List<Show> getShowsList();

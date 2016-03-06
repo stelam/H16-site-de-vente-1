@@ -31,7 +31,7 @@
 
     		return $q.all(asyncCalls).then(function(res){
     			return {
-    				shows : res[0].data.shows
+    				shows : res[0].data
     			}
     		}).catch(function(e){
                 messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
@@ -49,7 +49,14 @@
     	init().then(function(res){
     		loadingScreen.hide();
             if (res){
-                $scope.shows = res.shows;
+                // on affiche seulement les spectacles qui ont au moins une présentation
+                res.shows.forEach(function(fs){
+                    if (fs.showPresentationList && fs.showPresentationList.length > 0){
+                        fs = showService.formatShow(fs);
+                        $scope.shows.push(fs);
+                    }
+                        
+                })
             }
     		
 

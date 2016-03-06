@@ -34,7 +34,6 @@
                 res.featuredShows.forEach(function(fs){
                     if (fs.showPresentationList && fs.showPresentationList.length > 0){
                         fs = showService.formatShow(fs);
-                        console.log(fs);
                         $scope.shows.push(fs);
                     }
                         

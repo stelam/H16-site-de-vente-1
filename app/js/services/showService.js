@@ -28,7 +28,7 @@
 	    	getListShows : function(){
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/shows/'
+					url: SHOW_API_BASE_URL+'/show/shows/'
 			    });
 	    	},
 

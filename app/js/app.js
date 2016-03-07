@@ -2,12 +2,12 @@
 
 /* App Module */
 (function(){
-	angular.module('app', ['ngRoute', 'ngAnimate', 'ngSanitize', 'slugifier', 'LocalStorageModule']);
+	angular.module('app', ['ngRoute', 'ngAnimate', 'ngSanitize', 'slugifier', 'LocalStorageModule', 'validation', 'validation.rule', 'ui.select']);
 
 	angular.module('app').constant({
 		SHOW_API_BASE_URL : "http://demo5168961.mockable.io",
 		CART : {
-			RESERVATION_TIME : 0.2, //minutes
+			RESERVATION_TIME : 5, //minutes
 			INACTIVITY_TIME : 10,
 			MAX_SHOW_PURCHASE_QUANTITY : 6
 		},

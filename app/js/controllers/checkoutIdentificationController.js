@@ -15,6 +15,12 @@
         var init = function(){
             loadingScreen.show();
             $scope.currentCart = cartService.currentCart;
+            $scope.user = authenticationService.getUser();
+            $scope.provinces = [
+                {name: "Québec"},
+                {name: "Ontario"}
+            ]
+            $scope.anonymousIdentificationForm = {}
 
             return $q.all([
                 // d'autres appels asynchrones peuvent être faits ici
@@ -54,6 +60,11 @@
                 }, 1500)
             }
 
+        }
+
+
+        $scope.submitAnonymousIdentification = function(){
+            $location.path("/caisse/informations-paiement");
         }
 
 

@@ -41,12 +41,18 @@
 	        ident: 'checkout-identification-method',
 	        title: 'Caisse - Identification',
 	        checkoutStep : 2
+	      }).when('/caisse/identification-anonyme', {
+	        templateUrl: 'partials/checkout-anonymous-identification.html',
+	        controller: 'checkoutIdentificationController',
+	        ident: 'checkout-anonymous-identification',
+	        title: 'Caisse - Identification',
+	        checkoutStep : 2
 	      }).when('/caisse/informations-paiement', {
 	        templateUrl: 'partials/checkout-payment-information.html',
 	        controller: 'checkoutPaymentController',
 	        ident: 'checkout-payment-information',
 	        title: 'Caisse - Méthode de paiement',
-	        checkoutStep : 2
+	        checkoutStep : 3
 	      }).
 	      otherwise({
 	        redirectTo: '/'

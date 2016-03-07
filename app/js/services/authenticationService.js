@@ -12,7 +12,8 @@
 				civicNumber: "",
 				street: "",
 				city: "",
-				province: ""
+				province: "",
+				postalCode: ""
 			},
 			email: ""
 		}
@@ -31,7 +32,8 @@
 					civicNumber: "888",
 					street: "Beaubien",
 					city: "Montréal",
-					province: "Québec"
+					province: "Québec",
+					postalCode: "H0H0H0"
 				},
 				email: "john@gmail.com"
 			}

@@ -8,8 +8,8 @@
     		var fromDate = 0;
     		var toDate = 0;
     		show.showPresentationList.forEach(function(presentation){
-    			fromDate = (!fromDate || parseInt(presentation.timestamp) < fromDate) ? parseInt(presentation.timestamp) : fromDate;
-    			toDate = (!toDate || parseInt(presentation.timestamp) > toDate) ? parseInt(presentation.timestamp) : toDate;
+    			fromDate = (!fromDate || parseInt(presentation.timeinmillis) < fromDate) ? parseInt(presentation.timeinmillis) : fromDate;
+    			toDate = (!toDate || parseInt(presentation.timeinmillis) > toDate) ? parseInt(presentation.timeinmillis) : toDate;
     		})
     		show.fromDate = fromDate;
     		show.toDate = toDate;

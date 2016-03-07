@@ -40,21 +40,21 @@ public class DataManager {
         showPresentation.setNumberOfPlaces(2500);
         showPresentation.setTheater(theater);
         showPresentation.setPrice(59.99);
-        showPresentation.setTimestamp("1457211600");
+        showPresentation.setTimeinmillis(1457222400000L);
 
         ShowPresentation showPresentation2 = new ShowPresentation();
         showPresentation2.setId(1);
         showPresentation2.setNumberOfPlaces(2500);
         showPresentation2.setTheater(theater);
         showPresentation.setPrice(59.99);
-        showPresentation2.setTimestamp("1457298000");
+        showPresentation2.setTimeinmillis(1457308800000L);
 
         ShowPresentation showPresentation3 = new ShowPresentation();
         showPresentation3.setId(2);
         showPresentation3.setNumberOfPlaces(2000);
         showPresentation3.setTheater(theater2);
         showPresentation.setPrice(89.99);
-        showPresentation3.setTimestamp("1457384400");
+        showPresentation3.setTimeinmillis(1457395200000L);
 
         listOfShowPresentation.add(showPresentation);
         listOfShowPresentation.add(showPresentation2);

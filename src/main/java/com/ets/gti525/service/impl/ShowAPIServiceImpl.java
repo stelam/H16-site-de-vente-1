@@ -13,7 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import java.security.Timestamp;
+import java.util.*;
 
 @Controller
 public class ShowAPIServiceImpl implements ShowAPIService {
@@ -85,5 +86,41 @@ public class ShowAPIServiceImpl implements ShowAPIService {
     public List<Show> getFeaturedShow() {
         showDAO = BusinessDelegate.getShowDAO();
         return showDAO.getFeaturedShows();
+    }
+
+    @Override
+    public List<Show> getShowsByDate(@RequestParam() long timeinmillis) {
+        showDAO = BusinessDelegate.getShowDAO();
+        List<Show> showList = showDAO.getShows();
+        List<Show> filteredShowList = new ArrayList<>();
+        for (Show show : showList) {
+            if (show.getShowPresentationList() != null) {
+                List<ShowPresentation> showPresentationInDate = getShowPresentationInDate(show.getShowPresentationList(), timeinmillis);
+                if (showPresentationInDate.size() > 0) {
+                    //deep copy the object and set it's presentationlist as the new filtered one.
+                    Show filteredShow = new Show(show);
+                    filteredShow.setShowPresentationList(showPresentationInDate);
+                    filteredShowList.add(filteredShow);
+                }
+            }
+        }
+
+        return filteredShowList;
+    }
+
+    private List<ShowPresentation> getShowPresentationInDate(List<ShowPresentation> showPresentationList, long timeinmillisStart) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timeinmillisStart);
+        cal.add(Calendar.DAY_OF_WEEK, 1);
+        long timeinmillisEnd = cal.getTimeInMillis();
+
+        List<ShowPresentation> filteredShowPresentationList = new ArrayList<>();
+        for (ShowPresentation showPresentation : showPresentationList) {
+            if (showPresentation.getTimeinmillis() >= timeinmillisStart && showPresentation.getTimeinmillis() <= timeinmillisEnd) {
+                filteredShowPresentationList.add(showPresentation);
+            }
+        }
+
+        return filteredShowPresentationList;
     }
 }

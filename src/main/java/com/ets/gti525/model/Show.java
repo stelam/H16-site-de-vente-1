@@ -17,6 +17,17 @@ public class Show {
 
     }
 
+    //Used to make a deep copy of an object.
+    public Show(Show show) {
+        this.id = show.id;
+        this.name = show.name;
+        this.artistName = show.artistName;
+        this.imageUrl = show.imageUrl;
+        this.description = show.description;
+        this.isFeatured = show.isFeatured;
+        this.showPresentationList = show.showPresentationList;
+    }
+
     public int getId() {
         return id;
     }

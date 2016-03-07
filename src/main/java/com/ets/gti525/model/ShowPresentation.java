@@ -1,10 +1,9 @@
 package com.ets.gti525.model;
 
-
 public class ShowPresentation {
 
     private int id;
-    private String timestamp;
+    private long timeinmillis;
     private int numberOfPlaces;
     private double price;
     private Theater theater;
@@ -21,12 +20,12 @@ public class ShowPresentation {
         this.id = id;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public long getTimeinmillis() {
+        return timeinmillis;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setTimeinmillis(long timeinmillis) {
+        this.timeinmillis = timeinmillis;
     }
 
     public int getNumberOfPlaces() {

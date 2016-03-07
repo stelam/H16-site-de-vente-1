@@ -24,6 +24,9 @@ public interface ShowAPIService {
     @RequestMapping(params = "artistName", method = RequestMethod.GET)
     List<Show> getShowsByArtist(@RequestParam() String artistName);
 
+    @RequestMapping(params = "timeinmillis", method = RequestMethod.GET)
+    List<Show> getShowsByDate(@RequestParam() long timeinmillis);
+
     @RequestMapping(value = "/remove", method = RequestMethod.DELETE)
     Show removeShow(@RequestParam int id);
 

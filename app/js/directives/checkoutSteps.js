@@ -1,5 +1,6 @@
 /*
 * Directive pour l'indicateur d'étapes du processus de checkout
+*
 */
 (function(){   
     "use strict";

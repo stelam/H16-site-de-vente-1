@@ -14,7 +14,7 @@
 
         var init = function(){
             loadingScreen.show();
-            $scope.cartItems = cartService.currentCart.items;
+            $scope.currentCart = cartService.currentCart;
 
             return $q.all([
                 // d'autres appels asynchrones peuvent être faits ici

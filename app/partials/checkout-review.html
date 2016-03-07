@@ -1,8 +1,8 @@
 <checkout-steps></checkout-steps>
-<div class="col-md-12 col-sm-12 cart-items center" ng-if="cartItems.length == 0">
+<div class="col-md-12 col-sm-12 cart-items center" ng-if="currentCart.items.length == 0">
 	<h2>Aucun article au panier.</h2>
 </div> 
-<div class="col-md-9 col-sm-12 cart-items" ng-if="cartItems.length > 0">
+<div class="col-md-9 col-sm-12 cart-items" ng-if="currentCart.items.length > 0">
 	<div class="col-sm-12 head">
 		<label class="col-sm-3">&nbsp;</label>
 		<label class="col-sm-2">Date</label>
@@ -12,7 +12,7 @@
 		<label class="col-sm-1">&nbsp;</label>
 	</div>
 
-	<article class="col-sm-12 cart-item" ng-repeat="item in cartItems">
+	<article class="col-sm-12 cart-item" ng-repeat="item in currentCart.items">
 		<div class="col-sm-3">
 			{{item.show.artist}} - {{item.show.title}}
 			<p class="reservation-timer">
@@ -38,10 +38,10 @@
 	</article>
 </div>
 
-<div class="col-md-3 col-sm-12 subtotal-container" ng-if="cartItems.length > 0">
+<div class="col-md-3 col-sm-12 subtotal-container" ng-if="currentCart.items.length > 0">
 	<h3>Sous-total : </h3>
 	<div class="subtotal">
-		<span><sup class="dollar-sign">$</sup>59<sup class="cents">97</sup></span>
+		<span><sup class="dollar-sign">$</sup>{{currentCart.total.dollars}}<sup class="cents">{{currentCart.total.cents}}</sup></span>
 	</div>
 	<a class="btn btn-goevents btn-lg btn-continue" href="panier-identification.html">Continuer <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 </div>

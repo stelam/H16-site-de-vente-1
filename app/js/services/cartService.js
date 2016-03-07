@@ -31,7 +31,7 @@
     	}
 
     	this.initCart = function(){
-    		if (!localStorageService.get("cart")) {
+    		if (localStorageService.get("cart")) {
     			localStorageService.set("cart", JSON.stringify(currentCart));
     		} else {
     			currentCart = JSON.parse(localStorageService.get("cart"));

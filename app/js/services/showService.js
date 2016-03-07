@@ -33,10 +33,12 @@
 	    	},
 
 	    	getListShowsByDate : function(dd, mm, yyyy){
+	    		
+	    		var timeinmillis = moment(dd + "/" + mm + "/" + yyyy, "DD/MM/YYYY");
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/shows/date/',
-					params: 'dd=' + dd + ', mm=' + mm + ', yyyy=' + yyyy
+					url: SHOW_API_BASE_URL+'/show',
+					params: {'timeinmillis' : timeinmillis.valueOf()}
 			    });
 	    	},
 

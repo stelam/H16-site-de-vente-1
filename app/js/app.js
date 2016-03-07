@@ -6,7 +6,7 @@
 
 	angular.module('app').constant({
 		//SHOW_API_BASE_URL : "http://demo5168961.mockable.io",
-		SHOW_API_BASE_URL : "http://agile-anchorage-60775.herokuapp.com/",
+		SHOW_API_BASE_URL : "http://agile-anchorage-60775.herokuapp.com",
 		CART : {
 			RESERVATION_TIME : 1, //minutes
 			INACTIVITY_TIME : 10,

@@ -61,13 +61,14 @@
 			required-error-message="La ville est requise." 
 		/>
 	</div>
+
 	<div class="col-sm-4">
 
 
-	  	<ui-select ng-model="user.address.province" theme="selectize" required="required" name="province" valid-method="blur" required-error-message="La province est requise." >
-		    <ui-select-match placeholder="Choisir ou chercher une province">{{$select.selected.name}}</ui-select-match>
+	  	<ui-select ng-model="user.address.province" theme="selectize" required="required" name="province" valid-method="blur" required-error-message="La province est requise." message-id="ui-select">
+		    <ui-select-match placeholder="Choisir ou chercher une province">{{$select.selected}}</ui-select-match>
 		    <ui-select-choices repeat="province in provinces | filter: $select.search">
-		      <span ng-bind-html="province.name | highlight: $select.search"></span>
+		      <span ng-bind-html="province | highlight: $select.search"></span>
 		    </ui-select-choices
 	    </ui-select>
 
@@ -86,6 +87,6 @@
 	<div class="col-sm-12">
 		<hr/>
 		<a class="btn btn-goevents btn-lg" href="#/caisse/methode-identification"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Revenir</a>
-		<button class="btn btn-goevents btn-lg pull-right" ng-disabled="anonymousIdentificationForm.$valid != true" ng-click="submitAnonymousIdentification()">Continuer<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" validation-submit="anonymousIdentificationForm"></span></button>
+		<button class="btn btn-goevents btn-lg pull-right" ng-mouseover="test()" ng-click="submitAnonymousIdentification()">Continuer<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" validation-submit="anonymousIdentificationForm"></span></button>
 	</div>
 </form>

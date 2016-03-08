@@ -50,6 +50,13 @@
 				title: "Erreur",
 				message: "Erreur lors de la suppression de l'item du panier."
 			},
+
+			"ERROR_FORM" : {
+				type: "error",
+				code: "F1",
+				title: "Erreur",
+				message: "Veuillez saisir tous les champs."
+			},
 		};
 
     	return {

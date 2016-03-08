@@ -53,6 +53,12 @@
 	        ident: 'checkout-payment-information',
 	        title: 'Caisse - Méthode de paiement',
 	        checkoutStep : 3
+	      }).when('/caisse/sommaire', {
+	        templateUrl: 'partials/checkout-summary.html',
+	        controller: 'checkoutSummaryController',
+	        ident: 'checkout-summary',
+	        title: 'Caisse - Sommaire',
+	        checkoutStep : 3
 	      }).
 	      otherwise({
 	        redirectTo: '/'

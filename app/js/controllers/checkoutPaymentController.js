@@ -7,10 +7,11 @@
  "use strict";
 
   angular.module('app')
-    .controller('checkoutPaymentController', [ "$timeout", "$location", "cartService", "messageService", "authenticationService", "$scope", "$q", "$routeParams", "$rootScope", 
-        function($timeout, $location, cartService, messageService, authenticationService, $scope, $q, $routeParams, $rootScope){
+    .controller('checkoutPaymentController', [ "$timeout", "$injector", "$location", "cartService", "messageService", "authenticationService", "$scope", "$q", "$routeParams", "$rootScope", 
+        function($timeout, $injector, $location, cartService, messageService, authenticationService, $scope, $q, $routeParams, $rootScope){
         var self = this;
 
+        var $validationProvider = $injector.get('$validation');
 
         var init = function(){
             loadingScreen.show();
@@ -36,7 +37,7 @@
 
             // s'assurer de l'identification
             if (!$scope.user.firstName) {
-                $location.path("/caisse/methode-identification");
+                //$location.path("/caisse/methode-identification");
             }
 
             // s'assurer qu'il reste des items dans le panier

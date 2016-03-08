@@ -71,7 +71,7 @@
                     if (errorData.status == 406) // le code va sûrement changer
                         messageService.showMessage(messageService.getMessage("ERROR_PREAUTHORIZATION_REJECTED"));
                     else
-                        messageService.showMessage(messageService.getMessage("ERROR_PREAUTHORIZATION_API"));
+                        messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));
                 })
             }).error(function(e){
                 messageService.showMessage(messageService.getMessage("ERROR_FORM"));

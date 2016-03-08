@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('checkoutSummaryController', [ "showService", "cartService", "checkoutService", "messageService", "authenticationService", "$scope", "$q", "$routeParams", "$location", "$rootScope", 
-        function(showService, cartService, checkoutService, messageService, authenticationService, $scope, $q, $routeParams, $location, $rootScope){
+    .controller('checkoutSummaryController', [ "showService", "cartService", "checkoutService", "messageService", "authenticationService", "paymentService", "orderService", "$scope", "$q", "$routeParams", "$location", "$rootScope", 
+        function(showService, cartService, checkoutService, messageService, authenticationService, paymentService, orderService, $scope, $q, $routeParams, $location, $rootScope){
         var self = this;
 
 
@@ -32,7 +32,7 @@
 
     	init().then(function(res){
     		loadingScreen.hide();
-            console.log("in")
+
             // s'assurer de l'identification
             if (!$scope.user.firstName) {
                 $location.path("/caisse/methode-identification");
@@ -55,9 +55,29 @@
 
 
         $scope.continue = function(){
-            checkoutService.setCompletedStep("review");
             loadingScreen.show();
-            $location.path("/caisse/methode-identification");
+
+
+            paymentService.pay().then(function(data){
+                loadingScreen.hide();
+                if (data.data.success == true) {
+
+                    orderService.commitOrder($scope.currentCart, $scope.user, data.data.transactionId).then(function(){
+                        checkoutService.setCompletedStep("payment");
+                        $location.path("/confirmation-achat");
+                    }, function(){
+                        messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));
+                    })
+                    
+                }
+            }, function(errorData){
+                loadingScreen.hide();
+                if (errorData.status == 406) // le code va sûrement changer
+                    messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_REJECTED"));
+                else
+                    messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));
+            })
+
         }
 
 

@@ -65,7 +65,7 @@
 				message: "La préautorisation a été rejetée. Veuillez vérifier que les informations que vous avez entrées sont valides et que le solde disponible à votre compte est suffisant."
 			},
 
-			"ERROR_PREAUTHORIZATION_API" : {
+			"ERROR_PAYMENT_API" : {
 				type: "error",
 				code: "PR2",
 				title: "Erreur",

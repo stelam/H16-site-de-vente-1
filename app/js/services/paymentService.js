@@ -39,6 +39,21 @@
 					}
 			    });
 	    	},
+
+	    	pay : function(){
+	    		return $http({
+					method: 'POST',
+					url: PAYMENT_API_BASE_URL+'/pay',
+					params: {
+						cardNumber: payment.number, 
+						ccv: payment.ccv,
+						expirationMonth: payment.expirationMonth,
+						expirationYear: payment.expirationYear,
+						amount: payment.amount,
+						apiKey: PAYMENT_API_KEY
+					}
+			    });
+	    	}
     	}
     }])
 })();

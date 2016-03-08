@@ -59,6 +59,11 @@
 	        ident: 'checkout-summary',
 	        title: 'Caisse - Sommaire',
 	        checkoutStep : 3
+	      }).when('/confirmation-achat', {
+	        templateUrl: 'partials/order-confirmation.html',
+	        controller: 'orderConfirmationController',
+	        ident: 'order-confirmation',
+	        title: 'Confirmation d\'achat'
 	      }).
 	      otherwise({
 	        redirectTo: '/'

@@ -1,0 +1,194 @@
+body.page-spectacle {background:url("film-noise.jpg") repeat;}
+
+.backdrop div {content: ""; min-width: 100%; min-height: 100%; position: fixed; top:0px; left: 0px; z-index: -1; background-size: cover !important; opacity: 0.14; transition: all 11s; background-repeat: no-repeat; background-position: center center;
+	 
+	-webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
+
+    -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 5s; /* Firefox < 16 */
+        -ms-animation: fadein 5s; /* Internet Explorer */
+         -o-animation: fadein 5s; /* Opera < 12.1 */
+            animation: fadein 5s;
+
+}
+
+.backdrop {min-width: 100%; min-height: 100%; position: fixed; top:0px; left: 0px; z-index: -1; background-size: cover !important; transition: all 11s; background-repeat: no-repeat; background-position: center center;}
+
+body.page-spectacle {
+
+	.show-metas {
+		border-left: 4px solid @pastel-red;
+		padding: 8px 0px 2px 12px;
+		margin-left: 60px;
+		h3 {margin-top: 0px;}
+
+		.glyphicon {position: relative; top: 4px !important;}
+		a {color: @almost-white; border-bottom: 1px dotted @pastel-red;}
+		a:hover {color: @pastel-red;}
+
+		@media @bp-sm {
+			margin-left: 15px;
+		}
+	}
+
+	.site-nav:not(.sticky) {
+		background: fade(@dark-gray, 50%);
+	}
+
+	.show { padding: 0px 57px; margin-top: 36px;
+		@media @bp-sm {
+			padding: 0px 15px;
+		}
+	}
+
+	hr {width: 75%;}
+
+	.tickets-selection {
+		&.full .blur-on-full {
+			-webkit-filter: blur(2px);
+			-moz-filter: blur(2px);
+			-o-filter: blur(2px);
+			-ms-filter: blur(2px);
+			filter: blur(2px);
+			opacity: 0.75;
+			pointer-events: none;
+			cursor: not-allowed;
+		}
+		input {
+			color: @dark-gray;
+			width: 130px;
+			padding: 10px 10px 10px 10px;
+			height: auto;
+			font-size: 72px;
+			text-align: right;
+			border: none;
+			display: inline-block;
+			margin: 12px auto 0px;
+			color:@almost-white;
+			background: none;
+			font-weight: 300;
+			border-radius: 0px;
+			outline: none !important;
+			box-shadow: none !important;
+		}
+
+		select {max-width: 300px; margin: 36px auto 0px; border-radius: 0px; padding: 0px 0px 0px 90px;}
+		option {text-align: center;}
+		.btn-add {display: block; margin: 0px auto; max-width: 300px; border-radius: 0px; 
+			@media @bp-sm {
+				margin-bottom: 32px;
+			}
+		}
+
+		.current-in-cart {
+			max-width: 300px;
+			margin: 20px auto;
+			font-size: 0.8em;
+		}
+
+		.tag-full {
+			color: @pastel-red;
+			font-weight: 800;
+			text-shadow: -1px -1px 3px rgba(0, 0, 0, 0.87);
+			box-shadow: -1px -1px 3px rgba(0, 0, 0, 0.65);
+			border: 9px solid @pastel-red;
+			padding: 2px 10px;
+			position: absolute;
+			font-size: 4.5em;
+			top:60px;
+			left: 50%;
+			margin-left: -200px;
+			transform: rotateZ(45deg);
+			z-index: 200;
+			cursor: not-allowed;
+
+			@media @bp-md {
+				top: 130px;
+			}
+
+			@media @bp-xs-sm-md {
+				left: 50%;
+				margin-left: -200px;
+			}
+			@media @bp-xs-sm {
+				top: 130px;
+			}
+		}
+	}
+
+	.price {
+		 background-color: rgba(0, 0, 0, 0);
+		 border: 2px solid @pastel-red;
+		 height: 150px;
+		 width: 150px;
+		 -moz-border-radius:50%;
+		 -webkit-border-radius: 50%;
+		 font-size: 48px;
+		 text-align: center;
+		 letter-spacing: -4px;
+		 display: table;
+		 margin: 0 auto;
+		 position: relative;
+		 span {display: table-cell; vertical-align: middle; text-align: center;}
+		 span span {font-size: 12px; letter-spacing: 0px; display: block; width: 100%; position: relative; top: -2px;}
+
+		 sup {
+		 	.subtotal-container .subtotal .sup;
+		 	font-size: 22px;
+		 	top: -16px;
+		 	letter-spacing: -1px;
+
+			&.dollar-sign {
+				left: 0px;
+			}
+		 	&.cents:after {
+		 		width: 20px;
+		 		left: 2px;
+		 		top: 28px;
+		 		border-width: 3px;
+		 	}
+		 }
+
+		 @media @bp-sm-md {
+		 	text-align: left;
+		 }
+
+		 @media @bp-sm {
+		 	position: relative;
+		 	top: 36px;
+		 }
+	}
+
+
+	.price:after {
+		content: "X";
+		font-weight: 300;
+		font-size: 42px;
+		color: @pastel-red;
+		position: absolute;
+		bottom: 43px;
+		right: -30px;
+
+		@media @bp-sm {
+			bottom: -69px;
+			right: 97px;
+		}
+	}
+
+	.nb-tickets-col {
+		@media @bp-sm {
+			text-align: center;
+		}
+	}
+
+	.bottom-actions {
+		@media @bp-sm {
+			margin-top: 72px;
+		}
+	}
+
+}

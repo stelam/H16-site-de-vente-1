@@ -56,7 +56,7 @@
 				</div>
 
 				<div class="col-sm-2">
-					<input type="number" class="form-control input-lg" value="1" />
+					<input type="number" class="form-control input-lg" value="1" min="1" max="6" />
 				</div>
 
 				<div class="col-sm-1 actions">

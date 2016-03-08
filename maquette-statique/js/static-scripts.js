@@ -12,9 +12,21 @@ $(window).scroll(function() {
 	}
 });
 
+
+$(function(){
+  var hash = window.location.hash;
+  hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+  $('.navbar-nav a, .titleShow').click(function (e) {
+    $(this).tab('show');
+    var scrollmem = $('body').scrollTop();
+    window.location.hash = this.hash;
+    $('html,body').scrollTop(scrollmem);
+  });
+});
+
 $(document).ready(function(){
 	$('html').click(function(e) {
-		console.log($(e.target).closest('.popover').length)
 		if (!$(e.target).hasClass('popover') && $(e.target).closest('.popover').length < 1){
 	    	$('.popover').popover('hide');
 	    }
@@ -39,5 +51,17 @@ $(document).ready(function(){
 		$(".search-wrapper").toggleClass("on");
 		$("#search").focus();
 	})
+
+    $(function () {
+        $('#calendar').datetimepicker({useCurrent: false, debug: false});
+
+        $('#calendar').on('dp.change', function(e){
+        	var date = moment(e.date._d);
+        	moment.locale("fr-CA");
+        	var dateString = moment(date).format('DD/MM/YYYY');
+        	window.location.href = '?page=spectacles&date=' + dateString;
+        })
+    });
+
 })
 

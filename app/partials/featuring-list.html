@@ -1,0 +1,35 @@
+				<header>
+					<h1><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Des spectacles à ne pas manquer</h1>
+				</header>
+				<div class="row featuring small-gutter">
+					<article class="show-item col-sm-6 ng-fade" ng-repeat-start="show in shows">
+						<a href="#/spectacle/{{show.title | slugify}}-{{show.artist | slugify}}-{{show.id}}">
+							<img alt="image du spectacle" ng-src="images/show-{{show.id}}.jpg" />
+							<div class="show-infos">
+								<h2>{{show.title}}</h2>
+								<h3>{{show.date}} @ {{show.room}}</h3>
+							</div>
+						</a>
+					</article>
+
+					<article class="show-item col-sm-6 ng-fade" ng-if="$index == 0">
+						<a href="http://google.com" target="_blank">
+							<img alt="Publicité" src="images/pseudo-pub-2.jpg" />
+							<div class="show-infos">
+								<h3>Publicité</h3>
+							</div>
+						</a>
+					</article>
+
+					<a ng-if="$index == 2" onclick="window.open('http://google.com');" title="Publicité" class="paraxify col-sm-12 ng-fade" style='background-image:url("images/pseudo-pub-6.jpg")' ng-repeat-end></a>
+
+
+
+
+
+
+					<div class="clear"></div>
+					<div class="row bottom-actions">
+						<a class="btn btn-goevents btn-lg" href="#/spectacles">Voir tous les spectacles <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+					</div>
+				</div>

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -19,7 +20,11 @@
             <div class="tab-content">
                 <?php include("components/admin_spectacles.php"); ?>
 
+                <?php include("components/admin_spectacle.php"); ?>
+
                 <?php include("components/admin_salles.php"); ?>
+
+                <?php include("components/admin_salle.php"); ?>
 
                 <?php include("components/admin_creationSpectacle.php"); ?>
 
@@ -37,6 +42,10 @@
         <script>less = { env: 'development'};</script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.6.0/less.min.js"></script>
         <script>less.watch();</script>
+
+        <script src="js/vendors/moments.min.js"></script>
+        <script src="js/vendors/locale/fr-ca.js"></script>
+        <script src="js/vendors/bootstrap-datetimepicker.js"></script>
 
         <script src="js/static-scripts.js"></script>
     </body>

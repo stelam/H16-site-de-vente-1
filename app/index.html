@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+	<head>
+		<meta charset="utf-8">
+		<title ng-bind="'GOEVENTS! &mdash; ' + title">GOEVENTS!</title>
+		<meta name="description" content="Static site - GOEVENTS!">
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/styles.css?v=1.0">
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+		<link rel="stylesheet" type="text/less" href="css/styles.less">
+	</head>
+	<body route-class>
+		<div class="container-fluid">
+			<header class="site-nav row">
+				<nav class="col-sm-12 col-lg-8">
+					<h2 class="logo">
+						<a href="#/">
+						<img src="images/logo.png" alt="GO EVENTS!" />
+						</a>
+					</h2>
+					<ul class="menu" active-menu>
+						<li>
+							<a href="#/">Accueil</a>
+						</li>
+						<li>
+							<a href="#/spectacles">Spectacles</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="col-sm-1 col-lg-4 pull-right right-actions">
+					<form method="GET" action="./" class="search-wrapper col-sm-10">
+						<input id="search" name="recherche" class="search form-control input-lg" placeholder="Rechercher un spectacle ou un artiste..."/>
+						<input type="hidden" name="page" value="spectacles" />
+					</form>
+					<div class="cart-wrapper col-sm-2">
+						<cart></cart>
+					</div>
+					<a id="search-toggle-btn" class="glyphicon glyphicon-search hidden-lg">
+					</a>
+				</div>
+			</header>
+			<section class="content" ng-view>
+				
+			</section>
+			<footer class="footer">
+				<div class="navbar-left">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="admin-login.html">Admin</a>
+					</div>
+					<p class="text-muted">
+						GOevents, all rights reserved.
+					</p>
+				</div>
+			</footer>
+		</div>
+
+
+
+		<!-- Modal content-->
+		<modal></modal>
+
+		<!-- BOWER components -->
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+		<script>less = { env: 'development'};</script>
+		<script src="bower_components/less/dist/less.min.js"></script>
+		<script>//less.watch();</script>
+		<script src="bower_components/moment/min/moment.min.js"></script>
+		<script src="bower_components/moment/locale/fr-ca.js"></script>
+		<script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="bower_components/lodash/dist/lodash.min.js"></script>
+
+		<script src="bower_components/angular/angular.min.js"></script>
+		<script src="bower_components/angular-route/angular-route.min.js"></script>
+		<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+		<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+		<script src="bower_components/angular-slugify/angular-slugify.js"></script>
+		<script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+
+		<!-- NON BOWER VENDOR SCRIPTS -->
+		<script src="js/vendors/class.js"></script>
+
+		<!-- custom plugins -->
+		<script src="js/custom-plugins/loading-screen.jquery.js"></script>
+
+
+		<script src="js/app.js"></script>
+		<script src="js/angular-routes.js"></script>
+
+		<!-- controllers -->
+		<script src="js/controllers/featuredShowListController.js"></script>
+		<script src="js/controllers/showListController.js"></script>
+		<script src="js/controllers/showDetailsController.js"></script>
+		<script src="js/controllers/checkoutReviewController.js"></script>
+
+		<!-- services -->
+		<script src="js/services/showService.js"></script>
+		<script src="js/services/cartService.js"></script>
+		<script src="js/services/messageService.js"></script>
+		<script src="js/services/checkoutService.js"></script>
+
+		<!-- directives -->
+		<script src="js/directives/activeMenu.js"></script>
+		<script src="js/directives/datetimePicker.js"></script>
+		<script src="js/directives/routeClass.js"></script>
+		<script src="js/directives/backButton.js"></script>
+		<script src="js/directives/cart.js"></script>
+		<script src="js/directives/modal.js"></script>
+		<script src="js/directives/checkoutSteps.js"></script>
+
+		<script src="js/static-scripts.js"></script>
+	</body>
+</html>

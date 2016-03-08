@@ -1,4 +1,6 @@
-
+body, html {
+	height: 100%;
+}
 
 body {
 	background: @dark-gray;
@@ -38,6 +40,11 @@ h1 {
 	}
 }
 h2 {font-size: 36px; font-weight: 800;}
+
+body > .container-fluid{
+	min-height: 100%;
+	position: relative;
+}
 
 body > .container-fluid > .content {
 	margin-top: 64px;
@@ -98,4 +105,78 @@ body > .container-fluid > .content {
 	p {
 		color: @almost-white;
 	}
+}
+
+body > .container-fluid > .content > header .bootstrap-datetimepicker-widget .glyphicon{
+	top: 0px;
+}
+.bootstrap-datetimepicker-widget {
+	margin-left: 15px !important;
+
+	&.pull-right {
+		right: -20px !important;
+	}
+}
+.bootstrap-datetimepicker-widget table td.day,
+.bootstrap-datetimepicker-widget table th.dow,
+.bootstrap-datetimepicker-widget table span.month,
+.bootstrap-datetimepicker-widget table span.year,
+.bootstrap-datetimepicker-widget table span.decade,
+.picker-switch {
+
+	&:not(.old),
+	&:not(.new),
+	&:not(.active) {
+		color: @dark-gray;
+	}
+
+	&.active {
+		color: @almost-white;
+		background-color: @pastel-red;
+
+		&.today:before {
+			border-bottom-color: @almost-white;
+		}
+	}
+
+	&.today {
+		font-weight: 800;
+	}
+	&.today:before {
+		border-bottom-color: @pastel-red;
+	}
+
+	&.old,
+	&.new {
+		color: fade(@dark-gray, 45%);
+	}
+	
+}
+
+
+.parallax-window {
+    min-height: 400px;
+    background: transparent;
+}
+
+
+.paraxify {
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	height: 1060px;
+	width: 100%;
+	margin: 20px 0px 30px;
+	display: block;
+	cursor: pointer;
+
+	@media @bp-md {
+		height: 640px;
+	}
+
+	@media @bp-xs-sm {
+		height: 400px;
+	}
+
 }

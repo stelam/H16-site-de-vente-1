@@ -1,0 +1,41 @@
+<header class="shows-header">
+	<h1>
+		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 
+		
+		<span ng-if="!dateFilter">Tous les spectacles à l'affiche </span>
+		<span ng-if="dateFilter">Spectacles du {{dateFilter.dd}}/{{dateFilter.mm}}/{{dateFilter.yyyy}}</span>
+
+		<span id="calendar" class='input-group date' datetime-picker date-obj="dateFilter">
+			<input type='text' class='' />
+			<span class="input-group-addon">
+			<span class="glyphicon glyphicon-calendar" title="Voir les spectacles pour une date spécifique" aria-hidden="true"></span>
+			</span>
+		</span>
+	</h1>
+</header>
+<div class="row shows small-gutter">
+
+	<article class="show-item col-sm-12 col-md-6 col-lg-4 ng-fade" ng-repeat-start="show in shows">
+		<a href="#/spectacle/{{show.title | slugify}}-{{show.artist | slugify}}-{{show.id}}">
+			<img alt="image du spectacle" ng-src="images/show-{{show.id}}.jpg" />
+			<div class="show-infos">
+				<h2>{{show.title}}</h2>
+				<h3>{{show.date}} @ {{show.room}}</h3>
+			</div>
+		</a>
+	</article>
+	<article class="show-item col-sm-12 col-md-6 col-lg-4 ng-fade" ng-if="$index == 1">
+		<a href="http://google.com" target="_blank">
+			<img alt="image du spectacle" src="images/pseudo-pub-2.jpg" />
+			<div class="show-infos">
+				<h3>Publicité</h3>
+			</div>
+		</a>
+	</article>
+	<a onclick="window.open('http://google.com');" title="Publicité" class="paraxify col-sm-12 ng-fade" style='background-image:url("images/pseudo-pub-7.jpg")' ng-if="$index == 4" ng-repeat-end></a>
+
+	<div class="clear"></div>
+	<div class="row bottom-actions">
+		<a class="btn btn-goevents btn-lg">Afficher plus de spectacles <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+	</div>
+</div>

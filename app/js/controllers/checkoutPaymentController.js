@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('checkoutPaymentController', [ "$timeout", "$injector", "$location", "cartService", "messageService", "authenticationService", "$scope", "$q", "$routeParams", "$rootScope", 
-        function($timeout, $injector, $location, cartService, messageService, authenticationService, $scope, $q, $routeParams, $rootScope){
+    .controller('checkoutPaymentController', [ "$timeout", "$injector", "$location", "cartService", "messageService", "authenticationService", "paymentService", "$scope", "$q", "$routeParams", "$rootScope", 
+        function($timeout, $injector, $location, cartService, messageService, authenticationService, paymentService, $scope, $q, $routeParams, $rootScope){
         var self = this;
 
         var $validationProvider = $injector.get('$validation');
@@ -17,6 +17,7 @@
             loadingScreen.show();
             $scope.currentCart = cartService.currentCart;
             $scope.user = authenticationService.getUser();
+            $scope.payment = paymentService.getPayment();
             
 
             return $q.all([
@@ -48,6 +49,15 @@
             }, true);            
 
         });
+
+        $scope.validatePayment = function(){
+            $validationProvider.validate($scope.paymentForm).success(function(){
+                //$location.path("/caisse/informations-paiement");
+                
+            }).error(function(e){
+                messageService.showMessage(messageService.getMessage("ERROR_FORM"));
+            })
+        }
 
 
     }])

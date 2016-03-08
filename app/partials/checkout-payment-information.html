@@ -12,7 +12,7 @@
 		<input type="text" class="form-control input-lg" 
 			placeholder="Numéro de carte de crédit" 
 			required="required" 
-			validator="required" 
+			validator="required, number" 
 			name="cardNumber" 
 			ng-model="payment.number" 
 			valid-method="blur" 
@@ -20,10 +20,25 @@
 		/>
 	</div>
 	<div class="col-sm-3">
-		<input type="text" class="form-control input-lg" placeholder="CCV" />
+		<input type="text" class="form-control input-lg" 
+			placeholder="CCV" 
+			required="required" 
+			validator="required, number" 
+			name="cardCcv" 
+			ng-model="payment.ccv" 
+			valid-method="blur" 
+			required-error-message="Le CCV est requis." 
+		/>
 	</div>
 	<div class="col-sm-6">
-		<select class="form-control input-lg">
+		<select class="form-control input-lg"
+			required="required" 
+			validator="required" 
+			name="expirationMonth" 
+			ng-model="payment.expirationMonth" 
+			valid-method="blur" 
+			required-error-message="Le mois d'expiration est requis." 
+		>
 			<option value="">- Mois d'expiration -</option>
 			<option value="1">1</option>
 			<option value="2">2</option>
@@ -40,14 +55,26 @@
 		</select>
 	</div>
 	<div class="col-sm-6">
-		<select class="form-control input-lg">
-			<option>- Année d'expiration -</option>
-			<option>2016</option>
-			<option>2017</option>
+		<select class="form-control input-lg"
+			required="required" 
+			validator="required" 
+			name="expirationYear" 
+			ng-model="payment.expirationYear" 
+			valid-method="blur" 
+			required-error-message="L'année d'expiration est requise." 
+		>
+			<option value="">- Année d'expiration -</option>
+			<option value="2016">2016</option>
+			<option value="2017">2017</option>
+			<option value="2018">2018</option>
+			<option value="2019">2019</option>
+			<option value="2020">2020</option>
+			<option value="2021">2021</option>
+			<option value="2022">2022</option>
 		</select>
 	</div>
 	<div class="col-sm-12">
 		<hr/>
-		<a class="btn btn-goevents btn-lg pull-right" href="confirmation-oauth.html">Soumettre la commande<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+		<a ng-click="validatePayment()" class="btn btn-goevents btn-lg pull-right">Préautoriser le paiement<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 	</div>
 </form>

@@ -6,6 +6,7 @@
 
 	angular.module('app').constant({
 		SHOW_API_BASE_URL : "http://demo5168961.mockable.io",
+		PAYMENT_API_KEY: "kj124k1j2k1j2k4j12j4jh21gyu12g12uv1j2hjg",
 		CART : {
 			RESERVATION_TIME : 20, //minutes
 			INACTIVITY_TIME : 10,

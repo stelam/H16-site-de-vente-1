@@ -12,22 +12,28 @@
 		<input type="text" class="form-control input-lg" 
 			placeholder="Numéro de carte de crédit" 
 			required="required" 
-			validator="required, number" 
+			validator="required, number, maxlength=16, minlength=16" 
 			name="cardNumber" 
 			ng-model="payment.number" 
 			valid-method="blur" 
 			required-error-message="Le numéro de est requis." 
+			number-error-message="Seuls des chiffres sont permis." 
+			maxlength-error-message="Le numéro devrait comporter 16 chiffres."
+			minlength-error-message="Le numéro devrait comporter 16 chiffres."
 		/>
 	</div>
 	<div class="col-sm-3">
 		<input type="text" class="form-control input-lg" 
 			placeholder="CCV" 
 			required="required" 
-			validator="required, number" 
+			validator="required, number, maxlength=3, minlength=3" 
 			name="cardCcv" 
 			ng-model="payment.ccv" 
 			valid-method="blur" 
 			required-error-message="Le CCV est requis." 
+			number-error-message="Seuls des chiffres sont permis." 
+			maxlength-error-message="Le numéro devrait comporter 16 chiffres."
+			minlength-error-message="Le numéro devrait comporter 16 chiffres."
 		/>
 	</div>
 	<div class="col-sm-6">

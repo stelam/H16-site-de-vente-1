@@ -53,7 +53,15 @@
         $scope.validatePayment = function(){
             $validationProvider.validate($scope.paymentForm).success(function(){
                 //$location.path("/caisse/informations-paiement");
-                
+                loadingScreen.show();
+                paymentService.preauthorize().then(function(data){
+                    if (data.data.success == true) {
+                        $location.path("/caisse/revue");
+                    }
+                }, function(errorData){
+                    loadingScreen.hide();
+                    messageService.showMessage(messageService.getMessage("ERROR_FORM"));
+                })
             }).error(function(e){
                 messageService.showMessage(messageService.getMessage("ERROR_FORM"));
             })

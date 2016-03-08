@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('checkoutIdentificationController', ["$injector", "$timeout", "$location", "cartService", "messageService", "authenticationService", "$scope", "$q", "$routeParams", "$rootScope", 
-        function($injector, $timeout, $location, cartService, messageService, authenticationService, $scope, $q, $routeParams, $rootScope){
+    .controller('checkoutIdentificationController', ["$injector", "$timeout", "$location", "cartService", "checkoutService", "messageService", "authenticationService", "$scope", "$q", "$routeParams", "$rootScope", 
+        function($injector, $timeout, $location, cartService, checkoutService, messageService, authenticationService, $scope, $q, $routeParams, $rootScope){
         var self = this;
 
         var $validationProvider = $injector.get('$validation');
@@ -37,11 +37,18 @@
 
         init().then(function(res){
             loadingScreen.hide();
-            
+
+            // s'assurer que la revue ait été faite
+            if (!checkoutService.isStepCompleted("review")) {
+                checkoutService.resetSteps();
+                $location.path("/caisse/revue");
+            }
+
             // s'assurer qu'il reste des items dans le panier
             $scope.$watch('currentCart.totalNbItems', function(newNbItems){
                 if (newNbItems == 0) {
                     $location.path("/caisse/revue");
+                    checkoutService.resetSteps();
                 }
             }, true);     
         });
@@ -55,7 +62,7 @@
                 var user = authenticationService.getFakeUser();
                 authenticationService.setUser(user);
                 $timeout(function(){
-
+                    checkoutService.setCompletedStep("identification");
                     $location.path("/caisse/informations-paiement");
                 }, 1500)
             }
@@ -65,6 +72,7 @@
 
         $scope.submitAnonymousIdentification = function(){
             $validationProvider.validate($scope.anonymousIdentificationForm).success(function(){
+                checkoutService.setCompletedStep("identification");
                 $location.path("/caisse/informations-paiement");
             }).error(function(e){
                 messageService.showMessage(messageService.getMessage("ERROR_FORM"));

@@ -55,7 +55,21 @@
 				type: "error",
 				code: "F1",
 				title: "Erreur",
-				message: "Veuillez saisir tous les champs."
+				message: "Veuillez vérifier les champs erronnés."
+			},
+
+			"ERROR_PREAUTHORIZATION_REJECTED" : {
+				type: "error",
+				code: "PR1",
+				title: "Erreur",
+				message: "La préautorisation a été rejetée. Veuillez vérifier que les informations que vous avez entrées sont valides et que le solde disponible à votre compte est suffisant."
+			},
+
+			"ERROR_PREAUTHORIZATION_API" : {
+				type: "error",
+				code: "PR2",
+				title: "Erreur",
+				message: "Une erreur s'est produite lors de la préautorisation, veuillez réessayer."
 			},
 		};
 

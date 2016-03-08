@@ -2,8 +2,8 @@
  "use strict";
 
   angular.module('app')
-    .factory('paymentService', ["$q", "$http", "SHOW_API_BASE_URL", "PAYMENT_API_KEY",
-	function($q, $http, SHOW_API_BASE_URL, PAYMENT_API_KEY){
+    .factory('paymentService', ["$q", "$http", "SHOW_API_BASE_URL", "PAYMENT_API_BASE_URL", "PAYMENT_API_KEY",
+	function($q, $http, SHOW_API_BASE_URL, PAYMENT_API_BASE_URL, PAYMENT_API_KEY){
 		var payment = {
 			preauthorized: false,
 			number : "1111111111111111",
@@ -28,7 +28,7 @@
 	    	preauthorize : function(){
 	    		return $http({
 					method: 'POST',
-					url: SHOW_API_BASE_URL+'/payment/preauthorize',
+					url: PAYMENT_API_BASE_URL+'/payment/preauthorize',
 					params: {
 						cardNumber: payment.number, 
 						ccv: payment.ccv,

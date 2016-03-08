@@ -25,7 +25,7 @@
 
 		var getFakeUser = function(){
 			return {
-				socialLogin : true,
+				socialLogin : "12341234124",
 				firstName: "John",
 				lastName: "Doe",
 				address : {

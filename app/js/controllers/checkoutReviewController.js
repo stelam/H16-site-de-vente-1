@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('checkoutReviewController', [ "showService", "cartService", "messageService", "$scope", "$q", "$routeParams", "$rootScope", 
-        function(showService, cartService, messageService, $scope, $q, $routeParams, $rootScope){
+    .controller('checkoutReviewController', [ "showService", "cartService", "checkoutService", "messageService", "$scope", "$q", "$routeParams", "$location", "$rootScope", 
+        function(showService, cartService, checkoutService, messageService, $scope, $q, $routeParams, $location, $rootScope){
         var self = this;
 
 
@@ -64,6 +64,12 @@
                 loadingScreen.hide();
                 messageService.showMessage(e);
             })
+        }
+
+        $scope.continue = function(){
+            checkoutService.setCompletedStep("review");
+            loadingScreen.show();
+            $location.path("/caisse/methode-identification");
         }
 
 

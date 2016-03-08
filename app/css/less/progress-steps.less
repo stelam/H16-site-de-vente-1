@@ -93,6 +93,10 @@ ul.upperNavigation li :not(active):active {
 }
 ul.upperNavigation li.active {
   cursor: default;
+
+  .step-nb {
+    color: @almost-white;
+  }
 }
 
 /* Flèche qui pointe vers le bas pour l'élément actif */
@@ -102,7 +106,7 @@ ul.upperNavigation li.active > a:after {
   color: @pastel-red;
   font-size: 24px;
   position: absolute;
-  bottom: -30px;
+  bottom: -26px;
   left:50%;
   margin-left: -10px;
 }
@@ -116,6 +120,20 @@ ul.upperNavigation li.active ~ li {
   border-color: #CDD6DB;
   cursor: not-allowed;
   color: #CDD6DB;
+
+  .step-nb {
+    color: lighten(@dark-gray, 10%);
+    &:hover {color: lighten(@dark-gray, 10%);}
+    cursor: not-allowed;
+  }
+
+  &.clickable {
+    &:before{cursor: pointer;}
+    cursor: pointer;
+    .step-nb, span {cursor: pointer;}
+    &:hover {color: @almost-white;}
+  }
+
 }
 ul.upperNavigation li.active ~ li:after,
 ul.upperNavigation li.active ~ li:before {

@@ -6,8 +6,8 @@
     "use strict";
 
     angular.module('app')
-        .directive('checkoutSteps', ['messageService', 'DIRECTIVE_TEMPLATE_PATH', '$timeout', '$rootScope', '$route', 
-        function (messageService, DIRECTIVE_TEMPLATE_PATH, $timeout, $rootScope, $route) {
+        .directive('checkoutSteps', ['messageService', 'DIRECTIVE_TEMPLATE_PATH', '$timeout', '$rootScope', '$route', "checkoutService",
+        function (messageService, DIRECTIVE_TEMPLATE_PATH, $timeout, $rootScope, $route, checkoutService) {
             return {
                 restrict: 'E',
                 scope: {
@@ -15,23 +15,17 @@
                 },
                 templateUrl: DIRECTIVE_TEMPLATE_PATH+"/checkout-steps-template.html",
                 link: function (scope, element) {
-                    scope.steps = [
-                        {
-                            state : "inactive"
-                        },
-
-                        {
-                            state : "inactive"
-                        },
-
-                        {
-                            state : "inactive"
-                        },
-                    ]
+                    scope.steps = checkoutService.getSteps();
 
                     function resetStepsState() {
-                        scope.steps.forEach(function(s){
-                            s.state = "inactive";
+                        scope.steps.forEach(function(s,i){
+                            if (s.state == "active")
+                                s.state = "inactive";
+                            if (scope.steps[i-1] && scope.steps[i-1].completed){
+                                var st = s.state.split(" ");
+                                s.state = st[0] + " clickable";
+                            }
+                                
                         })
                     }
 

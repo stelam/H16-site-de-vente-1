@@ -13,6 +13,13 @@
 					headers: {'Authorization': 'Token token=xxxxYYYYZzzz'} // exemple de token si on utilise cette méthode d'authentification
 			    });
 	    	},
+	    	getAll : function(){
+	    		return $http({
+					method: 'GET',
+					url: REAL_SHOW_API_BASE_URL+'/theater/theaters'
+			    });
+	    	},
+
 	    } 
     }])
 })();

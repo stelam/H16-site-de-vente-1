@@ -30,7 +30,7 @@
 
 
     	init().then(function(res){
-    		loadingScreen.hide();
+    		//loadingScreen.hide();
 
 
     	});

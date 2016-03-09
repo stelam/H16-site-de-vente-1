@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('adminTheaterController', ["$scope", "$controller", "authenticationService", "$q", "provinceService", "theaterService", 
-        function($scope, $controller, authenticationService, $q, provinceService, theaterService){
+    .controller('adminTheaterController', ["$scope", "$controller", "authenticationService", "$q", "$location", "provinceService", "theaterService", 
+        function($scope, $controller, authenticationService, $q, $location, provinceService, theaterService){
             var self = this;
             $scope.theater = {
                 name: "",
@@ -58,9 +58,10 @@
             $scope.create = function(){
                 loadingScreen.show();
                 theaterService.add($scope.theater).then(function(){
-                    alert("ajout réussit");
+                    messageService.showMessage(messageService.getMessage("INFO_ADD_SUCCESSFUL"));
+                    $location.path("/salles");
                 }, function(){
-                    alert("erreur")
+                    messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
                 })
             }
 

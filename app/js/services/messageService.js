@@ -71,6 +71,13 @@
 				title: "Erreur",
 				message: "Une erreur s'est produite lors de la préautorisation, veuillez réessayer."
 			},
+
+			"INFO_ADD_SUCCESSFUL" : {
+				type: "info",
+				code: "G1",
+				title: "Information",
+				message: "Ajout réussit."
+			}
 		};
 
     	return {

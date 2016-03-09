@@ -1,0 +1,42 @@
+<checkout-steps></checkout-steps>
+
+<div class="col-md-9 col-sm-12 cart-items" ng-if="currentCart.items.length > 0">
+	<h2>Sommaire de la commande</h2>
+	<div class="col-sm-12 head">
+		<label class="col-sm-4">&nbsp;</label>
+		<label class="col-sm-2">Date</label>
+		<label class="col-sm-2">Lieu</label>
+		<label class="col-sm-2">Prix</label>
+		<label class="col-sm-2">Quantité</label>
+	</div>
+
+	<article class="col-sm-12 cart-item" ng-repeat="item in currentCart.items">
+		<div class="col-sm-4">
+			{{item.show.artist}} - {{item.show.title}}
+			<p class="reservation-timer">
+				Ces billets vous sont réservés pour encore 
+				<strong>{{item.remainingReservationTime | date:'m:ss'}}</strong>.
+			</p>
+		</div>
+		<div class="col-sm-2">
+			<p>{{item.date}}</p>
+		</div>
+		<div class="col-sm-2">
+			<p>{{item.show.room}}</p>
+		</div>
+		<div class="col-sm-2">
+			{{item.show.price}} $
+		</div>
+		<div class="col-sm-2">
+			{{item.quantity}}
+		</div>
+	</article>
+</div>
+
+<div class="col-md-3 col-sm-12 subtotal-container" ng-if="currentCart.items.length > 0">
+	<h3>Sous-total : </h3>
+	<div class="subtotal">
+		<span><sup class="dollar-sign">$</sup>{{currentCart.total.dollars}}<sup class="cents">{{currentCart.total.cents}}</sup></span>
+	</div>
+	<a class="btn btn-goevents btn-lg btn-continue" ng-click="continue()">Confirmer et placer la commande <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+</div>

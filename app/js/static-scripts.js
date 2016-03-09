@@ -15,7 +15,7 @@ $(window).scroll(function() {
 $(document).ready(function(){
 
 	$('html').click(function(e) {
-		if (!$(e.target).hasClass('popover') && $(e.target).closest('.popover').length < 1){
+		if (!$(e.target).hasClass('popover')){
 	    	$('.popover').popover('hide');
 	    }
 	});

@@ -8,6 +8,11 @@
     	var currentCart = {
     		items: [],
     		totalNbItems : 0,
+            total : {
+                price : 0,
+                dollars : 0,
+                cents : 0
+            },
     		expiredItems: []
     	}
     	
@@ -243,13 +248,43 @@
     		return deferred.promise;
     	}
 
+        this.updateCartTotal = function(){
+            var deferred = $q.defer();
+            var total = {
+                price : 0,
+                dollars : 0,
+                cents : 0
+            }
+
+            currentCart.items.forEach(function(i){
+                total.price += parseFloat(parseFloat(i.show.price) * i.quantity).toFixed(2);
+            })
+            total.dollars += parseInt(total.price.toString().split(".")[0]);
+            total.cents += parseInt(total.price.toString().split(".")[1]);
+
+            currentCart.total = total;
+            deferred.resolve(true);
+            return deferred.promise;
+        }
+
         this.updateItemQuantity = function(item, newQuantity) {
             return self.isItemAvailable(item, newQuantity)
                 .then(function(data){return self.changeItemQuantity(item, newQuantity)})
                 .then(function(data){return self.validateItemQuantity(item)})
                 .then(function(data){return self.commitReserveItem(item)})
+                .then(function(data){return self.updateCartTotal(item)})
                 .then(function(data){return self.commitToLocalStorage()});
         }
+
+        this.empty = function(){
+            currentCart.items.forEach(function(item){
+                self.commitDeleteItem(item);
+                self.removeItemById(item.itemId);
+                self.updateCartTotal(item);
+                self.commitToLocalStorage();
+            })
+        }
+
 
 		this.initCart();
 
@@ -259,6 +294,7 @@
 	    			.then(function(data){return self.incrementItemQuantity(item, quantity)})
 	    			.then(function(data){return self.validateItemQuantity(item)})
 	    			.then(function(data){return self.commitReserveItem(item)})
+                    .then(function(data){return self.updateCartTotal(item)})
 	    			.then(function(data){return self.commitToLocalStorage()});
 
 	    	},
@@ -274,12 +310,15 @@
             removeItem :function(item){
                 return self.commitDeleteItem(item)
                     .then(function(data){return self.removeItemById(item.itemId)})
+                    .then(function(data){return self.updateCartTotal(item)})
                     .then(function(data){return self.commitToLocalStorage()});
             },
 
 	    	removeExpiredItem : function(item) {
 	    		return self.removeExpiredItem(item);
 	    	},
+
+            empty: self.empty,
 
 	    	getItemById: self.getItemById,
 

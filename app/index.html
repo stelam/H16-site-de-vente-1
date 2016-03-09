@@ -1,13 +1,16 @@
-<!DOCTYPE html>
+f<!DOCTYPE html>
 <html lang="en" ng-app="app">
 	<head>
 		<meta charset="utf-8">
 		<title ng-bind="'GOEVENTS! &mdash; ' + title">GOEVENTS!</title>
 		<meta name="description" content="Static site - GOEVENTS!">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="css/styles.css?v=1.0">
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+		<link rel="stylesheet" type="text/css" href="bower_components/angular-ui-select/dist/select.min.css">
 		<link rel="stylesheet" type="text/less" href="css/styles.less">
 	</head>
 	<body route-class>
@@ -30,7 +33,7 @@
 				</nav>
 				<div class="col-sm-1 col-lg-4 pull-right right-actions">
 					<form method="GET" action="./" class="search-wrapper col-sm-10">
-						<input id="search" name="recherche" class="search form-control input-lg" placeholder="Rechercher un spectacle ou un artiste..."/>
+						<input data-search="" id="search" name="recherche" class="search form-control input-lg" placeholder="Rechercher un spectacle ou un artiste..."/>
 						<input type="hidden" name="page" value="spectacles" />
 					</form>
 					<div class="cart-wrapper col-sm-2">
@@ -77,7 +80,11 @@
 		<script src="bower_components/angular-animate/angular-animate.min.js"></script>
 		<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 		<script src="bower_components/angular-slugify/angular-slugify.js"></script>
+		<script src="bower_components/angular-validation/dist/angular-validation.js"></script>
+		<script src="bower_components/angular-validation/dist/angular-validation-rule.js"></script>
 		<script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+
+		<script src="bower_components/angular-ui-select/dist/select.min.js"></script>
 
 		<!-- NON BOWER VENDOR SCRIPTS -->
 		<script src="js/vendors/class.js"></script>
@@ -94,12 +101,19 @@
 		<script src="js/controllers/showListController.js"></script>
 		<script src="js/controllers/showDetailsController.js"></script>
 		<script src="js/controllers/checkoutReviewController.js"></script>
+		<script src="js/controllers/checkoutIdentificationController.js"></script>
+		<script src="js/controllers/checkoutPaymentController.js"></script>
+		<script src="js/controllers/checkoutSummaryController.js"></script>
+		<script src="js/controllers/orderConfirmationController.js"></script>
 
 		<!-- services -->
 		<script src="js/services/showService.js"></script>
 		<script src="js/services/cartService.js"></script>
 		<script src="js/services/messageService.js"></script>
 		<script src="js/services/checkoutService.js"></script>
+		<script src="js/services/authenticationService.js"></script>
+		<script src="js/services/paymentService.js"></script>
+		<script src="js/services/orderService.js"></script>
 
 		<!-- directives -->
 		<script src="js/directives/activeMenu.js"></script>
@@ -109,6 +123,7 @@
 		<script src="js/directives/cart.js"></script>
 		<script src="js/directives/modal.js"></script>
 		<script src="js/directives/checkoutSteps.js"></script>
+		<script src="js/directives/search.js"></script>
 
 		<script src="js/static-scripts.js"></script>
 	</body>

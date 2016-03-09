@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+	<head>
+		<meta charset="utf-8">
+		<title ng-bind="'GOEVENTS! &mdash; ' + title">Authentification par réseau social</title>
+		<meta name="description" content="Static site - GOEVENTS!">
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+	</head>
+	<body route-class>
+		<div class="container-fluid">
+			<header class="site-nav row">
+				<h1 class="center">Authentification réseau social</h1>
+			</header>
+			<section class="content" ng-view>
+				<form>
+					<input placeholder="email" type="text" class="form-control"/>
+					<input placeholder="mot de passe" type="text" class="form-control"/>
+					<button onclick="window.close();">S'authentifier</button>
+				</form>
+			</section>
+
+		</div>
+		<script>
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,94 @@
+<checkout-steps></checkout-steps>
+
+<form name="anonymousIdentificationForm" ng-submit="submitAnonymousIdentification()" class="anon-form col-md-6 col-sm-12 col-md-offset-3" novalidate>
+
+	<h2>Vos coordonnées</h2>
+	<div class="col-sm-6">
+		<input type="text" class="form-control input-lg" 
+			required="required" 
+			validator="required" 
+			name="prenom" 
+			placeholder="Prénom" 
+			ng-model="user.firstName" 
+			valid-method="blur" 
+			required-error-message="Votre prénom est requis." 
+		/>
+	</div>
+
+	<div class="col-sm-6 pull-right">
+		<input type="text" class="form-control input-lg" 
+			required="required" 
+			validator="required" 
+			name="nom" 
+			placeholder="Nom" 
+			ng-model="user.lastName" 
+			valid-method="blur" 
+			required-error-message="Votre nom est requis." 
+		/>
+	</div>
+
+	<div class="col-sm-4">
+		<input type="text" class="form-control input-lg" 
+			required="required" 
+			validator="required, number" 
+			name="civicNumber" 
+			placeholder="Numéro civique" 
+			ng-model="user.address.civicNumber" 
+			valid-method="blur" 
+			required-error-message="Votre numéro civique est requis." 
+			number-error-message="Votre numéro civique doit être un chiffre." 
+		/>
+	</div>
+
+	<div class="col-sm-8">
+		<input type="text" class="form-control input-lg" 
+			required="required" 
+			validator="required" 
+			name="street" 
+			placeholder="Rue" 
+			ng-model="user.address.street" 
+			valid-method="blur" 
+			required-error-message="La rue est requise." 
+		/>
+	</div>
+
+	<div class="col-sm-4">
+		<input type="text" class="form-control input-lg" 
+			required="required" 
+			validator="required" 
+			name="city" 
+			placeholder="Ville" 
+			ng-model="user.address.city" 
+			valid-method="blur" 
+			required-error-message="La ville est requise." 
+		/>
+	</div>
+
+	<div class="col-sm-4">
+
+
+	  	<ui-select ng-model="user.address.province" theme="selectize" required="required" name="province" valid-method="blur" required-error-message="La province est requise." message-id="ui-select">
+		    <ui-select-match placeholder="Choisir ou chercher une province">{{$select.selected}}</ui-select-match>
+		    <ui-select-choices repeat="province in provinces | filter: $select.search">
+		      <span ng-bind-html="province | highlight: $select.search"></span>
+		    </ui-select-choices
+	    </ui-select>
+
+	</div>
+	<div class="col-sm-4">
+		<input type="text" class="form-control input-lg" 
+			required="required" 
+			validator="required" 
+			name="postalCode" 
+			placeholder="Code postal" 
+			ng-model="user.address.postalCode" 
+			valid-method="blur" 
+			required-error-message="Le code postal est requise." 
+		/>
+	</div>
+	<div class="col-sm-12">
+		<hr/>
+		<a class="btn btn-goevents btn-lg" href="#/caisse/methode-identification"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Revenir</a>
+		<button class="btn btn-goevents btn-lg pull-right" ng-click="submitAnonymousIdentification()">Continuer<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" validation-submit="anonymousIdentificationForm"></span></button>
+	</div>
+</form>

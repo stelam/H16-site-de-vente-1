@@ -20,7 +20,7 @@
 
 <div class="col-sm-10 confirmation">
 	<div class="col-sm-12">
-		<h1>Votre commande (#624652) a été placée avec succès</h1>
+		<h1>Votre commande (#624652) a été placée avec succès.</h1>
 	</div>
 
 	<div class="col-sm-12 instructions">

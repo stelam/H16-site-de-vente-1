@@ -39,6 +39,10 @@ public interface ShowAPIService {
     @RequestMapping(value = "/shows", method = RequestMethod.GET)
     List<Show> getShowsList();
 
+    @RequestMapping(value = "/search", params="query", method = RequestMethod.GET)
+    List<Show> searchByArtistOrByName();
+
+
 
 
 }

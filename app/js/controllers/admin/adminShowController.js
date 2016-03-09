@@ -10,7 +10,20 @@
     .controller('adminShowController', ["$scope", "$controller", "authenticationService", "$q", 
         function($scope, $controller, authenticationService, $q){
             var self = this;
-            $scope.unpublishedShows = [];
+            $scope.show = {
+                name: "",
+                artistName: "",
+                imageUrl: "",
+                description: "",
+                isFeatured: false,
+                showPresentationList : [
+                    {
+                        timeinmillis: Date.now() * 1000,
+                        numberOfPlaces: 0,
+                        price: 0.00
+                    }
+                ]
+            }
 
             // Instancier le contrôleur de base
             $controller('baseAdminController', { $scope: $scope });
@@ -37,9 +50,24 @@
 
         	init().then(function(res){
         		loadingScreen.hide();
-
-
         	});
+
+
+            $scope.addPresentation = function(){
+                $scope.show.showPresentationList.push({
+                    timeinmillis: Date.now() * 1000,
+                    numberOfPlaces: 0,
+                    price: 0.00
+                })
+            }
+
+            $scope.deletePresentation = function(pres, i){
+                $scope.show.showPresentationList.forEach(function(p){
+                    if(p == pres){
+                        $scope.show.showPresentationList.splice(i, 1);
+                    }
+                })
+            }
 
 
     }])

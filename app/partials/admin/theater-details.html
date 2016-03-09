@@ -1,4 +1,5 @@
-<h1 class="center">Création d'une salle</h1>
+<h1 class="center" ng-if="!theater.id">Création d'une salle</h1>
+<h1 class="center" ng-if="theater.id">Modification d'une salle</h1>
 <div role="tabpanel" class="tab-pane" id="creationSalle">
 	<form name="newTheater" class="form-horizontal">
 		<div class="form-group">

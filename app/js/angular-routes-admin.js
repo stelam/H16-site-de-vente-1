@@ -9,7 +9,7 @@
 				controller: 'adminShowListController',
 				title: 'Liste des spectacles'
 			}).when('/spectacle/nouveau', {
-				templateUrl: 'partials/admin/new-show.html',
+				templateUrl: 'partials/admin/show-details.html',
 				controller: 'adminShowController',
 				title: 'Nouveau spectacle'
 			}).when('/salle/nouvelle', {

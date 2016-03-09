@@ -1,0 +1,110 @@
+<h1 class="center" ng-if="!show.id">Création d'un spectacle</h1>
+<h1 class="center" ng-if="show.id">Modification d'un spectacle</h1>
+
+
+<div id="creationSalle">
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label for="inputName" class="col-sm-2 control-label">Nom</label>
+
+			<div class="col-sm-10">
+				<input type="text" ng-model="show.name" class="form-control" id="inputName" placeholder="Nom" value=""/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="inputArtiste" class="col-sm-2 control-label">Artiste</label>
+			
+			<div class="col-sm-10">
+				<input type="text" ng-model="show.artistName" class="form-control" id="inputArtiste" placeholder="Artiste" value=""/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="inputDescription" class="col-sm-2 control-label">Description</label>
+			
+			<div class="col-sm-10">
+				<textarea type="text" ng-model="show.description" class="form-control" id="inputDescription" placeholder="Description" value=""></textarea>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label for="inputSalle" class="col-sm-2 control-label">Salle</label>
+			
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="inputSalle" placeholder="Salle" value="">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="InputImg" class="col-sm-2 control-label">Image</label>
+			
+			<div class="col-sm-10">
+				<input type="file" class="form-control" id="InputImg" ng-model="show.imageUrl" />
+			</div>
+		</div>		
+
+		<!--<div class="form-group">
+			<label for="inputActif" class="col-sm-2 control-label">Actif</label>
+			
+			<div class="col-sm-10">
+				<input type="checkbox" class="form-control" id="inputActif" ng-model="show.active"/>
+			</div>
+		</div>-->
+
+		<div class="form-group">
+			<label for="inputFeatured" class="col-sm-2 control-label">En vedette</label>
+			
+			<div class="col-sm-10">
+				<input type="checkbox" class="form-control" id="inputFeatured" ng-model="show.isFeatured"/>
+			</div>
+		</div>
+
+		<hr/>
+
+		<h2>Présentations :<button type="button" ng-click="addPresentation()" class="btn btn-default pull-right">+ Ajouter une présentation</button> </h2>
+		<div class="presentation-list">
+			<article class="presentation" ng-repeat="presentation in show.showPresentationList">
+				<div class="form-group">
+					<label for="inputDate-{{$index}}" class="col-sm-2 control-label">Date</label>
+					
+					<div class="col-sm-10">
+						<input type="date" class="form-control" id="inputDate-{{$index}}" placeholder="Date" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="inputNbPlaces-{{$index}}" class="col-sm-2 control-label">Nb. de places</label>
+					
+					<div class="col-sm-10">
+						<input type="number" ng-model="presentation.numberOfPlaces" class="form-control" id="inputNbPlaces-{{$index}}" placeholder="Nombre de places" value=""/>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<label for="inputPrice-{{$index}}" class="col-sm-2 control-label">Prix</label>
+					
+					<div class="col-sm-10">
+						<input type="number" ng-model="prsentation.price" class="form-control" id="inputPrice-{{$index}}" placeholder="Prix" value=""/>
+					</div>
+				</div>
+
+				<button type="button" ng-click="deletePresentation(presentation)" class="btn btn-warning">Supprimer la présentation</button>
+
+			</article>
+		</div>
+
+		<hr/>
+
+		<div class="form-group">
+			<div class="col-sm-12">
+				<button ng-if="!show.id" type="button" ng-click="create()" class="btn btn-success pull-right">Créer le spectacle</button>
+				<button ng-if="show.id" type="button" ng-click="save()" class="btn btn-success pull-right">Enregistrer les modifications</button>
+				<!--<button type="button" class="btn btn-warning">Reset</button>-->
+			</div>
+		</div>
+	</form>
+
+</div>

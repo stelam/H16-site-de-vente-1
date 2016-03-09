@@ -64,6 +64,11 @@
 	        controller: 'orderConfirmationController',
 	        ident: 'order-confirmation',
 	        title: 'Confirmation d\'achat'
+	      }).when('/spectacles/recherche/:searchQuery', {
+	        templateUrl: 'partials/show-list.html',
+	        controller: 'showListController',
+	        ident: 'spectacles-search',
+	        title: 'Résultats de recherche'
 	      }).
 	      otherwise({
 	        redirectTo: '/'

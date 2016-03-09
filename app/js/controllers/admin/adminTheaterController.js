@@ -1,47 +1,42 @@
 /*
 * Contrôleur pour une salle de spectacle
-*
+* (création, édition)
 *
 */
 (function(){   
  "use strict";
 
   angular.module('app')
-    .controller('adminTheaterController', ["$scope", "$controller", "authenticationService", "$q", "$location", "provinceService", "theaterService", 
-        function($scope, $controller, authenticationService, $q, $location, provinceService, theaterService){
+    .controller('adminTheaterController', ["$scope", "$routeParams", "$controller", "authenticationService", "messageService", "$q", "$location", "provinceService", "theaterService", 
+        function($scope, $routeParams, $controller, authenticationService, messageService, $q, $location, provinceService, theaterService){
             var self = this;
-            $scope.theater = {
-                name: "",
-                phoneNumber: "",
-                zipCode : "",
-                address : "",
-                city : "",
-                capacity : 0,
-                province: {
-                    provinceName: "Quebec"
-                },
-                active: true
-            };
-
-            $scope.provinces = provinceService.provinces;
+            var asyncCalls = [];
 
             // Instancier le contrôleur de base
             $controller('baseAdminController', { $scope: $scope });
 
+
+            if ($routeParams.idTheater){
+                asyncCalls.push(theaterService.getById($routeParams.idTheater));
+            } else {
+                $scope.theater = theaterService.emptyTheater;
+            }
+
+            $scope.provinces = provinceService.provinces;
+
+
+
             var init = function(){
                 loadingScreen.show();
 
-                // lorsque la sécurité sera implémentée dans le backend, vérifier
-                // si logged in, sinon rediriger vers l'écran de login
 
-
-                return $q.all([
-                    // d'autres appels asynchrones peuvent être faits ici
-
-                ]).then(function(res){
-                    return {
-                        
+                return $q.all(asyncCalls).then(function(res){
+                    if (res.length){
+                        return {
+                            theater : res[0].data
+                        }                        
                     }
+
                 }).catch(function(e){
                     messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
                 })
@@ -51,6 +46,9 @@
         	init().then(function(res){
         		loadingScreen.hide();
 
+                if (res) {
+                    $scope.theater = res.theater;
+                }
 
         	});
 
@@ -59,6 +57,17 @@
                 loadingScreen.show();
                 theaterService.add($scope.theater).then(function(){
                     messageService.showMessage(messageService.getMessage("INFO_ADD_SUCCESSFUL"));
+                    $location.path("/salles");
+                }, function(){
+                    messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
+                })
+            }
+
+
+            $scope.save = function(){
+                loadingScreen.show();
+                theaterService.add($scope.theater).then(function(){
+                    messageService.showMessage(messageService.getMessage("INFO_SAVE_SUCCESSFUL"));
                     $location.path("/salles");
                 }, function(){
                     messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));

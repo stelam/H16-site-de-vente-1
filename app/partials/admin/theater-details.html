@@ -51,9 +51,19 @@
 			</div>
 		</div>
 
+
+		<div class="form-group">
+			<label for="inputActif" class="col-sm-2 control-label">Actif</label>
+			
+			<div class="col-sm-10">
+				<input type="checkbox" class="form-control" id="inputActif" ng-model="theater.active">
+			</div>
+		</div>
+
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="button" ng-click="create()" class="btn btn-success">Créer la salle</button>
+				<button ng-if="!theater.id" type="button" ng-click="create()" class="btn btn-success">Créer la salle</button>
+				<button ng-if="theater.id" type="button" ng-click="save()" class="btn btn-success">Enregistrer les modifications</button>
 				<!-- Remet les valeurs à zéro -->
 				<!--<button type="button" class="btn btn-warning">Reset</button>-->
 			</div>

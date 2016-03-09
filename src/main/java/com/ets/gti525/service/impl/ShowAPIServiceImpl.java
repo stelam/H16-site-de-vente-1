@@ -67,7 +67,7 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         List<Ticket> ticketList = ticketDAO.findByShowPresentationId(presentationShowId);
         int numberOfTicketSold = 0;
         for (Ticket ticket : ticketList) {
-            if (ticket.getShowPresentationId() == showPresentation.getId()) {
+            if (ticket.getShowPresentationId() == (showPresentation.getId())) {
                 numberOfTicketSold++;
             }
         }
@@ -83,6 +83,19 @@ public class ShowAPIServiceImpl implements ShowAPIService {
     @Override
     public List<Show> getFeaturedShow() {
         return showDAO.findByIsFeaturedTrue();
+    }
+
+    @Override
+    public List<show> searchByArtistOrByName(@RequestParam String query) {
+        ArrayList<Show> searchResults = new ArrayList<Show>();
+
+        List<Show> matchingShowsByName = showDAO.findByNameContainingIgnoreCase(query);
+        searchResults.addAll(matchingShowsByName);
+
+        List<Show> matchingShowsByArtistName = companyManager.findByArtistNameContainingIgnoreCase(query);
+        searchResults.addAll(matchingShowsByArtistName);
+
+        return searchResults;
     }
 
     @Override

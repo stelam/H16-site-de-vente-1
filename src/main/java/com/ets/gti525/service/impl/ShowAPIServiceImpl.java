@@ -86,19 +86,6 @@ public class ShowAPIServiceImpl implements ShowAPIService {
     }
 
     @Override
-    public List<show> searchByArtistOrByName(@RequestParam String query) {
-        ArrayList<Show> searchResults = new ArrayList<Show>();
-
-        List<Show> matchingShowsByName = showDAO.findByNameContainingIgnoreCase(query);
-        searchResults.addAll(matchingShowsByName);
-
-        List<Show> matchingShowsByArtistName = companyManager.findByArtistNameContainingIgnoreCase(query);
-        searchResults.addAll(matchingShowsByArtistName);
-
-        return searchResults;
-    }
-
-    @Override
     public List<Show> getShowsByDate(@RequestParam() long timeinmillis) {
         List<Show> showList = Lists.newArrayList(showDAO.findAll());
         List<Show> filteredShowList = new ArrayList<>();

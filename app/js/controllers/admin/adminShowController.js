@@ -1,5 +1,5 @@
 /*
-* Contrôleur pour la liste des spectacles
+* Contrôleur pour un spectacle
 *
 *
 */
@@ -7,7 +7,7 @@
  "use strict";
 
   angular.module('app')
-    .controller('adminShowListController', ["$scope", "$controller", "authenticationService", "$q", 
+    .controller('adminShowController', ["$scope", "$controller", "authenticationService", "$q", 
         function($scope, $controller, authenticationService, $q){
             var self = this;
             $scope.unpublishedShows = [];

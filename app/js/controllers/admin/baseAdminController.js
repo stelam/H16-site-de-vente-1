@@ -1,5 +1,5 @@
 /*
-* Contrôleur de base pour les contrôleur admins
+* Contrôleur de base pour les contrôleurs admins 
 *
 *
 */
@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('baseAdminController', [ "authenticationService", "$q", 
-        function(authenticationService, $q){
+    .controller('baseAdminController', [ "authenticationService", "$q", "$location", "provinceService",
+        function(authenticationService, $q, $location, provinceService){
         var self = this;
 
 

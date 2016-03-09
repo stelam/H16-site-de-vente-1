@@ -1,0 +1,62 @@
+<h1 class="center">Création d'une salle</h1>
+<div role="tabpanel" class="tab-pane" id="creationSalle">
+	<form name="newTheater" class="form-horizontal">
+		<div class="form-group">
+			<label for="inputName" class="col-sm-2 control-label">Nom</label>
+
+			<div class="col-sm-10">
+				<input type="text" class="form-control" ng-model="theater.name" id="inputName" placeholder="Nom" value="">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="inputAdresse" class="col-sm-2 control-label">Adresse</label>
+			
+			<div class="col-sm-10">
+				<input type="text" class="form-control" ng-model="theater.address" id="inputAdresse" placeholder="Adresse" value="">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="inputCity" class="col-sm-2 control-label">Ville</label>
+			
+			<div class="col-sm-10">
+				<input type="text" class="form-control" ng-model="theater.city" id="inputCity" placeholder="Ville" value="">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="inputProvince" class="col-sm-2 control-label">Province</label>
+			
+			<div class="col-sm-10">
+				<select class="form-control" ng-options="province as province.provinceName for province in provinces track by province.provinceName" ng-model="theater.province">
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputZip" class="col-sm-2 control-label">Code Postal</label>
+			
+			<div class="col-sm-10">
+				<input type="text" class="form-control" ng-model="theater.zipCode" id="inputZip" placeholder="Code Postal" value="">
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			<label for="inputCapacite" class="col-sm-2 control-label">Capacité</label>
+			
+			<div class="col-sm-10">
+				<input type="number" class="form-control" ng-model="theater.capacity" id="inputCapacite" placeholder="Capacité" value="">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="button" ng-click="create()" class="btn btn-success">Créer la salle</button>
+				<!-- Remet les valeurs à zéro -->
+				<!--<button type="button" class="btn btn-warning">Reset</button>-->
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,1 +1,20 @@
-hello!
+<section>
+	<h1>Spectacles non publiés</h1>
+	<div id="liste-spectacles-inactifs">
+		<div class="row" ng-repeat="show in unpublishedShows">
+            <div class="col-md-6">
+                <h4>
+                    <a class="titleShow" href="#adminSpectacle" aria-controls="spectacles" data-toggle="tab" >
+                    Spectacle non-publiés 1                    </a>
+                </h4>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-default">Modifier</button>
+                <button type="button" class="btn btn-warning">Dupliquer</button>
+                <button type="button" class="btn btn-danger">Supprimer</button>
+                <span class=" handle glyphicon glyphicon-move" aria-hidden="true"></span>
+            </div>
+        </div>
+	</div>
+
+</section>

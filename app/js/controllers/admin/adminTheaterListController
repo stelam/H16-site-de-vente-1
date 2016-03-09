@@ -1,5 +1,5 @@
 /*
-* Contrôleur pour la liste des spectacles
+* Contrôleur pour la liste des salles
 *
 *
 */
@@ -7,19 +7,16 @@
  "use strict";
 
   angular.module('app')
-    .controller('adminShowListController', ["$scope", "$controller", "authenticationService", "$q", 
-        function($scope, $controller, authenticationService, $q){
+    .controller('adminTheaterListController', ["$scope", "$controller", "authenticationService", "$q", "provinceService", "theaterService", 
+        function($scope, $controller, authenticationService, $q, provinceService, theaterService){
             var self = this;
-            $scope.unpublishedShows = [];
+ 
 
             // Instancier le contrôleur de base
             $controller('baseAdminController', { $scope: $scope });
 
             var init = function(){
                 loadingScreen.show();
-
-                // lorsque la sécurité sera implémentée dans le backend, vérifier
-                // si logged in, sinon rediriger vers l'écran de login
 
 
                 return $q.all([

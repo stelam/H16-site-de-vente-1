@@ -67,7 +67,7 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         List<Ticket> ticketList = ticketDAO.findByShowPresentationId(presentationShowId);
         int numberOfTicketSold = 0;
         for (Ticket ticket : ticketList) {
-            if (ticket.getShowPresentationId() == (showPresentation.getId())) {
+            if (ticket.getShowPresentationId() == showPresentation.getId()) {
                 numberOfTicketSold++;
             }
         }

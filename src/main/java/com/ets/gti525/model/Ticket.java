@@ -11,7 +11,7 @@ public class Ticket {
     @GeneratedValue
     private Long id;
 
-    private Long showPresentationId;
+    private int showPresentationId;
 
     public Ticket() {
 
@@ -25,11 +25,11 @@ public class Ticket {
         this.id = id;
     }
 
-    public Long getShowPresentationId() {
+    public int getShowPresentationId() {
         return showPresentationId;
     }
 
-    public void setShowPresentationId(Long showPresentationId) {
+    public void setShowPresentationId(int showPresentationId) {
         this.showPresentationId = showPresentationId;
     }
 }

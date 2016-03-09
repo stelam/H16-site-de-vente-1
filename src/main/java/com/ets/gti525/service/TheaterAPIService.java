@@ -18,9 +18,12 @@ public interface TheaterAPIService {
     List<Theater> getTheaterList();
 
     @RequestMapping(method = RequestMethod.GET)
-    Theater getTheaterById(@RequestParam int id);
+    Theater getTheaterById(@RequestParam Long id);
 
     @RequestMapping(value = "/remove", method = RequestMethod.DELETE)
-    Theater removeTheather(@RequestParam int id);
+    void removeTheather(@RequestParam Long id);
+
+    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    Theater editTheater(@RequestBody Theater theater);
 
 }

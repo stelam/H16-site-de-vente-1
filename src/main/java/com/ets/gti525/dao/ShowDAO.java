@@ -1,19 +1,17 @@
 package com.ets.gti525.dao;
 
 import com.ets.gti525.model.Show;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface ShowDAO {
+@Repository
+public interface ShowDAO extends CrudRepository<Show, Long>{
 
-    Show addShow(Show show);
     Show findShowByName(String name);
-    Show findShowById(int id);
-    List<Show> findShowsByArtist(String name);
-    Show removeShow(int id);
-    Show editShow(Show show);
-    List<Show> getShows();
-    List<Show> getFeaturedShows();
+    List<Show> findByArtistName(String artistName);
+    List<Show> findByIsFeaturedTrue();
 }
 
 

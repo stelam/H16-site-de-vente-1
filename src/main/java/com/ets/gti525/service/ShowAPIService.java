@@ -13,7 +13,7 @@ public interface ShowAPIService {
     Show addShow(@RequestBody Show show);
 
     @RequestMapping(params = "id", method = RequestMethod.GET)
-    Show getShowById(@RequestParam() int id);
+    Show getShowById(@RequestParam() Long id);
 
     @RequestMapping(params = "showName", method = RequestMethod.GET)
     Show getShowByName(@RequestParam() String showName);
@@ -28,13 +28,13 @@ public interface ShowAPIService {
     List<Show> getShowsByDate(@RequestParam() long timeinmillis);
 
     @RequestMapping(value = "/remove", method = RequestMethod.DELETE)
-    Show removeShow(@RequestParam int id);
+    void removeShow(@RequestParam Long id);
 
-    @RequestMapping(value = "/modify", method = RequestMethod.PUT)
-    Show modifyShow(@RequestBody Show show);
+    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    Show editShow(@RequestBody Show show);
 
     @RequestMapping(value = "/isShowAvailable", method = RequestMethod.GET)
-    boolean isShowAvailable(@RequestParam int presentationShowId);
+    boolean isShowAvailable(@RequestParam Long presentationShowId);
 
     @RequestMapping(value = "/shows", method = RequestMethod.GET)
     List<Show> getShowsList();

@@ -1,25 +1,32 @@
 package com.ets.gti525.model;
 
 
-import com.ets.gti525.model.City;
+import javax.persistence.*;
 
+@Entity
 public class User {
 
-    private int id;
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private String email;
     private String zipCode;
     private String address;
-    private City city;
+    private String city;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    private Province province;
 
     public User() {
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,11 +54,20 @@ public class User {
         this.address = address;
     }
 
-    public City getCity() {
+
+    public String getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(String city) {
         this.city = city;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
     }
 }

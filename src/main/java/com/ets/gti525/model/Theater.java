@@ -1,26 +1,36 @@
 package com.ets.gti525.model;
 
 
+import javax.persistence.*;
+
+@Entity
 public class Theater {
 
-    private int id;
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private String name;
     private String phoneNumber;
     private String zipCode;
     private String address;
+    private String city;
     private int capacity;
     private boolean active;
-    private City city;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    private Province province;
+
 
     public Theater() {
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -72,11 +82,19 @@ public class Theater {
         this.zipCode = zipCode;
     }
 
-    public City getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(String city) {
         this.city = city;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
     }
 }

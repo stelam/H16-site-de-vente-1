@@ -1,7 +1,7 @@
 package com.ets.gti525.service.impl;
 
 
-import com.ets.gti525.BusinessDelegate;
+
 import com.ets.gti525.dao.ShowDAO;
 import com.ets.gti525.dao.ShowPresentationDAO;
 import com.ets.gti525.dao.TicketDAO;
@@ -9,63 +9,62 @@ import com.ets.gti525.model.Show;
 import com.ets.gti525.model.ShowPresentation;
 import com.ets.gti525.model.Ticket;
 import com.ets.gti525.service.ShowAPIService;
+import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 @Controller
 public class ShowAPIServiceImpl implements ShowAPIService {
 
+    @Autowired
     private ShowDAO showDAO;
+
+    @Autowired
     private TicketDAO ticketDAO;
+
+    @Autowired
     private ShowPresentationDAO showPresentationDAO;
 
     @Override
     public Show addShow(@RequestBody Show show) {
-        showDAO = BusinessDelegate.getShowDAO();
-        return showDAO.addShow(show);
+        return showDAO.save(show);
     }
 
     @Override
-    public Show getShowById(@RequestParam int id) {
-        showDAO = BusinessDelegate.getShowDAO();
-        return showDAO.findShowById(id);
+    public Show getShowById(@RequestParam Long id) {
+        return showDAO.findOne(id);
     }
 
     @Override
     public Show getShowByName(@RequestParam String showName) {
-        showDAO = BusinessDelegate.getShowDAO();
         return showDAO.findShowByName(showName);
     }
 
     @Override
     public List<Show> getShowsByArtist(@RequestParam String artistName) {
-        showDAO = BusinessDelegate.getShowDAO();
-        return showDAO.findShowsByArtist(artistName);
+        return showDAO.findByArtistName(artistName);
     }
 
     @Override
-    public Show removeShow(@RequestParam int id) {
-        showDAO = BusinessDelegate.getShowDAO();
-        return showDAO.removeShow(id);
+    public void removeShow(@RequestParam Long id) {
+        showDAO.delete(id);
     }
 
     @Override
-    public Show modifyShow(@RequestBody Show show) {
-        showDAO = BusinessDelegate.getShowDAO();
-        return showDAO.editShow(show);
+    public Show editShow(@RequestBody Show show) {
+        return showDAO.save(show);
     }
 
     @Override
-    public boolean isShowAvailable(@RequestParam int presentationShowId) {
-        showPresentationDAO = BusinessDelegate.getShowPresentationDAO();
-        ticketDAO = BusinessDelegate.getTicketDAO();
-
-        ShowPresentation showPresentation = showPresentationDAO.findShowPresentationById(presentationShowId);
-        List<Ticket> ticketList = ticketDAO.getTicketsByShowPresentationId(presentationShowId);
+    public boolean isShowAvailable(@RequestParam Long presentationShowId) {
+        ShowPresentation showPresentation = showPresentationDAO.findOne(presentationShowId);
+        List<Ticket> ticketList = ticketDAO.findByShowPresentationId(presentationShowId);
         int numberOfTicketSold = 0;
         for (Ticket ticket : ticketList) {
             if (ticket.getShowPresentationId() == showPresentation.getId()) {
@@ -78,20 +77,17 @@ public class ShowAPIServiceImpl implements ShowAPIService {
 
     @Override
     public List<Show> getShowsList() {
-        showDAO = BusinessDelegate.getShowDAO();
-        return showDAO.getShows();
+        return Lists.newArrayList(showDAO.findAll());
     }
 
     @Override
     public List<Show> getFeaturedShow() {
-        showDAO = BusinessDelegate.getShowDAO();
-        return showDAO.getFeaturedShows();
+        return showDAO.findByIsFeaturedTrue();
     }
 
     @Override
     public List<Show> getShowsByDate(@RequestParam() long timeinmillis) {
-        showDAO = BusinessDelegate.getShowDAO();
-        List<Show> showList = showDAO.getShows();
+        List<Show> showList = Lists.newArrayList(showDAO.findAll());
         List<Show> filteredShowList = new ArrayList<>();
         for (Show show : showList) {
             if (show.getShowPresentationList() != null) {

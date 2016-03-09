@@ -1,16 +1,21 @@
 package com.ets.gti525.model;
 
-
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Show {
 
-    private int id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String name;
     private String artistName;
     private String imageUrl;
     private String description;
     private boolean isFeatured;
+
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ShowPresentation> showPresentationList;
 
     public Show() {
@@ -28,11 +33,11 @@ public class Show {
         this.showPresentationList = show.showPresentationList;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -72,8 +77,8 @@ public class Show {
         return isFeatured;
     }
 
-    public void setFeatured(boolean featured) {
-        isFeatured = featured;
+    public void setFeatured(boolean isFeatured) {
+        this.isFeatured = isFeatured;
     }
 
 

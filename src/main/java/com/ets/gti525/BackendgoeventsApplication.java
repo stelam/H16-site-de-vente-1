@@ -12,7 +12,6 @@ public class BackendgoeventsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackendgoeventsApplication.class, args);
-		DataManager.initializeData();
 	}
 
 	@Bean
@@ -20,7 +19,7 @@ public class BackendgoeventsApplication {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("*");
+				registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
 			}
 		};
 	}

@@ -1,22 +1,29 @@
 package com.ets.gti525.model;
 
+import javax.persistence.*;
+
+@Entity
 public class ShowPresentation {
 
-    private int id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private long timeinmillis;
     private int numberOfPlaces;
     private double price;
+
+    @OneToOne(cascade = CascadeType.MERGE)
     private Theater theater;
 
     public ShowPresentation() {
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

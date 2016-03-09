@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/ticket")
 public interface TicketAPIService {
 
     @RequestMapping(value = "/reserve", method = RequestMethod.POST)
-    ShoppingCart addTicket(@RequestBody Ticket ticket, HttpServletRequest request);
+    ShoppingCart addTicket(@RequestBody List<Ticket> ticketList, HttpServletRequest request);
 
     @RequestMapping(value = "/inCart", method = RequestMethod.GET)
     ShoppingCart getTicketsInCart(HttpServletRequest request);

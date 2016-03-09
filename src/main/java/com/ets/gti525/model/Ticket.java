@@ -11,10 +11,19 @@ public class Ticket {
     @GeneratedValue
     private Long id;
 
+    private String ticketId;
     private int showPresentationId;
 
     public Ticket() {
 
+   }
+
+    public String getTicketId() {
+        return ticketId;
+    }
+
+    public void setTicketId(String ticketId) {
+        this.ticketId = ticketId;
     }
 
     public Long getId() {

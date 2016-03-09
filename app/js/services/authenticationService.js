@@ -43,10 +43,32 @@
 			return user;
 		}
 
+		var resetUser = function(){
+			user = {
+				socialLogin : false,
+				firstName: "",
+				lastName: "",
+				address : {
+					civicNumber: "",
+					street: "",
+					city: "",
+					province: "",
+					postalCode: ""
+				},
+				email: ""
+			}
+		}
+
+		var setUserSocialLogin = function(socialLogin) {
+			user.socialLogin = socialLogin;
+		}
+
     	return {
     		getFakeUser: getFakeUser,
     		setUser: setUser,
-    		getUser: getUser
+    		getUser: getUser,
+    		resetUser: resetUser,
+    		setUserSocialLogin: setUserSocialLogin
     	
     	}
     }])

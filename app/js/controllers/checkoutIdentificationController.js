@@ -72,6 +72,7 @@
 
         $scope.submitAnonymousIdentification = function(){
             $validationProvider.validate($scope.anonymousIdentificationForm).success(function(){
+                $scope.user.socialLogin = false;
                 checkoutService.setCompletedStep("identification");
                 $location.path("/caisse/informations-paiement");
             }).error(function(e){

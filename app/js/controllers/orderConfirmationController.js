@@ -7,15 +7,17 @@
  "use strict";
 
   angular.module('app')
-    .controller('orderConfirmationController', [ "showService", "cartService", "checkoutService", "messageService", "authenticationService", "paymentService", "$scope", "$q", "$routeParams", "$location", "$rootScope", 
-        function(showService, cartService, checkoutService, messageService, authenticationService, paymentService, $scope, $q, $routeParams, $location, $rootScope){
+    .controller('orderConfirmationController', [ "showService", "cartService", "checkoutService", "messageService", "authenticationService", "orderService", "paymentService", "$scope", "$q", "$routeParams", "$location", "$rootScope", 
+        function(showService, cartService, checkoutService, messageService, authenticationService, orderService, paymentService, $scope, $q, $routeParams, $location, $rootScope){
         var self = this;
 
 
         var init = function(){
             loadingScreen.show();
-            $scope.currentCart = cartService.currentCart;
             $scope.user = authenticationService.getUser();
+            $scope.order = orderService.getOrder();
+            $scope.orderCart = JSON.parse(JSON.stringify(cartService.currentCart));; // on fait une copie du cart avant de le vider
+
 
             return $q.all([
                 // d'autres appels asynchrones peuvent être faits ici
@@ -44,8 +46,8 @@
                 $location.path("/caisse/revue");
             }
             
-            // vider le panier ici
-            // reset les checkout steps ici    
+            cartService.empty();
+            checkoutService.resetSteps(); 
     	});
 
 

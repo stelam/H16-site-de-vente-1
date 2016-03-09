@@ -276,6 +276,15 @@
                 .then(function(data){return self.commitToLocalStorage()});
         }
 
+        this.empty = function(){
+            currentCart.items.forEach(function(item){
+                self.commitDeleteItem(item);
+                self.removeItemById(item.itemId);
+                self.updateCartTotal(item);
+                self.commitToLocalStorage();
+            })
+        }
+
 
 		this.initCart();
 
@@ -308,6 +317,8 @@
 	    	removeExpiredItem : function(item) {
 	    		return self.removeExpiredItem(item);
 	    	},
+
+            empty: self.empty,
 
 	    	getItemById: self.getItemById,
 

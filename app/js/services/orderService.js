@@ -10,6 +10,10 @@
 			cart: {}
 		}
 
+		var getOrder = function(){
+			return order;
+		}
+
     	return {
 	    	commitOrder : function(cart, user, transactionId){
 	    		var deferred = $q.defer();
@@ -31,7 +35,9 @@
 			    })
 
 			    return deferred.promise;
-	    	}
+	    	},
+
+	    	getOrder : getOrder
     	}
     }])
 })();

@@ -21,6 +21,7 @@
     		currentCart.items.forEach(function(item){
     			item.remainingReservationTime = item.timestampReservationEnd - Date.now();
 
+
     			if (item.remainingReservationTime <= 0) {
     				self.removeItemById(item.itemId);
     				self.addExpiredItem(item);
@@ -45,11 +46,10 @@
         // PUT : modification d'une réservation existante
     	this.commitReserveItem = function(item){
     		var deferred = $q.defer();
-            var url = REAL_SHOW_API_BASE_URL + '/ticket/reserve';
+            var url = SHOW_API_BASE_URL + '/ticket/reserve';
 
             var existingItem = self.getItemById(item.itemId);
 
-            var commitMethod = (existingItem) ? "POST" : "POST";
             if (existingItem) {
                 existingItem.quantity = item.quantity;
                 item = existingItem;
@@ -57,31 +57,38 @@
                 //url += "/" + item.reservationId;
             }
 
-            var reserveTickets = [];
-
-            for (var i = 0; i < item.quantity; i++) {
-                reserveTickets.push({
-                    showPresentationId : item.itemId
-                })
+            var ticketToSend = {
+                showPresentationId : item.itemId,
+                quantity: item.quantity
             }
 
     		$http({
 				method: "POST",
 				url: url,
-                data: reserveTickets
+                data: ticketToSend
 		    }).then(function(data){
                 console.log(data);
     			if (data.data.id >= 0) {
+                    var reservationId = false;
+                    var serverTicketList = data.data.ticketList;
                     // le timestamp devrait être retourné par l'API
                     // on utilise des timestamp local (client) pour l'instant
 
-                    if (!item.reservationId) {
-    					item.timestampAdded = Date.now();
-    					item.timestampReservationEnd = item.timestampAdded + CART.RESERVATION_TIME * 60000;
-                    }
-                    if (data.data.reservationId) {
-                        item.reservationId = data.data.id;
-                    }
+                    // le serveur nous retourne la liste des items réservés par le user
+                    // il faut itérer à travers eux pour avoir l'item nouvellement ajouté
+                    var receivedTicket;
+                    serverTicketList.some(function(ticket){
+                        if (ticket.showPresentationId == item.itemId) {
+                            receivedTicket = ticket;
+                            return reservationId = ticket.ticketId;
+                        }
+                    })
+
+                    item.reservationId = reservationId;
+                    item.timestampAdded = receivedTicket.timeinmillis;
+                    item.timestampReservationEnd = receivedTicket.expiringTimeinmillis;
+                    item.inactivityExpirationDelay = receivedTicket.inactivityExpirationDelay;
+
 					self.addItem(item);
 					deferred.resolve(true);
 
@@ -312,9 +319,9 @@
 
 	    return {
 	    	addItem : function(item, quantity){
-	    		return self.isItemAvailable(item, quantity)
-	    			.then(function(data){return self.incrementItemQuantity(item, quantity)})
+	    		return self.incrementItemQuantity(item, quantity)
 	    			.then(function(data){return self.validateItemQuantity(item)})
+                    .then(function(data){return self.isItemAvailable(item, item.quantity)})
 	    			.then(function(data){return self.commitReserveItem(item)})
                     .then(function(data){return self.updateCartTotal(item)})
 	    			.then(function(data){return self.commitToLocalStorage()});

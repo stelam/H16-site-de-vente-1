@@ -5,7 +5,7 @@
 	angular.module('app', ['ngRoute', 'ngAnimate', 'ngSanitize', 'slugifier', 'LocalStorageModule', 'validation', 'validation.rule', 'ui.select']);
 
 	angular.module('app').constant({
-		SHOW_API_BASE_URL : "http://agile-anchorage-60775.herokuapp.com",
+		SHOW_API_BASE_URL : "http://localhost:8080",
 		SHOW_MOCK_API_BASE_URL : "http://demo5168961.mockable.io",
 		REAL_SHOW_API_BASE_URL : "http://agile-anchorage-60775.herokuapp.com",
 		PAYMENT_API_BASE_URL : "http://demo0468717.mockable.io",
@@ -30,6 +30,9 @@
 
 	});
 
+	angular.module('app').config(['$httpProvider', function($httpProvider) {
+		$httpProvider.defaults.withCredentials = true;
+	}])
 
 
 

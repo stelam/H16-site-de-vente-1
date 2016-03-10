@@ -29,6 +29,7 @@
 
                         // si des items ont été ajoutés
                         if (newNbItems > scope.previousCart.totalNbItems) {
+
                             scope.flashCart();
                             scope.showPopover({type:"itemsAdded"})
                         } else if (newNbItems < scope.previousCart.totalNbItems) {
@@ -69,10 +70,12 @@
                     }
 
                     scope.showPopover = function(options) {
-                
+
                         if (options.type == "itemsAdded") {
+                            var cartReservationTime = (scope.currentCart.items[scope.currentCart.items.length-1].timestampReservationEnd - scope.currentCart.items[scope.currentCart.items.length-1].timestampAdded) / 1000 / 60 ;
+                            var inactivityTime = scope.currentCart.items[scope.currentCart.items.length-1].inactivityExpirationDelay;
                             scope.popover.title = "Billets ajoutés au panier";
-                            scope.popover.content = "<p>Vos billets vous sont réservés pour une durée de " + CART.RESERVATION_TIME +" minutes à partir du moment de l'ajout du premier billet pour un spectacle donné.</p> <a href='#/caisse/revue' class='btn btn-block btn-goevents'>Passer à la caisse</a>";
+                            scope.popover.content = "<p>Vos billets vous sont réservés pour une durée de <strong>" + cartReservationTime +"</strong> minutes à partir du moment de l'ajout du premier billet pour un spectacle donné.</p><p>Ils peuvent aussi être automatiquement enlevés suite à une période d'inactivité de <strong>" +inactivityTime+ "</strong> minutes.</p> <a href='#/caisse/revue' class='btn btn-block btn-goevents'>Passer à la caisse</a>";
                         } else if (options.type == "expiredItem") {
                             console.log(options);
                             var ticket = showService.getTicketInShowObjByTicketId(options.show, options.item.itemId);

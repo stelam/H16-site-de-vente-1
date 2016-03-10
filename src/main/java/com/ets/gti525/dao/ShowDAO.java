@@ -13,6 +13,8 @@ public interface ShowDAO extends CrudRepository<Show, Long>, JpaSpecificationExe
     Show findShowByName(String name);
     List<Show> findByArtistName(String artistName);
     List<Show> findByIsFeaturedTrue();
+    List<Show> findByNameContainingIgnoreCase(String expression);
+    List<Show> findByArtistNameContainingIgnoreCase(String expression);
 }
 
 

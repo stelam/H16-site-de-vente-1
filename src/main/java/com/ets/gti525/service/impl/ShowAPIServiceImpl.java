@@ -68,7 +68,7 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         List<Show> matchingShowsByName = showDAO.findByNameContainingIgnoreCase(query);
         searchResults.addAll(matchingShowsByName);
 
-        List<Show> matchingShowsByArtistName = companyManager.findByArtistNameContainingIgnoreCase(query);
+        List<Show> matchingShowsByArtistName = showDAO.findByArtistNameContainingIgnoreCase(query);
         searchResults.addAll(matchingShowsByArtistName);
 
         return searchResults;

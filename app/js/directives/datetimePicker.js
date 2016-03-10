@@ -33,6 +33,7 @@
                     // update the angular model
                     if (scope.dateModel) {
                         $(element).on('dp.change', function(e){
+                            console.log("app")
                             var date = moment(e.date._d);
                             
                             var dateString = moment(date).format('DD/MM/YYYY');

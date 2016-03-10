@@ -18,22 +18,46 @@ import java.util.concurrent.TimeUnit;
 
 @Controller
 public class TicketAPIServiceImpl implements TicketAPIService {
-
+	private static final int CART_RESERVATION_MINUTES = 1; // maybe put this in a config file/system
+	
     @Autowired
     TicketDAO ticketDAO;
 
     @Override
-    public ShoppingCart addTicket(@RequestBody List<Ticket> ticketList, HttpServletRequest request) {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        for (Ticket ticket : ticketList) {
-            Calendar cal = Calendar.getInstance();
-            String uniqueID = UUID.randomUUID().toString();
-            ticket.setTicketId(uniqueID);
-            ticket.setTimeinmillis(cal.getTimeInMillis());
-            DataManager.ticketsInReservationList.put(ticket.getTicketId(), ticket);
-            shoppingCart.getTicketList().add(ticket);
+    public ShoppingCart addTicket(@RequestBody Ticket ticket, HttpServletRequest request) {
+        //ShoppingCart shoppingCart = new ShoppingCart();
+        Calendar cal = Calendar.getInstance();
+        long timeinmillis = cal.getTimeInMillis();
+        long expiringTimeinmillis = cal.getTimeInMillis() + CART_RESERVATION_MINUTES * 60 * 1000;
+        String uniqueID = UUID.randomUUID().toString();
+        
+        ShoppingCart shoppingCart = (ShoppingCart) request.getSession(true).getAttribute("cart");
+        
+        if (shoppingCart == null) {
+        	shoppingCart = new ShoppingCart();
         }
-        request.getSession().setAttribute("cart", shoppingCart);
+        
+        shoppingCart.removeExpiredTickets();
+    
+    	Ticket existingSameTicket = shoppingCart.getTicketInCartByShowPresentationId(ticket.getShowPresentationId());
+    	
+        // tickets with matching showPresentationId must have the same timer settings
+        // otherwise, we create new timer settings for the first ticket of a kind
+        if (existingSameTicket == null) {
+        	ticket.setTimeinmillis(timeinmillis);
+            ticket.setExpiringTimeinmillis(expiringTimeinmillis);
+            ticket.setTicketId(uniqueID);
+        } else {
+        	ticket.setTimeinmillis(existingSameTicket.getTimeinmillis());
+        	ticket.setExpiringTimeinmillis(existingSameTicket.getExpiringTimeinmillis());
+        	ticket.setTicketId(existingSameTicket.getTicketId());
+        }
+        
+        DataManager.ticketsInReservationList.put(ticket.getTicketId(), ticket);
+        shoppingCart.addOrReplaceTicket(ticket);
+        
+        request.getSession(true).setAttribute("cart", shoppingCart);
+        
         request.getSession().setMaxInactiveInterval(300);
         return shoppingCart;
     }
@@ -42,14 +66,18 @@ public class TicketAPIServiceImpl implements TicketAPIService {
     public ShoppingCart getTicketsInCart(HttpServletRequest request) {
         ShoppingCart shoppingCart = (ShoppingCart) request.getSession().getAttribute("cart");
         List<Ticket> ticketsToRemove = new ArrayList<>();
+
         for (Ticket ticket : shoppingCart.getTicketList()) {
             Calendar cal = Calendar.getInstance();
-            if (cal.getTimeInMillis() - ticket.getTimeinmillis() > TimeUnit.MINUTES.toMillis(3)) {
+            if (cal.getTimeInMillis() - ticket.getTimeinmillis() > TimeUnit.MINUTES.toMillis(CART_RESERVATION_MINUTES)) {
                 ticketsToRemove.add(ticket);
             }
         }
+
         shoppingCart.getTicketList().removeAll(ticketsToRemove);
         request.getSession().setAttribute("cart", shoppingCart);
         return shoppingCart;
     }
+    
+
 }

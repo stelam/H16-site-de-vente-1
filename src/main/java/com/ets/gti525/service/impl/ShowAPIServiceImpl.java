@@ -6,11 +6,13 @@ import com.ets.gti525.DataManager;
 import com.ets.gti525.dao.ShowDAO;
 import com.ets.gti525.dao.ShowPresentationDAO;
 import com.ets.gti525.dao.TicketDAO;
+import com.ets.gti525.model.ShoppingCart;
 import com.ets.gti525.model.Show;
 import com.ets.gti525.model.ShowPresentation;
 import com.ets.gti525.model.Ticket;
 import com.ets.gti525.service.ShowAPIService;
 import com.google.common.collect.Lists;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ShowAPIServiceImpl implements ShowAPIService {
@@ -75,26 +79,37 @@ public class ShowAPIServiceImpl implements ShowAPIService {
     }
 
     @Override
-    public boolean isShowAvailable(@RequestParam Long presentationShowId, @RequestParam Long quantity) {
+    public boolean isShowAvailable(@RequestParam Long presentationShowId, @RequestParam Long quantity, HttpServletRequest request) {
         ShowPresentation showPresentation = showPresentationDAO.findOne(presentationShowId);
         List<Ticket> ticketList = ticketDAO.findByShowPresentationId(presentationShowId);
         int numberOfTicketSoldAndReserved = 0;
+        
         for (Ticket ticket : ticketList) {
             if (Objects.equals(ticket.getShowPresentationId(), showPresentation.getId())) {
-                numberOfTicketSoldAndReserved++;
+                numberOfTicketSoldAndReserved += ticket.getQuantity();
             }
         }
         DataManager.updateReservationList(presentationShowId);
 
         for (Map.Entry<String, Ticket> entry : DataManager.ticketsInReservationList.entrySet()) {
             if (Objects.equals(entry.getValue().getShowPresentationId(), presentationShowId)) {
-                    numberOfTicketSoldAndReserved++;
+                    numberOfTicketSoldAndReserved += entry.getValue().getQuantity();
             }
         }
 
         System.out.println(numberOfTicketSoldAndReserved);
+        
+        ShoppingCart shoppingCart = (ShoppingCart) request.getSession(true).getAttribute("cart");
+        if (shoppingCart != null){
+        	shoppingCart.removeExpiredTickets();
 
-
+        
+	    	Ticket existingSameTicket = shoppingCart.getTicketInCartByShowPresentationId(presentationShowId);
+	        if (existingSameTicket != null) {
+	        	quantity -= existingSameTicket.getQuantity();
+	        }
+        }
+        
         return (numberOfTicketSoldAndReserved + quantity) <= showPresentation.getNumberOfPlaces();
     }
 

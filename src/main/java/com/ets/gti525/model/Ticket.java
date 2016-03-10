@@ -14,8 +14,11 @@ public class Ticket {
     private String ticketId;
     private Long showPresentationId;
     private Long timeinmillis;
+    private Long expiringTimeinmillis;
+    private int quantity;
 
-    public Ticket() {
+
+	public Ticket() {
 
    }
 
@@ -50,4 +53,21 @@ public class Ticket {
     public void setTimeinmillis(Long timeinmillis) {
         this.timeinmillis = timeinmillis;
     }
+    
+    public Long getExpiringTimeinmillis() {
+        return expiringTimeinmillis;
+    }
+
+    public void setExpiringTimeinmillis(Long timeinmillis) {
+        this.expiringTimeinmillis = timeinmillis;
+    }
+    
+    public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 }

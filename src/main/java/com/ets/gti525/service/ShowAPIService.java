@@ -1,9 +1,12 @@
 package com.ets.gti525.service;
 
 import com.ets.gti525.model.Show;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/show")
@@ -37,7 +40,7 @@ public interface ShowAPIService {
     List<Show> searchByArtistOrByName(@RequestParam() String query);
 
     @RequestMapping(value = "/isShowAvailable", method = RequestMethod.GET)
-    boolean isShowAvailable(@RequestParam Long presentationShowId, @RequestParam Long quantity);
+    boolean isShowAvailable(@RequestParam Long presentationShowId, @RequestParam Long quantity, HttpServletRequest request);
 
     @RequestMapping(value = "/shows", method = RequestMethod.GET)
     List<Show> getShowsList();

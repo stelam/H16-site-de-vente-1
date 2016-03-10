@@ -20,7 +20,7 @@ public class DataManager implements InitializingBean {
     ProvinceDAO provinceDAO;
 
     public static HashMap<String, Ticket> ticketsInReservationList = new HashMap<>();
-
+    private static final int CART_RESERVATION_MINUTES = 1; // maybe put this in a config file/system
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -83,11 +83,12 @@ public class DataManager implements InitializingBean {
 
     public static void updateReservationList(Long showPresentationId) {
         List<String> ticketsIdToRemove = new ArrayList<>();
+        
 
         for (Map.Entry<String, Ticket> reservedTicket : DataManager.ticketsInReservationList.entrySet()) {
             if (Objects.equals(reservedTicket.getValue().getShowPresentationId(), showPresentationId)) {
                 Calendar cal = Calendar.getInstance();
-                if (cal.getTimeInMillis() - reservedTicket.getValue().getTimeinmillis() > TimeUnit.MINUTES.toMillis(3)) {
+                if (cal.getTimeInMillis() - reservedTicket.getValue().getTimeinmillis() > TimeUnit.MINUTES.toMillis(CART_RESERVATION_MINUTES)) {
                     ticketsIdToRemove.add(reservedTicket.getValue().getTicketId());
                 }
             }

@@ -46,17 +46,15 @@
                             var expiredItem = scope.currentCart.expiredItems[expiredItems.length - 1];
 
                             loadingScreen.show();
-
-                            showService.getShowByTicketId(expiredItem.itemId).then(function(data){
-                                var show = data.data.show;
-                                scope.showPopover({
-                                    type:"expiredItem",
-                                    show: show,
-                                    item: expiredItem
-                                });
-                                cartService.removeExpiredItem(expiredItem);
-                                loadingScreen.hide();
-                            })
+                            console.log(expiredItems)
+                            scope.showPopover({
+                                type:"expiredItem",
+                                show: expiredItem.show,
+                                item: expiredItem
+                            });
+                            cartService.removeExpiredItem(expiredItem);
+                            loadingScreen.hide();
+                           
                         }
 
                     }, true)
@@ -76,11 +74,12 @@
                             scope.popover.title = "Billets ajoutés au panier";
                             scope.popover.content = "<p>Vos billets vous sont réservés pour une durée de " + CART.RESERVATION_TIME +" minutes à partir du moment de l'ajout du premier billet pour un spectacle donné.</p> <a href='#/caisse/revue' class='btn btn-block btn-goevents'>Passer à la caisse</a>";
                         } else if (options.type == "expiredItem") {
+                            console.log(options);
                             var ticket = showService.getTicketInShowObjByTicketId(options.show, options.item.itemId);
                             var slugOptions = (ticket) ? {date:ticket.date} : {};
                             var showUrl = "spectacle/" + showService.getShowSlug(options.show, slugOptions);
                             scope.popover.title = "Billets retirés du panier";
-                            scope.popover.content = "<p>Le spectacle '<strong>" +options.show.title+ "</strong>' a été retiré de votre panier car le délais de réservation a expiré.</p> <a href='#/" +showUrl+ "' class='btn btn-block btn-goevents'>Page du spectacle</a>";
+                            scope.popover.content = "<p>Le spectacle '<strong>" +options.show.name+ "</strong>' a été retiré de votre panier car le délais de réservation a expiré.</p> <a href='#/" +showUrl+ "' class='btn btn-block btn-goevents'>Page du spectacle</a>";
                         }
 
                         $timeout(function(){

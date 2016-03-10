@@ -11,7 +11,7 @@
 		PAYMENT_API_BASE_URL : "http://demo0468717.mockable.io",
 		PAYMENT_API_KEY: "kj124k1j2k1j2k4j12j4jh21gyu12g12uv1j2hjg",
 		CART : {
-			RESERVATION_TIME : 1, //minutes
+			RESERVATION_TIME : 0.1, //minutes
 			INACTIVITY_TIME : 10,
 			MAX_SHOW_PURCHASE_QUANTITY : 6
 		},

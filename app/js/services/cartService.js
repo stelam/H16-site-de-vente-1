@@ -25,7 +25,7 @@
     				self.removeItemById(item.itemId);
     				self.addExpiredItem(item);
     				self.commitToLocalStorage();
-                    self.commitDeleteItem(item);
+                    //self.commitDeleteItem(item);
     			}
     		})
     	}
@@ -54,7 +54,7 @@
                 existingItem.quantity = item.quantity;
                 item = existingItem;
                 item.reservationId = existingItem.reservationId;
-                url += "/" + item.reservationId;
+                //url += "/" + item.reservationId;
             }
 
             var reserveTickets = [];
@@ -186,12 +186,15 @@
 
             var existingItem = self.getItemById(item.itemId);
             var existingItemQuantity = (existingItem && !item.reservationId) ? parseInt(existingItem.quantity) : 0;
-
+            console.log(item.itemId);
     		showService.isTicketAvailable(item.itemId, quantity).then(function(data){
-    			if (data.data.available && parseInt(data.data.maxQuantity) >= quantity + existingItemQuantity) {
+    			//if (data.data.available && parseInt(data.data.maxQuantity) >= quantity + existingItemQuantity) {
+                if (data.data == true){
+                    //self.ticketInCart();
     				deferred.resolve(true);
     			} else {
     				//retourner une erreur (item non disponible pour la quantité désirée)
+                    //self.ticketInCart();
     				var message = (data.data.available) 
     					? "Désolé, cette quantité de billets n'est pas disponible." 
     					: "Désolé, tous les billets sont maintenant réservés ou vendus."
@@ -205,6 +208,15 @@
 
     		return deferred.promise;
     	}
+
+        this.ticketInCart = function(){
+                $http({
+                    method: 'GET',
+                    url: SHOW_API_BASE_URL+'/ticket/inCart'
+                }).then(function(data){
+                    console.log(data);
+                })
+        }
 
 
     	this.validateItemQuantity = function(item) {

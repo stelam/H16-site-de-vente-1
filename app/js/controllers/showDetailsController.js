@@ -56,7 +56,7 @@
                 // si une date a été spécifiée dans l'URL, présélectionner le billet correspondant à cette date
                 // sinon, sélectionner la première présentation par défaut
                 if ($routeParams.dd && $routeParams.mm && $routeParams.yyyy) {
-                    var preselectedTicket = showService.getTicketInShowObjByTicketDate($scope.show, $routeParams.dd+"/"+$routeParams.mm+"/"+$routeParams.yyyy);
+                    var preselectedTicket = showService.getTicketInShowObjByTicketDate($scope.show, moment($routeParams.dd+"/"+$routeParams.mm+"/"+$routeParams.yyyy, "DD/MM/YYYY").toValue());
                     if (preselectedTicket) {
                         $scope.itemOptions = preselectedTicket;
                     } else {

@@ -69,13 +69,13 @@
 	    	isTicketAvailable : function(showId, quantity) {
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/ticket/1/available' // TODO: mettre le vrai id du spectacle quand le vrai service web sera disponible
-					// et mettre en paramètre la quantité
+					url: SHOW_API_BASE_URL+'/show/isShowAvailable', // TODO: mettre le vrai id du spectacle quand le vrai service web sera disponible
+					params: {presentationShowId: showId}
 			    });	    		
 	    	},
 
 	    	getShowSlug : function(show, options) {
-	    		var slug = Slug.slugify(show.title+"-"+show.artist+"-"+show.id);
+	    		var slug = Slug.slugify(show.name+"-"+show.artistName+"-"+show.id);
 				if (options.date) {
 					slug += "/" + options.date;
 				}
@@ -84,7 +84,7 @@
 
 	    	getTicketInShowObjByTicketId : function(show, ticketId) {
 	    		var found = false;
-	    		show.tickets.forEach(function(ticket){
+	    		show.showPresentationList.forEach(function(ticket){
 	    			if (parseInt(ticket.id) == parseInt(ticketId)) {
 	    				found = ticket;
 	    			}
@@ -94,7 +94,7 @@
 
 	    	getTicketInShowObjByTicketDate : function(show, ticketDate) {
 	    		var found = false;
-	    		show.tickets.forEach(function(ticket){
+	    		show.showPresentationList.forEach(function(ticket){
 	    			if ((ticket.date) == (ticketDate)) {
 	    				found = ticket;
 	    			}

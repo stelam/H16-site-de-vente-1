@@ -28,7 +28,7 @@ public class BackendgoeventsApplication {
 	}
 
 	@Bean
-	public ServletListenerRegistrationBean<HttpSessionListener> sessionListener() {
+	public ServletListenerRegistrationBean<SessionListener> sessionListener() {
 		return new ServletListenerRegistrationBean<>(new SessionListener());
 	}
 }

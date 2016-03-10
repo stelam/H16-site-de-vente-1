@@ -1,3 +1,9 @@
 node_modules
 .tmp
 .sass-cache
+/target
+.classpath
+.idea/
+.project
+.settings/
+WebContent/

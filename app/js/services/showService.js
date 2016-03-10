@@ -70,7 +70,7 @@
 	    		return $http({
 					method: 'GET',
 					url: SHOW_API_BASE_URL+'/show/isShowAvailable', // TODO: mettre le vrai id du spectacle quand le vrai service web sera disponible
-					params: {presentationShowId: showId}
+					params: {presentationShowId: showId, quantity: quantity}
 			    });	    		
 	    	},
 
@@ -124,6 +124,13 @@
 	    		return _calculateShowDateFromTo(show);
 	    	},
 
+	    	searchByNameOrArtistName: function(query){
+	    		return $http({
+					method: 'GET',
+					url: SHOW_API_BASE_URL+'/show/search',
+					params: {query: query}
+			    });
+	    	},
 
 	    	getEmpty: {
                 name: "test",

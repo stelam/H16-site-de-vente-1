@@ -2,8 +2,9 @@
 	<h1>
 		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> 
 		
-		<span ng-if="!dateFilter">Tous les spectacles à l'affiche </span>
+		<span ng-if="!dateFilter && !searchQuery">Tous les spectacles à l'affiche </span>
 		<span ng-if="dateFilter">Spectacles du {{dateFilter.dd}}/{{dateFilter.mm}}/{{dateFilter.yyyy}}</span>
+		<span ng-if="searchQuery">{{shows.length}} résultat{{(shows.length > 1) ? s : ''}} pour "{{searchQuery}}"</span>
 
 		<span id="calendar" class='input-group date' datetime-picker data-link="true" date-obj="dateFilter">
 			<input type='text' class='' />

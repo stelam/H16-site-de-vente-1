@@ -29,7 +29,7 @@
                 asyncCalls.push(showService.getListShowsByDate($scope.dateFilter.dd, $scope.dateFilter.mm, $scope.dateFilter.yyyy))
             // si c'est une recherche
             } else if ($scope.searchQuery){
-                asyncCalls.push() // TODO : méthode de recherche
+                asyncCalls.push(showService.searchByNameOrArtistName($scope.searchQuery)); // TODO : méthode de recherche
             } else {
                 asyncCalls.push(showService.getListShows());
             }

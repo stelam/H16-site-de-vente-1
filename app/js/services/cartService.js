@@ -195,10 +195,10 @@
     			} else {
     				//retourner une erreur (item non disponible pour la quantité désirée)
                     //self.ticketInCart();
-    				var message = (data.data.available) 
-    					? "Désolé, cette quantité de billets n'est pas disponible." 
-    					: "Désolé, tous les billets sont maintenant réservés ou vendus."
-
+    				//var message = (data.data.available) 
+    					//? "Désolé, cette quantité de billets n'est pas disponible." 
+    					//: "Désolé, tous les billets sont maintenant réservés ou vendus."
+                    var message = "Désolé, cette quantité de billets n'est pas disponible.";
     				deferred.reject(messageService.getMessage("ERROR_ITEM_UNAVAILABLE", {messageOverride: message}));
 
     			}

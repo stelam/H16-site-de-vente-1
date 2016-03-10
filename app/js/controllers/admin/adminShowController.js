@@ -15,7 +15,7 @@
                 artistName: "art",
                 imageUrl: "popo",
                 description: "tete",
-                isFeatured: false,
+                isFeatured: true,
                 showPresentationList : [
                     {
                         timeinmillis: Date.now() * 1000,
@@ -79,6 +79,7 @@
             $scope.create = function(){
                 loadingScreen.show();
                 $scope.formatPresentationDatesInMillis();
+                console.log($scope.show);
                 showService.add($scope.show).then(function(){
                     messageService.showMessage(messageService.getMessage("INFO_ADD_SUCCESSFUL"));
                     $location.path("/spectacles");

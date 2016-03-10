@@ -19,11 +19,13 @@
                 loadingScreen.show();
 
                 return $q.all([
-                    showService.getAll()
+                    showService.getListShows(),
+                    showService.getListFeaturedShows()
 
                 ]).then(function(res){
                     return {
-                        shows : res[0].data
+                        shows : res[0].data,
+                        featuredShows : res[1].data
                     }
                 }).catch(function(e){
                     messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
@@ -34,6 +36,7 @@
         	init().then(function(res){
         		loadingScreen.hide();
                 $scope.shows = res.shows;
+                $scope.featuredShows = res.featuredShows;
 
         	});
 

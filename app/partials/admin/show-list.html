@@ -1,20 +1,24 @@
 <section>
-	<h1>Spectacles en vedette</h1>
-	<div id="liste-spectacles-inactifs">
-		<div class="row" ng-repeat="show in featuredShows">
+
+
+    <h1 ng-if="shows.length > 0">Spectacles actifs</h1>
+    <div id="liste-spectacles-inactifs">
+        <div class="row" ng-repeat="show in shows">
             <div class="col-md-6">
                 <h4>
-                    <a class="titleShow" href="#adminSpectacle" aria-controls="spectacles" data-toggle="tab" >
-                    Spectacle non-publiés 1                    </a>
+                    <a class="titleShow" href="#/spectacle/{{show.id}}" >
+                        {{show.name}}                   
+                    </a>
                 </h4>
             </div>
             <div class="col-md-6">
-                <button type="button" class="btn btn-default">Modifier</button>
+                <a href="#/spectacle/{{show.id}}" type="button" class="btn btn-default">Modifier</a>
                 <button type="button" class="btn btn-warning">Dupliquer</button>
                 <button type="button" class="btn btn-danger">Supprimer</button>
-                <span class=" handle glyphicon glyphicon-move" aria-hidden="true"></span>
+                <!--<span class=" handle glyphicon glyphicon-move" aria-hidden="true"></span>-->
             </div>
         </div>
-	</div>
+    </div>
+
 
 </section>

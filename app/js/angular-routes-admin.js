@@ -24,6 +24,10 @@
 				templateUrl: 'partials/admin/theater-details.html',
 				controller: 'adminTheaterController',
 				title: 'Modifier une salle'
+			}).when('/spectacle/:idShow', {
+				templateUrl: 'partials/admin/show-details.html',
+				controller: 'adminTheaterController',
+				title: 'Modifier un spectacle'
 			}).otherwise({
 				redirectTo: '/spectacles'
 			});

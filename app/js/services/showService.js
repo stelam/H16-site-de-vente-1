@@ -105,7 +105,7 @@
 	    	add: function(show){
 	    		return $http({
 					method: 'POST',
-					url: REAL_SHOW_API_BASE_URL+'/show/add',
+					url: SHOW_API_BASE_URL+'/show/add',
 					data: show
 			    });
 	    		

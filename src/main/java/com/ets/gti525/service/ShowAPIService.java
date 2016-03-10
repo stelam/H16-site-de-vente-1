@@ -34,7 +34,7 @@ public interface ShowAPIService {
     Show editShow(@RequestBody Show show);
 
     @RequestMapping(value = "/isShowAvailable", method = RequestMethod.GET)
-    boolean isShowAvailable(@RequestParam Long presentationShowId);
+    boolean isShowAvailable(@RequestParam Long presentationShowId, @RequestParam Long quantity);
 
     @RequestMapping(value = "/shows", method = RequestMethod.GET)
     List<Show> getShowsList();

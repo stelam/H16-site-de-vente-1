@@ -62,7 +62,7 @@ public class ShowAPIServiceImpl implements ShowAPIService {
     }
 
     @Override
-    public boolean isShowAvailable(@RequestParam Long presentationShowId) {
+    public boolean isShowAvailable(@RequestParam Long presentationShowId, @RequestParam Long quantity) {
         ShowPresentation showPresentation = showPresentationDAO.findOne(presentationShowId);
         List<Ticket> ticketList = ticketDAO.findByShowPresentationId(presentationShowId);
         int numberOfTicketSoldAndReserved = 0;
@@ -82,7 +82,7 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         System.out.println(numberOfTicketSoldAndReserved);
 
 
-        return numberOfTicketSoldAndReserved < showPresentation.getNumberOfPlaces();
+        return (numberOfTicketSoldAndReserved + quantity) < showPresentation.getNumberOfPlaces();
     }
 
     @Override

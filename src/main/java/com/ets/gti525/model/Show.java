@@ -73,11 +73,11 @@ public class Show {
         this.description = description;
     }
 
-    public boolean isFeatured() {
+    public boolean getIsFeatured() {
         return isFeatured;
     }
 
-    public void setFeatured(boolean isFeatured) {
+    public void setIsFeatured(boolean isFeatured) {
         this.isFeatured = isFeatured;
     }
 

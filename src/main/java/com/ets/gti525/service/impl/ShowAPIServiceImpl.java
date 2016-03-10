@@ -62,6 +62,19 @@ public class ShowAPIServiceImpl implements ShowAPIService {
     }
 
     @Override
+    public List<show> searchByArtistOrByName(@RequestParam String query) {
+        ArrayList<Show> searchResults = new ArrayList<Show>();
+
+        List<Show> matchingShowsByName = showDAO.findByNameContainingIgnoreCase(query);
+        searchResults.addAll(matchingShowsByName);
+
+        List<Show> matchingShowsByArtistName = companyManager.findByArtistNameContainingIgnoreCase(query);
+        searchResults.addAll(matchingShowsByArtistName);
+
+        return searchResults;
+    }
+
+    @Override
     public boolean isShowAvailable(@RequestParam Long presentationShowId, @RequestParam Long quantity) {
         ShowPresentation showPresentation = showPresentationDAO.findOne(presentationShowId);
         List<Ticket> ticketList = ticketDAO.findByShowPresentationId(presentationShowId);

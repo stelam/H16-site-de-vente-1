@@ -33,6 +33,9 @@ public interface ShowAPIService {
     @RequestMapping(value = "/edit", method = RequestMethod.PUT)
     Show editShow(@RequestBody Show show);
 
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    List<Show> searchByArtistOrByName(@RequestParam() String query);
+
     @RequestMapping(value = "/isShowAvailable", method = RequestMethod.GET)
     boolean isShowAvailable(@RequestParam Long presentationShowId, @RequestParam Long quantity);
 

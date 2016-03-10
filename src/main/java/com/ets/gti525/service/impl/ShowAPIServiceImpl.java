@@ -2,6 +2,7 @@ package com.ets.gti525.service.impl;
 
 
 
+import com.ets.gti525.DataManager;
 import com.ets.gti525.dao.ShowDAO;
 import com.ets.gti525.dao.ShowPresentationDAO;
 import com.ets.gti525.dao.TicketDAO;
@@ -15,9 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class ShowAPIServiceImpl implements ShowAPIService {
@@ -65,14 +65,24 @@ public class ShowAPIServiceImpl implements ShowAPIService {
     public boolean isShowAvailable(@RequestParam Long presentationShowId) {
         ShowPresentation showPresentation = showPresentationDAO.findOne(presentationShowId);
         List<Ticket> ticketList = ticketDAO.findByShowPresentationId(presentationShowId);
-        int numberOfTicketSold = 0;
+        int numberOfTicketSoldAndReserved = 0;
         for (Ticket ticket : ticketList) {
-            if (ticket.getShowPresentationId() == (showPresentation.getId())) {
-                numberOfTicketSold++;
+            if (Objects.equals(ticket.getShowPresentationId(), showPresentation.getId())) {
+                numberOfTicketSoldAndReserved++;
+            }
+        }
+        updateReservationList(presentationShowId);
+
+        for (Map.Entry<String, Ticket> entry : DataManager.ticketsInReservationList.entrySet()) {
+            if (Objects.equals(entry.getValue().getShowPresentationId(), presentationShowId)) {
+                    numberOfTicketSoldAndReserved++;
             }
         }
 
-        return numberOfTicketSold < showPresentation.getNumberOfPlaces();
+        System.out.println(numberOfTicketSoldAndReserved);
+
+
+        return numberOfTicketSoldAndReserved < showPresentation.getNumberOfPlaces();
     }
 
     @Override
@@ -118,5 +128,22 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         }
 
         return filteredShowPresentationList;
+    }
+
+    private void updateReservationList(Long showPresentationId) {
+        List<String> ticketsIdToRemove = new ArrayList<>();
+
+        for (Map.Entry<String, Ticket> reservedTicket : DataManager.ticketsInReservationList.entrySet()) {
+            if (Objects.equals(reservedTicket.getValue().getShowPresentationId(), showPresentationId)) {
+                Calendar cal = Calendar.getInstance();
+                if (cal.getTimeInMillis() - reservedTicket.getValue().getTimeinmillis() > TimeUnit.MINUTES.toMillis(1)) {
+                    ticketsIdToRemove.add(reservedTicket.getValue().getTicketId());
+                }
+            }
+        }
+
+        for (String ticketId : ticketsIdToRemove) {
+            DataManager.ticketsInReservationList.remove(ticketId);
+        }
     }
 }

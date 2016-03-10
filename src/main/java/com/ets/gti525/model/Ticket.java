@@ -12,7 +12,8 @@ public class Ticket {
     private Long id;
 
     private String ticketId;
-    private int showPresentationId;
+    private Long showPresentationId;
+    private Long timeinmillis;
 
     public Ticket() {
 
@@ -34,11 +35,19 @@ public class Ticket {
         this.id = id;
     }
 
-    public int getShowPresentationId() {
+    public Long getShowPresentationId() {
         return showPresentationId;
     }
 
-    public void setShowPresentationId(int showPresentationId) {
+    public void setShowPresentationId(Long showPresentationId) {
         this.showPresentationId = showPresentationId;
+    }
+
+    public Long getTimeinmillis() {
+        return timeinmillis;
+    }
+
+    public void setTimeinmillis(Long timeinmillis) {
+        this.timeinmillis = timeinmillis;
     }
 }

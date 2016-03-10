@@ -3,9 +3,12 @@ package com.ets.gti525;
 import com.ets.gti525.dao.ProvinceDAO;
 import com.ets.gti525.dao.TheaterDAO;
 import com.ets.gti525.model.Province;
+import com.ets.gti525.model.Ticket;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
 
 @Component
 public class DataManager implements InitializingBean {
@@ -14,6 +17,9 @@ public class DataManager implements InitializingBean {
     TheaterDAO theaterDAO;
     @Autowired
     ProvinceDAO provinceDAO;
+
+    public static HashMap<String, Ticket> ticketsInReservationList = new HashMap<>();
+
 
     @Override
     public void afterPropertiesSet() throws Exception {

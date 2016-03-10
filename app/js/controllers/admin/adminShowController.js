@@ -27,21 +27,11 @@
                 ]
             }
 
-            $scope.dateFilter = {
-                dd:"11",
-                mm:"03",
-                yyyy:"2016"
-            }
-
             // Instancier le contrôleur de base
             $controller('baseAdminController', { $scope: $scope });
 
             var init = function(){
                 loadingScreen.show();
-
-                // lorsque la sécurité sera implémentée dans le backend, vérifier
-                // si logged in, sinon rediriger vers l'écran de login
-
 
                 return $q.all([
                     // d'autres appels asynchrones peuvent être faits ici

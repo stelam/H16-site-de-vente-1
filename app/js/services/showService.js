@@ -2,13 +2,29 @@
  "use strict";
 
   angular.module('app')
+<<<<<<< HEAD
     .factory('showService', ["$http", "SHOW_API_BASE_URL", "REAL_SHOW_API_BASE_URL", "Slug", function($http, SHOW_API_BASE_URL, REAL_SHOW_API_BASE_URL, Slug){
+=======
+    .factory('showService', ["$http", "SHOW_API_BASE_URL", "Slug", function($http, SHOW_API_BASE_URL, Slug){
+
+    	var _calculateShowDateFromTo = function(show){
+    		var fromDate = 0;
+    		var toDate = 0;
+    		show.showPresentationList.forEach(function(presentation){
+    			fromDate = (!fromDate || parseInt(presentation.timeinmillis) < fromDate) ? parseInt(presentation.timeinmillis) : fromDate;
+    			toDate = (!toDate || parseInt(presentation.timeinmillis) > toDate) ? parseInt(presentation.timeinmillis) : toDate;
+    		})
+    		show.fromDate = fromDate;
+    		show.toDate = toDate;
+    		return show;
+    	}
+
+>>>>>>> integration_backend
 	    return {
 	    	getListFeaturedShows : function(){
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/shows/featured',
-					params: 'limit=10, sort_by=created:desc', // exemple de params
+					url: SHOW_API_BASE_URL+'/show/featured',
 					headers: {'Authorization': 'Token token=xxxxYYYYZzzz'} // exemple de token si on utilise cette méthode d'authentification
 			    });
 	    	},
@@ -16,22 +32,24 @@
 	    	getListShows : function(){
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/shows/'
+					url: SHOW_API_BASE_URL+'/show/shows/'
 			    });
 	    	},
 
 	    	getListShowsByDate : function(dd, mm, yyyy){
+	    		
+	    		var timeinmillis = moment(dd + "/" + mm + "/" + yyyy, "DD/MM/YYYY");
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/shows/date/',
-					params: 'dd=' + dd + ', mm=' + mm + ', yyyy=' + yyyy
+					url: SHOW_API_BASE_URL+'/show',
+					params: {'timeinmillis' : timeinmillis.valueOf()}
 			    });
 	    	},
 
-	    	getShowById : function(){
+	    	getShowById : function(id){
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/show/1' // TODO: mettre le vrai id du spectacle quand le vrai service web sera disponible
+					url: SHOW_API_BASE_URL+'/show?id=' + id
 			    });
 	    	},
 
@@ -88,7 +106,15 @@
 	    		return found;
 	    	},
 
+<<<<<<< HEAD
 	    	add: function(show){
+=======
+	    	formatShow : function(show){
+	    		return _calculateShowDateFromTo(show);
+	    	},
+
+	    	test: function(){
+>>>>>>> integration_backend
 	    		return $http({
 					method: 'POST',
 					url: REAL_SHOW_API_BASE_URL+'/show/add',

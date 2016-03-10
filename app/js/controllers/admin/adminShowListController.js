@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('adminShowListController', ["$scope", "$controller", "showService", "messageService", "$q", 
-        function($scope, $controller, showService, messageService, $q){
+    .controller('adminShowListController', ["$scope", "$controller", "showService", "messageService", "$q", "$location",
+        function($scope, $controller, showService, messageService, $q, $location){
             var self = this;
             $scope.unpublishedShows = [];
 
@@ -60,6 +60,11 @@
                     loadingScreen.hide();
                     messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
                 })
+            }
+
+
+            $scope.cloneShow = function(show){
+                $location.path("/spectacle/dupliquer/" + show.id);
             }
 
 

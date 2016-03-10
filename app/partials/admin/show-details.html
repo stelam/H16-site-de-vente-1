@@ -1,6 +1,7 @@
 <h1 class="" ng-if="!show.id">Création d'un spectacle</h1>
-<h1 class="" ng-if="show.id">Modification d'un spectacle</h1>
-
+<h1 class="" ng-if="show.id && !cloning">Modification d'un spectacle</h1>
+<h1 class="" ng-if="cloning">Duplication d'un spectacle</h1>
+{{show}}
 <div id="creationSpectacle">
 	<form class="form-horizontal">
 		<div class="form-group">
@@ -113,8 +114,8 @@
 
 		<div class="form-group">
 			<div class="col-sm-12">
-				<button ng-if="!show.id" type="button" ng-click="create()" class="btn btn-success pull-right">Créer le spectacle</button>
-				<button ng-if="show.id" type="button" ng-click="save()" class="btn btn-success pull-right">Enregistrer les modifications</button>
+				<button ng-if="!show.id || cloning" type="button" ng-click="create()" class="btn btn-success pull-right">Créer le spectacle</button>
+				<button ng-if="show.id && !cloning" type="button" ng-click="save()" class="btn btn-success pull-right">Enregistrer les modifications</button>
 				<!--<button type="button" class="btn btn-warning">Reset</button>-->
 			</div>
 		</div>

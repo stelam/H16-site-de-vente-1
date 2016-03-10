@@ -28,6 +28,10 @@
 				templateUrl: 'partials/admin/show-details.html',
 				controller: 'adminShowController',
 				title: 'Modifier un spectacle'
+			}).when('/spectacle/dupliquer/:idClonedShow', {
+				templateUrl: 'partials/admin/show-details.html',
+				controller: 'adminShowController',
+				title: 'Modifier un spectacle'
 			}).otherwise({
 				redirectTo: '/spectacles'
 			});

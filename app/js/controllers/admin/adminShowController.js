@@ -17,9 +17,17 @@
             // Instancier le contrôleur de base
             $controller('baseAdminController', { $scope: $scope });
 
+            $scope.cloning = false;
 
+            // déterminer, selon l'url, si le user veut :
+            // 1) éditer un show
+            // 2) cloner un show
+            // 3) créer un show
             if ($routeParams.idShow){
                 asyncCalls.push(showService.getShowById($routeParams.idShow));
+            } else if ($routeParams.idClonedShow) {
+                asyncCalls.push(showService.getShowById($routeParams.idClonedShow));
+                $scope.cloning = true;
             } else {
                 $scope.show = showService.getEmpty;
             }
@@ -48,6 +56,13 @@
                 } else {
                     $scope.show = res.show;
                     $scope.formatPresentationDatesInReadable();
+                    if ($scope.cloning) {
+                        $scope.show.name = "Copie de " + $scope.show.name;
+                        $scope.show.id = null;
+                        $scope.show.showPresentationList.forEach(function(p){
+                            p.id = null;
+                        })
+                    }
                 }
         	});
 
@@ -73,11 +88,12 @@
             $scope.create = function(){
                 loadingScreen.show();
                 $scope.formatPresentationDatesInMillis();
-                console.log(JSON.stringify($scope.show));
+                console.log(($scope.show));
                 showService.add($scope.show).then(function(){
                     messageService.showMessage(messageService.getMessage("INFO_ADD_SUCCESSFUL"));
                     $location.path("/spectacles");
                 }, function(){
+                    loadingScreen.hide();
                     messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
                 })
             }
@@ -91,6 +107,7 @@
                     messageService.showMessage(messageService.getMessage("INFO_SAVE_SUCCESSFUL"));
                     $location.path("/spectacles");
                 }, function(){
+                    loadingScreen.hide();
                     messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
                 })
             }

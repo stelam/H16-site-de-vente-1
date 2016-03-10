@@ -2,7 +2,7 @@
  "use strict";
 
   angular.module('app')
-    .factory('showService', ["$http", "SHOW_API_BASE_URL", "Slug", function($http, SHOW_API_BASE_URL, Slug){
+    .factory('showService', ["$http", "SHOW_API_BASE_URL", "REAL_SHOW_API_BASE_URL", "Slug", function($http, SHOW_API_BASE_URL, REAL_SHOW_API_BASE_URL, Slug){
 	    return {
 	    	getListFeaturedShows : function(){
 	    		return $http({
@@ -88,10 +88,11 @@
 	    		return found;
 	    	},
 
-	    	test: function(){
+	    	add: function(show){
 	    		return $http({
-					method: 'GET',
-					url: 'http://agile-anchorage-60775.herokuapp.com/theater?id=1'
+					method: 'POST',
+					url: REAL_SHOW_API_BASE_URL+'/show/add',
+					data: show
 			    });
 	    		
 	    	}

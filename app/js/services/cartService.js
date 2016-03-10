@@ -2,8 +2,8 @@
  "use strict";
 
   angular.module('app')
-    .factory('cartService', ["$http", "$q", "$interval", 'localStorageService', "SHOW_API_BASE_URL", "CART", "showService", "messageService",
-	function($http, $q, $interval, localStorageService, SHOW_API_BASE_URL, CART, showService, messageService){
+    .factory('cartService', ["$http", "$q", "$interval", 'localStorageService', "SHOW_API_BASE_URL", "REAL_SHOW_API_BASE_URL", "CART", "showService", "messageService",
+	function($http, $q, $interval, localStorageService, SHOW_API_BASE_URL, REAL_SHOW_API_BASE_URL, CART, showService, messageService){
     	var self = this;
     	var currentCart = {
     		items: [],
@@ -45,11 +45,11 @@
         // PUT : modification d'une réservation existante
     	this.commitReserveItem = function(item){
     		var deferred = $q.defer();
-            var url = SHOW_API_BASE_URL + '/reservation';
+            var url = REAL_SHOW_API_BASE_URL + '/ticket/reserve';
 
             var existingItem = self.getItemById(item.itemId);
 
-            var commitMethod = (existingItem) ? "PUT" : "POST";
+            var commitMethod = (existingItem) ? "POST" : "POST";
             if (existingItem) {
                 existingItem.quantity = item.quantity;
                 item = existingItem;
@@ -57,11 +57,21 @@
                 url += "/" + item.reservationId;
             }
 
+            var reserveTickets = [];
+
+            for (var i = 0; i < item.quantity; i++) {
+                reserveTickets.push({
+                    showPresentationId : item.itemId
+                })
+            }
+
     		$http({
-				method: commitMethod,
-				url: url // TODO : mettre les vrais paramètres 
+				method: "POST",
+				url: url,
+                data: reserveTickets
 		    }).then(function(data){
-    			if (data.data.success) {
+                console.log(data);
+    			if (data.data.id >= 0) {
                     // le timestamp devrait être retourné par l'API
                     // on utilise des timestamp local (client) pour l'instant
 
@@ -70,7 +80,7 @@
     					item.timestampReservationEnd = item.timestampAdded + CART.RESERVATION_TIME * 60000;
                     }
                     if (data.data.reservationId) {
-                        item.reservationId = data.data.reservationId;
+                        item.reservationId = data.data.id;
                     }
 					self.addItem(item);
 					deferred.resolve(true);

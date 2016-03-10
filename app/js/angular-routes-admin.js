@@ -26,7 +26,7 @@
 				title: 'Modifier une salle'
 			}).when('/spectacle/:idShow', {
 				templateUrl: 'partials/admin/show-details.html',
-				controller: 'adminTheaterController',
+				controller: 'adminShowController',
 				title: 'Modifier un spectacle'
 			}).otherwise({
 				redirectTo: '/spectacles'

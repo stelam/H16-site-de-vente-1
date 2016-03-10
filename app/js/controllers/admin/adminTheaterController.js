@@ -66,7 +66,7 @@
 
             $scope.save = function(){
                 loadingScreen.show();
-                theaterService.add($scope.theater).then(function(){
+                theaterService.edit($scope.theater).then(function(){
                     messageService.showMessage(messageService.getMessage("INFO_SAVE_SUCCESSFUL"));
                     $location.path("/salles");
                 }, function(){

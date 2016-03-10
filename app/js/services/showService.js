@@ -111,8 +111,35 @@
 	    		
 	    	},
 
+	    	edit: function(show){
+	    		return $http({
+					method: 'PUT',
+					url: SHOW_API_BASE_URL+'/show/edit',
+					data: show
+			    });
+	    		
+	    	},
+
 	    	formatShow : function(show){
 	    		return _calculateShowDateFromTo(show);
+	    	},
+
+
+	    	getEmpty: {
+                name: "test",
+                artistName: "art",
+                imageUrl: "images/show-0.jpg",
+                description: "tete",
+                isFeatured: true,
+                showPresentationList : [
+                    {
+                        timeinmillis: Date.now() * 1000,
+                        formattedDate: moment(Date.now()).format('DD/MM/YYYY'),
+                        numberOfPlaces: 0,
+                        price: 0.00,
+                        theater: {}
+                    }
+                ]
 	    	}
 	    } 
     }])

@@ -1,7 +1,7 @@
 <h1 class="" ng-if="!show.id">Création d'un spectacle</h1>
 <h1 class="" ng-if="show.id">Modification d'un spectacle</h1>
 
-{{show}}
+
 <div id="creationSpectacle">
 	<form class="form-horizontal">
 		<div class="form-group">
@@ -101,7 +101,7 @@
 					<label for="inputPrice-{{$index}}" class="col-sm-2 control-label">Prix</label>
 					
 					<div class="col-sm-10">
-						<input type="number" ng-model="prsentation.price" class="form-control" id="inputPrice-{{$index}}" placeholder="Prix" value=""/>
+						<input type="number" ng-model="presentation.price" class="form-control" id="inputPrice-{{$index}}" placeholder="Prix" value=""/>
 					</div>
 				</div>
 

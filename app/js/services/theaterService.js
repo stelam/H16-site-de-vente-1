@@ -30,7 +30,7 @@
 	    	},
 	    	edit: function(theater){
 	    		return $http({
-					method: 'POST',
+					method: 'PUT',
 					url: REAL_SHOW_API_BASE_URL+'/theater/edit',
 					data: theater,
 			    });

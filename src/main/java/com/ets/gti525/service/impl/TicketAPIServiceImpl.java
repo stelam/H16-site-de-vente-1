@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class TicketAPIServiceImpl implements TicketAPIService {
@@ -32,12 +34,22 @@ public class TicketAPIServiceImpl implements TicketAPIService {
             shoppingCart.getTicketList().add(ticket);
         }
         request.getSession().setAttribute("cart", shoppingCart);
-        request.getSession().setMaxInactiveInterval(180);
+        request.getSession().setMaxInactiveInterval(300);
         return shoppingCart;
     }
 
     @Override
     public ShoppingCart getTicketsInCart(HttpServletRequest request) {
-        return (ShoppingCart) request.getSession().getAttribute("cart");
+        ShoppingCart shoppingCart = (ShoppingCart) request.getSession().getAttribute("cart");
+        List<Ticket> ticketsToRemove = new ArrayList<>();
+        for (Ticket ticket : shoppingCart.getTicketList()) {
+            Calendar cal = Calendar.getInstance();
+            if (cal.getTimeInMillis() - ticket.getTimeinmillis() > TimeUnit.MINUTES.toMillis(3)) {
+                ticketsToRemove.add(ticket);
+            }
+        }
+        shoppingCart.getTicketList().removeAll(ticketsToRemove);
+        request.getSession().setAttribute("cart", shoppingCart);
+        return shoppingCart;
     }
 }

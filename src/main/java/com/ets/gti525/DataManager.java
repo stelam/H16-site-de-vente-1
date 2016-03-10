@@ -8,7 +8,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class DataManager implements InitializingBean {
@@ -78,5 +79,22 @@ public class DataManager implements InitializingBean {
         province = new Province();
         province.setProvinceName("Territoires du Nord-Ouest");
         provinceDAO.save(province);
+    }
+
+    public static void updateReservationList(Long showPresentationId) {
+        List<String> ticketsIdToRemove = new ArrayList<>();
+
+        for (Map.Entry<String, Ticket> reservedTicket : DataManager.ticketsInReservationList.entrySet()) {
+            if (Objects.equals(reservedTicket.getValue().getShowPresentationId(), showPresentationId)) {
+                Calendar cal = Calendar.getInstance();
+                if (cal.getTimeInMillis() - reservedTicket.getValue().getTimeinmillis() > TimeUnit.MINUTES.toMillis(3)) {
+                    ticketsIdToRemove.add(reservedTicket.getValue().getTicketId());
+                }
+            }
+        }
+
+        for (String ticketId : ticketsIdToRemove) {
+            DataManager.ticketsInReservationList.remove(ticketId);
+        }
     }
 }

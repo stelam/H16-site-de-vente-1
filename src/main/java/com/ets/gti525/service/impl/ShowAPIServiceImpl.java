@@ -71,7 +71,7 @@ public class ShowAPIServiceImpl implements ShowAPIService {
                 numberOfTicketSoldAndReserved++;
             }
         }
-        updateReservationList(presentationShowId);
+        DataManager.updateReservationList(presentationShowId);
 
         for (Map.Entry<String, Ticket> entry : DataManager.ticketsInReservationList.entrySet()) {
             if (Objects.equals(entry.getValue().getShowPresentationId(), presentationShowId)) {
@@ -128,22 +128,5 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         }
 
         return filteredShowPresentationList;
-    }
-
-    private void updateReservationList(Long showPresentationId) {
-        List<String> ticketsIdToRemove = new ArrayList<>();
-
-        for (Map.Entry<String, Ticket> reservedTicket : DataManager.ticketsInReservationList.entrySet()) {
-            if (Objects.equals(reservedTicket.getValue().getShowPresentationId(), showPresentationId)) {
-                Calendar cal = Calendar.getInstance();
-                if (cal.getTimeInMillis() - reservedTicket.getValue().getTimeinmillis() > TimeUnit.MINUTES.toMillis(1)) {
-                    ticketsIdToRemove.add(reservedTicket.getValue().getTicketId());
-                }
-            }
-        }
-
-        for (String ticketId : ticketsIdToRemove) {
-            DataManager.ticketsInReservationList.remove(ticketId);
-        }
     }
 }

@@ -13,13 +13,13 @@
             <div class="col-md-6">
                 <a href="#/spectacle/{{show.id}}" type="button" class="btn btn-default">Modifier</a>
                 <button type="button" class="btn btn-warning">Dupliquer</button>
-                <button type="button" class="btn btn-danger">Supprimer</button>
+                <button ng-click="deleteShow(show)"  type="button" class="btn btn-danger">Supprimer</button>
                 <!--<span class=" handle glyphicon glyphicon-move" aria-hidden="true"></span>-->
             </div>
         </div>
     </div>
 
-    <h2 ng-if="shows.length > 0">Spectacles actifs</h2>
+    <h2 ng-if="shows.length - featuredShows.length > 0">Spectacles actifs</h2>
     <div id="liste-spectacles-inactifs">
         <div class="row" ng-repeat="show in shows" ng-if="!show.isFeatured">
             <div class="col-md-6">

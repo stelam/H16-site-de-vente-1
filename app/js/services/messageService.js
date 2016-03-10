@@ -76,7 +76,21 @@
 				type: "info",
 				code: "G1",
 				title: "Information",
-				message: "Ajout réussit."
+				message: "Ajout réussi."
+			},
+
+			"INFO_SAVE_SUCCESSFUL" : {
+				type: "info",
+				code: "G2",
+				title: "Information",
+				message: "Modification réussie."
+			},
+
+			"INFO_DELETE_SUCCESSFUL" : {
+				type: "info",
+				code: "G3",
+				title: "Information",
+				message: "Suppression réussie."
 			}
 		};
 

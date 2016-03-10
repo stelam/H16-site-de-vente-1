@@ -120,6 +120,15 @@
 	    		
 	    	},
 
+	    	delete: function(show){
+	    		return $http({
+					method: 'DELETE',
+					url: SHOW_API_BASE_URL+'/show/remove',
+					params: {id: show.id}
+			    });
+	    		
+	    	},
+
 	    	formatShow : function(show){
 	    		return _calculateShowDateFromTo(show);
 	    	},

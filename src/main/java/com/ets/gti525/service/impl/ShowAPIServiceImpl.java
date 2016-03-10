@@ -82,7 +82,7 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         System.out.println(numberOfTicketSoldAndReserved);
 
 
-        return (numberOfTicketSoldAndReserved + quantity) < showPresentation.getNumberOfPlaces();
+        return (numberOfTicketSoldAndReserved + quantity) <= showPresentation.getNumberOfPlaces();
     }
 
     @Override

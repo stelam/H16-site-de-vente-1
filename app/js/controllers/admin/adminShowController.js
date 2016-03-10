@@ -84,8 +84,9 @@
 
             $scope.save = function(){
                 loadingScreen.show();
-                $scope.formatPresentationDatesInMillis();
                 console.log($scope.show)
+                $scope.formatPresentationDatesInMillis();
+                
                 showService.edit($scope.show).then(function(){
                     messageService.showMessage(messageService.getMessage("INFO_SAVE_SUCCESSFUL"));
                     $location.path("/spectacles");

@@ -7,7 +7,8 @@
                 restrict: 'A',
                 scope: {
                 	dateObj : "=",
-                    link: "="
+                    link: "=",
+                    dateModel: "="
                 },
                 link: function (scope, element) {
                 	moment.locale("fr-CA");
@@ -26,6 +27,18 @@
     			        	})
     			        	
     			        })
+                    }
+
+
+                    // update the angular model
+                    if (scope.dateModel) {
+                        $(element).on('dp.change', function(e){
+                            var date = moment(e.date._d);
+                            
+                            var dateString = moment(date).format('DD/MM/YYYY');
+
+                            scope.dateModel = dateString;
+                        })
                     }
                 }
             }

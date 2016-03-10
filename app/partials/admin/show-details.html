@@ -1,7 +1,7 @@
 <h1 class="" ng-if="!show.id">Création d'un spectacle</h1>
 <h1 class="" ng-if="show.id">Modification d'un spectacle</h1>
 
-
+{{show}}
 <div id="creationSpectacle">
 	<form class="form-horizontal">
 		<div class="form-group">
@@ -77,7 +77,7 @@
 					<label for="inputDate-{{$index}}" class="col-sm-2 control-label">Date</label>
 					
 					<div class="col-sm-10">
-						<span class='input-group date' datetime-picker date-obj="false">
+						<span class='input-group date' datetime-picker date-model="presentation.formattedDate" date-obj="false">
 							<input class="form-control" id="inputDate-{{$index}}" ng-model="presentation.formattedDate" type='text' />
 							<span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar" title="Voir les spectacles pour une date spécifique" aria-hidden="true"></span>

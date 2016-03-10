@@ -15,6 +15,7 @@ public class Ticket {
     private Long showPresentationId;
     private Long timeinmillis;
     private Long expiringTimeinmillis;
+    private int inactivityExpirationDelay;
     private int quantity;
 
 
@@ -68,6 +69,14 @@ public class Ticket {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public int getInactivityExpirationDelay() {
+		return inactivityExpirationDelay;
+	}
+	
+	public void setInactivityExpirationDelay(int inactivityExpirationDelay) {
+		this.inactivityExpirationDelay = inactivityExpirationDelay;
 	}
 
 }

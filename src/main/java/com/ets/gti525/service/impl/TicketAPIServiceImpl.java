@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 @Controller
 public class TicketAPIServiceImpl implements TicketAPIService {
 	private static final int CART_RESERVATION_MINUTES = 1; // maybe put this in a config file/system
+	private static final int INACTIVITY_EXPIRATION_MINUTES = 3; // maybe put this in a config file/system
 	
     @Autowired
     TicketDAO ticketDAO;
@@ -29,6 +30,7 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         Calendar cal = Calendar.getInstance();
         long timeinmillis = cal.getTimeInMillis();
         long expiringTimeinmillis = cal.getTimeInMillis() + CART_RESERVATION_MINUTES * 60 * 1000;
+        
         String uniqueID = UUID.randomUUID().toString();
         
         ShoppingCart shoppingCart = (ShoppingCart) request.getSession(true).getAttribute("cart");
@@ -52,13 +54,14 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         	ticket.setExpiringTimeinmillis(existingSameTicket.getExpiringTimeinmillis());
         	ticket.setTicketId(existingSameTicket.getTicketId());
         }
+        ticket.setInactivityExpirationDelay(INACTIVITY_EXPIRATION_MINUTES);
         
         DataManager.ticketsInReservationList.put(ticket.getTicketId(), ticket);
         shoppingCart.addOrReplaceTicket(ticket);
         
         request.getSession(true).setAttribute("cart", shoppingCart);
         
-        request.getSession().setMaxInactiveInterval(300);
+        request.getSession().setMaxInactiveInterval(INACTIVITY_EXPIRATION_MINUTES * 60);
         return shoppingCart;
     }
 

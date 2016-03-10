@@ -2,9 +2,6 @@
  "use strict";
 
   angular.module('app')
-<<<<<<< HEAD
-    .factory('showService', ["$http", "SHOW_API_BASE_URL", "REAL_SHOW_API_BASE_URL", "Slug", function($http, SHOW_API_BASE_URL, REAL_SHOW_API_BASE_URL, Slug){
-=======
     .factory('showService', ["$http", "SHOW_API_BASE_URL", "Slug", function($http, SHOW_API_BASE_URL, Slug){
 
     	var _calculateShowDateFromTo = function(show){
@@ -19,7 +16,6 @@
     		return show;
     	}
 
->>>>>>> integration_backend
 	    return {
 	    	getListFeaturedShows : function(){
 	    		return $http({
@@ -106,21 +102,17 @@
 	    		return found;
 	    	},
 
-<<<<<<< HEAD
 	    	add: function(show){
-=======
-	    	formatShow : function(show){
-	    		return _calculateShowDateFromTo(show);
-	    	},
-
-	    	test: function(){
->>>>>>> integration_backend
 	    		return $http({
 					method: 'POST',
 					url: REAL_SHOW_API_BASE_URL+'/show/add',
 					data: show
 			    });
 	    		
+	    	},
+
+	    	formatShow : function(show){
+	    		return _calculateShowDateFromTo(show);
 	    	}
 	    } 
     }])

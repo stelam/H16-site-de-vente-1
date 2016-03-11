@@ -31,7 +31,7 @@
 	});
 
 	angular.module('app').config(['$httpProvider', function($httpProvider) {
-		$httpProvider.interceptors.push('httpActivityInterceptorService');
+		$httpProvider.defaults.withCredentials = true;
 	}])
 
 

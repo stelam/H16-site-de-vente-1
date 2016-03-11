@@ -45,19 +45,23 @@
             $scope.deleteTheater = function(theater){
                 loadingScreen.show();
 
-                theaterService.delete(theater).then(function(){
-                    $scope.theaters.forEach(function(s,i){
-                        if (s.id == theater.id){
-                            $scope.theaters.splice(i,1);
-                        }
+                if (confirm("Êtes vous certain?") == true) {
+                    theaterService.delete(theater).then(function(){
+                        $scope.theaters.forEach(function(s,i){
+                            if (s.id == theater.id){
+                                $scope.theaters.splice(i,1);
+                            }
+                        })
+     
+                        loadingScreen.hide();
+                        messageService.showMessage(messageService.getMessage("INFO_DELETE_SUCCESSFUL"));
+                    },function(e){
+                        loadingScreen.hide();
+                        messageService.showMessage(messageService.getMessage("ERROR_REFERENCE_DELETE"));
                     })
- 
+                } else {
                     loadingScreen.hide();
-                    messageService.showMessage(messageService.getMessage("INFO_DELETE_SUCCESSFUL"));
-                },function(e){
-                    loadingScreen.hide();
-                    messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
-                })
+                }
             }
 
     }])

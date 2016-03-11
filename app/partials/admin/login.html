@@ -1,0 +1,15 @@
+<section id="adminLogin">
+    <form class="form-signin" action="admin.php">
+        <h2 class="form-signin-heading ">Panneau administrateur</h2>
+
+        <label for="inputEmail" class="sr-only">Nom d'utilisateur</label>
+
+        <input type="username" ng-model="login.username" id="inputUsername" class="form-control" placeholder="Nom d'utilisateur" required="" autofocus="">
+
+        <label for="inputPassword" class="sr-only">Mot de passe</label>
+
+        <input type="password" ng-model="login.password" id="inputPassword" class="form-control" placeholder="Mot de passe" required="">
+
+        <a class="btn btn-lg btn-primary btn-block" ng-click="authenticate()">Se connecter</a>
+    </form>
+</section>

@@ -141,12 +141,22 @@
 			    });
 	    	},
 
+	    	showPresentationDetails: function(presentationShowId){
+	    		return $http({
+					method: 'GET',
+					url: SHOW_API_BASE_URL+'/show/showPresentationDetails',
+					params: {presentationShowId: presentationShowId}
+			    });
+	    	},
+	    	
+
 	    	getEmpty: {
                 name: "test",
                 artistName: "art",
                 imageUrl: "images/show-0.jpg",
                 description: "tete",
                 isFeatured: true,
+                active: false,
                 showPresentationList : [
                     {
                         timeinmillis: Date.now() * 1000,

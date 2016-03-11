@@ -32,6 +32,11 @@
 				templateUrl: 'partials/admin/show-details.html',
 				controller: 'adminShowController',
 				title: 'Modifier un spectacle'
+			}).when('/authentification', {
+				templateUrl: 'partials/admin/login.html',
+				controller: 'adminLoginController',
+				title: 'Authentification',
+				ident: "authentification"
 			}).otherwise({
 				redirectTo: '/spectacles'
 			});

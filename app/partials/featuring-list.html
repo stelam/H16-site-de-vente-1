@@ -3,7 +3,7 @@
 				</header>
 
 				<div class="row featuring small-gutter">
-					<article class="show-item col-sm-6 ng-fade {{(show.totalRemainingPlaces == 0)  ? 'full' : ''}}" ng-repeat-start="show in shows">
+					<article class="show-item col-sm-6 ng-fade {{(show.totalRemainingPlaces == 0)  ? 'full' : ''}}" ng-repeat-start="show in shows" ng-if="show.active">
 						<a href="#/spectacle/{{show.name | slugify}}-{{show.artistName | slugify}}-{{show.id}}">
 							<img alt="image du spectacle" ng-src="images/show-{{show.id}}.jpg" />
 							<div class="show-infos">

@@ -45,7 +45,7 @@
     	init().then(function(res){
     		loadingScreen.hide();
 
-            if (res && self.validateSlug(res.show)) {
+            if (res && self.validateSlug(res.show) && res.show.active) {
                 $scope.show = res.show;
 
                 var totalRemainingPlaces = 0;

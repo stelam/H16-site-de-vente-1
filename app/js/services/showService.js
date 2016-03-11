@@ -147,6 +147,7 @@
                 imageUrl: "images/show-0.jpg",
                 description: "tete",
                 isFeatured: true,
+                active: false,
                 showPresentationList : [
                     {
                         timeinmillis: Date.now() * 1000,

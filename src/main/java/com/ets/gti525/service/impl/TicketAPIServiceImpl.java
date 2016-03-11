@@ -93,11 +93,11 @@ public class TicketAPIServiceImpl implements TicketAPIService {
     }
 
     @Override
-    public String saveOrder(Order order) {
+    public String saveOrder(@RequestBody Order order) {
         String confirmationNumber = UUID.randomUUID().toString();
-        order.setConfirmationNumber(confirmationNumber);
+        order.setConfirmationId(confirmationNumber);
         orderDAO.save(order);
 
-        return order.getConfirmationNumber();
+        return order.getConfirmationId();
     }
 }

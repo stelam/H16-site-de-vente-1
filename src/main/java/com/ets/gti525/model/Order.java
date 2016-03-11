@@ -10,11 +10,11 @@ public class Order {
     @GeneratedValue
     private Long id;
 
-    private String confirmationNumber;
+    private String confirmationId;
     private double totalPrice;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Ticket> ticketBought;
+    private List<Ticket> ticketBoughtList;
 
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
@@ -31,12 +31,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getConfirmationNumber() {
-        return confirmationNumber;
+    public String getConfirmationId() {
+        return confirmationId;
     }
 
-    public void setConfirmationNumber(String confirmationNumber) {
-        this.confirmationNumber = confirmationNumber;
+    public void setConfirmationId(String confirmationId) {
+        this.confirmationId = confirmationId;
     }
 
     public double getTotalPrice() {
@@ -47,12 +47,12 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public List<Ticket> getTicketBought() {
-        return ticketBought;
+    public List<Ticket> getTicketBoughtList() {
+        return ticketBoughtList;
     }
 
-    public void setTicketBought(List<Ticket> ticketBought) {
-        this.ticketBought = ticketBought;
+    public void setTicketBoughtList(List<Ticket> ticketBoughtList) {
+        this.ticketBoughtList = ticketBoughtList;
     }
 
     public User getUser() {

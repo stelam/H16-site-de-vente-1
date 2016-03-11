@@ -31,7 +31,7 @@ public class AuthenticationAPIServiceImpl implements AuthenticationAPIService{
         }
 
         SecurityContextHolder.getContext().setAuthentication(
-                new UsernamePasswordAuthenticationToken(credential.getUsername(), credential.getPassword(), AuthorityUtils.createAuthorityList(credential.getRole())));
+                new UsernamePasswordAuthenticationToken(credential.getUsername(), credential.getPassword(), AuthorityUtils.createAuthorityList(dbCredential.getRole())));
 
         httpServletRequest.getSession(true).setAttribute("USER_CONTEXT", SecurityContextHolder.getContext());
 

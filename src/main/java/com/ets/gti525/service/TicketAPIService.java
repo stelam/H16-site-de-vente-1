@@ -21,5 +21,5 @@ public interface TicketAPIService {
     ShoppingCart getTicketsInCart(HttpServletRequest request);
 
     @RequestMapping(value = "/order", method = RequestMethod.POST)
-    String saveOrder(@RequestBody TicketOrder order);
+    TicketOrder saveOrder(@RequestBody TicketOrder order);
 }

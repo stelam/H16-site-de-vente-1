@@ -22,13 +22,14 @@ public class AuthenticationAdminFilter implements Filter {
 
         SecurityContextImpl context = (SecurityContextImpl)httpServletRequest.getSession().getAttribute("USER_CONTEXT");
         if (context == null) {
-           httpServletResponse.sendError(404, "NOT AUTHORIZED");
+           httpServletResponse.sendError(401, "NOT AUTHORIZED");
+           
             return;
         }
 
         for (GrantedAuthority grantedAuthority : context.getAuthentication().getAuthorities()) {
             if (!grantedAuthority.getAuthority().equals("ADMIN")) {
-                httpServletResponse.sendError(404, "NOT AUTHORIZED");
+                httpServletResponse.sendError(402, "NOT AUTHORIZED");
                 return;
             }
         }

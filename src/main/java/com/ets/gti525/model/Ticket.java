@@ -22,7 +22,8 @@ public class Ticket {
 	public Ticket() {
 
    }
-
+	
+	// le id de la réservation
     public String getTicketId() {
         return ticketId;
     }

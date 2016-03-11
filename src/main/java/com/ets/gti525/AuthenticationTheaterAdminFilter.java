@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextImpl;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 
 public class AuthenticationTheaterAdminFilter implements Filter {
@@ -21,12 +22,13 @@ public class AuthenticationTheaterAdminFilter implements Filter {
 
         SecurityContextImpl context = (SecurityContextImpl)httpServletRequest.getSession().getAttribute("USER_CONTEXT");
         if (context == null) {
-            httpServletResponse.sendError(404, "NOT AUTHORIZED");
+            httpServletResponse.sendError(403, "NOT AUTHORIZED");
             return;
         }
 
         for (GrantedAuthority grantedAuthority : context.getAuthentication().getAuthorities()) {
             if (!grantedAuthority.getAuthority().equals("THEATER_ADMIN")) {
+            	System.out.println("22222");
                 httpServletResponse.sendError(404, "NOT AUTHORIZED");
                 return;
             }

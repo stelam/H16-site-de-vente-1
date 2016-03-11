@@ -2,7 +2,6 @@ package com.ets.gti525.service;
 
 
 import com.ets.gti525.model.Theater;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

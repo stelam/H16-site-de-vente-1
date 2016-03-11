@@ -1,7 +1,9 @@
 package com.ets.gti525;
 
+import com.ets.gti525.dao.CredentialDAO;
 import com.ets.gti525.dao.ProvinceDAO;
 import com.ets.gti525.dao.TheaterDAO;
+import com.ets.gti525.model.Credential;
 import com.ets.gti525.model.Province;
 import com.ets.gti525.model.Ticket;
 import org.springframework.beans.factory.InitializingBean;
@@ -18,6 +20,8 @@ public class DataManager implements InitializingBean {
     TheaterDAO theaterDAO;
     @Autowired
     ProvinceDAO provinceDAO;
+    @Autowired
+    CredentialDAO credentialDAO;
 
     public static HashMap<String, Ticket> ticketsInReservationList = new HashMap<>();
     private static final int CART_RESERVATION_MINUTES = 1; // maybe put this in a config file/system
@@ -25,6 +29,7 @@ public class DataManager implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         initializeProvince();
+        initializeCredential();
     }
 
     private void initializeProvince() {
@@ -79,6 +84,14 @@ public class DataManager implements InitializingBean {
         province = new Province();
         province.setProvinceName("Territoires du Nord-Ouest");
         provinceDAO.save(province);
+    }
+
+    private void initializeCredential() {
+        Credential credential = new Credential();
+        credential.setUsername("admin");
+        credential.setPassword("1234");
+        credential.setRole("ADMIN");
+        credentialDAO.save(credential);
     }
 
     public static void updateReservationList(Long showPresentationId) {

@@ -20,6 +20,11 @@ public class AuthenticationAdminFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
 
+        if (httpServletRequest.getMethod().equals("OPTIONS")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
         SecurityContextImpl context = (SecurityContextImpl)httpServletRequest.getSession().getAttribute("USER_CONTEXT");
         if (context == null) {
            httpServletResponse.sendError(401, "NOT AUTHORIZED");

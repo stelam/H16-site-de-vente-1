@@ -49,14 +49,14 @@ public class BackendgoeventsApplication {
 	public FilterRegistrationBean adminFilterRegistration() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
 		registration.setFilter(adminFilter());
-		/*.addUrlPatterns("/theater/add");
+		registration.addUrlPatterns("/theater/add");
 		registration.addUrlPatterns("/theater/remove");
 		registration.addUrlPatterns("/theater/edit");
 		registration.addUrlPatterns("/show/shows");
 		registration.addUrlPatterns("/show/add");
 		registration.addUrlPatterns("/show/remove");
 		registration.addUrlPatterns("/show/edit");
-		registration.addUrlPatterns("/show/showPresentationDetails");*/
+		registration.addUrlPatterns("/show/showPresentationDetails");
 		registration.addUrlPatterns("/whatever2");
 		registration.setName("adminFilter");
 		return registration;

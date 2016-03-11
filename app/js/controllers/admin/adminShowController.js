@@ -58,6 +58,20 @@
                 } else {
                     $scope.show = res.show;
                     $scope.formatPresentationDatesInReadable();
+
+                    // obtenir les quantités restantes des présentations
+                    $scope.show.showPresentationList.forEach(function(p){
+                        loadingScreen.show();
+                        showService.showPresentationDetails(p.id).then(function(data){
+                            loadingScreen.hide();
+                            p.numberOfTicketsRemaining = data.data.numberOfTicketsRemaining;
+                            p.numberOfSoldTickets = p.numberOfPlaces - p.numberOfTicketsRemaining;
+                        }, function(){
+                            loadingScreen.hide();
+                        })
+                    })
+
+                    // si c'est une duplication de spectacle
                     if ($scope.cloning) {
                         $scope.show.name = "Copie de " + $scope.show.name;
                         $scope.show.id = null;

@@ -141,6 +141,15 @@
 			    });
 	    	},
 
+	    	showPresentationDetails: function(presentationShowId){
+	    		return $http({
+					method: 'GET',
+					url: SHOW_API_BASE_URL+'/show/showPresentationDetails',
+					params: {presentationShowId: presentationShowId}
+			    });
+	    	},
+	    	
+
 	    	getEmpty: {
                 name: "test",
                 artistName: "art",

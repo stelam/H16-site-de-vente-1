@@ -29,14 +29,14 @@
                 asyncCalls.push(showService.getListShowsByDate($scope.dateFilter.dd, $scope.dateFilter.mm, $scope.dateFilter.yyyy))
             // si c'est une recherche
             } else if ($scope.searchQuery){
-                asyncCalls.push() // TODO : méthode de recherche
+                asyncCalls.push(showService.searchByNameOrArtistName($scope.searchQuery)); // TODO : méthode de recherche
             } else {
                 asyncCalls.push(showService.getListShows());
             }
 
     		return $q.all(asyncCalls).then(function(res){
     			return {
-    				shows : res[0].data.shows
+    				shows : res[0].data
     			}
     		}).catch(function(e){
                 messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
@@ -59,7 +59,14 @@
     	init().then(function(res){
     		loadingScreen.hide();
             if (res){
-                $scope.shows = res.shows;
+                // on affiche seulement les spectacles qui ont au moins une présentation
+                res.shows.forEach(function(fs){
+                    if (fs.showPresentationList && fs.showPresentationList.length > 0){
+                        fs = showService.formatShow(fs);
+                        $scope.shows.push(fs);
+                    }
+                        
+                })
             }
     		
 

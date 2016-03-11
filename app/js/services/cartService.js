@@ -2,8 +2,8 @@
  "use strict";
 
   angular.module('app')
-    .factory('cartService', ["$http", "$q", "$interval", 'localStorageService', "SHOW_API_BASE_URL", "CART", "showService", "messageService",
-	function($http, $q, $interval, localStorageService, SHOW_API_BASE_URL, CART, showService, messageService){
+    .factory('cartService', ["$http", "$q", "$rootScope", "$interval", 'localStorageService', "SHOW_API_BASE_URL", "REAL_SHOW_API_BASE_URL", "CART", "showService", "messageService",
+	function($http, $q, $rootScope, $interval, localStorageService, SHOW_API_BASE_URL, REAL_SHOW_API_BASE_URL, CART, showService, messageService){
     	var self = this;
     	var currentCart = {
     		items: [],
@@ -20,12 +20,13 @@
     	this.updateTimers = function(){
     		currentCart.items.forEach(function(item){
     			item.remainingReservationTime = item.timestampReservationEnd - Date.now();
+                var inactiveTimeMinutes = ((Date.now() - $rootScope.inactiveSince) / 1000) / 60;
 
-    			if (item.remainingReservationTime <= 0) {
+    			if (item.remainingReservationTime <= 0 || inactiveTimeMinutes >= item.inactivityExpirationDelay) {
     				self.removeItemById(item.itemId);
     				self.addExpiredItem(item);
     				self.commitToLocalStorage();
-                    self.commitDeleteItem(item);
+                    //self.commitDeleteItem(item);
     			}
     		})
     	}
@@ -45,33 +46,49 @@
         // PUT : modification d'une réservation existante
     	this.commitReserveItem = function(item){
     		var deferred = $q.defer();
-            var url = SHOW_API_BASE_URL + '/reservation';
+            var url = SHOW_API_BASE_URL + '/ticket/reserve';
 
             var existingItem = self.getItemById(item.itemId);
 
-            var commitMethod = (existingItem) ? "PUT" : "POST";
             if (existingItem) {
                 existingItem.quantity = item.quantity;
                 item = existingItem;
                 item.reservationId = existingItem.reservationId;
-                url += "/" + item.reservationId;
+                //url += "/" + item.reservationId;
+            }
+
+            var ticketToSend = {
+                showPresentationId : item.itemId,
+                quantity: item.quantity
             }
 
     		$http({
-				method: commitMethod,
-				url: url // TODO : mettre les vrais paramètres 
+				method: "POST",
+				url: url,
+                data: ticketToSend
 		    }).then(function(data){
-    			if (data.data.success) {
+                console.log(data);
+    			if (data.data.id >= 0) {
+                    var reservationId = false;
+                    var serverTicketList = data.data.ticketList;
                     // le timestamp devrait être retourné par l'API
                     // on utilise des timestamp local (client) pour l'instant
 
-                    if (!item.reservationId) {
-    					item.timestampAdded = Date.now();
-    					item.timestampReservationEnd = item.timestampAdded + CART.RESERVATION_TIME * 60000;
-                    }
-                    if (data.data.reservationId) {
-                        item.reservationId = data.data.reservationId;
-                    }
+                    // le serveur nous retourne la liste des items réservés par le user
+                    // il faut itérer à travers eux pour avoir l'item nouvellement ajouté
+                    var receivedTicket;
+                    serverTicketList.some(function(ticket){
+                        if (ticket.showPresentationId == item.itemId) {
+                            receivedTicket = ticket;
+                            return reservationId = ticket.ticketId;
+                        }
+                    })
+
+                    item.reservationId = reservationId;
+                    item.timestampAdded = receivedTicket.timeinmillis;
+                    item.timestampReservationEnd = receivedTicket.expiringTimeinmillis;
+                    item.inactivityExpirationDelay = receivedTicket.inactivityExpirationDelay;
+
 					self.addItem(item);
 					deferred.resolve(true);
 
@@ -176,16 +193,19 @@
 
             var existingItem = self.getItemById(item.itemId);
             var existingItemQuantity = (existingItem && !item.reservationId) ? parseInt(existingItem.quantity) : 0;
-
+            console.log(item.itemId);
     		showService.isTicketAvailable(item.itemId, quantity).then(function(data){
-    			if (data.data.available && parseInt(data.data.maxQuantity) >= quantity + existingItemQuantity) {
+    			//if (data.data.available && parseInt(data.data.maxQuantity) >= quantity + existingItemQuantity) {
+                if (data.data == true){
+                    //self.ticketInCart();
     				deferred.resolve(true);
     			} else {
     				//retourner une erreur (item non disponible pour la quantité désirée)
-    				var message = (data.data.available) 
-    					? "Désolé, cette quantité de billets n'est pas disponible." 
-    					: "Désolé, tous les billets sont maintenant réservés ou vendus."
-
+                    //self.ticketInCart();
+    				//var message = (data.data.available) 
+    					//? "Désolé, cette quantité de billets n'est pas disponible." 
+    					//: "Désolé, tous les billets sont maintenant réservés ou vendus."
+                    var message = "Désolé, cette quantité de billets n'est pas disponible.";
     				deferred.reject(messageService.getMessage("ERROR_ITEM_UNAVAILABLE", {messageOverride: message}));
 
     			}
@@ -195,6 +215,15 @@
 
     		return deferred.promise;
     	}
+
+        this.ticketInCart = function(){
+                $http({
+                    method: 'GET',
+                    url: SHOW_API_BASE_URL+'/ticket/inCart'
+                }).then(function(data){
+                    console.log(data);
+                })
+        }
 
 
     	this.validateItemQuantity = function(item) {
@@ -290,9 +319,9 @@
 
 	    return {
 	    	addItem : function(item, quantity){
-	    		return self.isItemAvailable(item, quantity)
-	    			.then(function(data){return self.incrementItemQuantity(item, quantity)})
+	    		return self.incrementItemQuantity(item, quantity)
 	    			.then(function(data){return self.validateItemQuantity(item)})
+                    .then(function(data){return self.isItemAvailable(item, item.quantity)})
 	    			.then(function(data){return self.commitReserveItem(item)})
                     .then(function(data){return self.updateCartTotal(item)})
 	    			.then(function(data){return self.commitToLocalStorage()});

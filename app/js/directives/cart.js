@@ -29,6 +29,7 @@
 
                         // si des items ont été ajoutés
                         if (newNbItems > scope.previousCart.totalNbItems) {
+
                             scope.flashCart();
                             scope.showPopover({type:"itemsAdded"})
                         } else if (newNbItems < scope.previousCart.totalNbItems) {
@@ -46,17 +47,15 @@
                             var expiredItem = scope.currentCart.expiredItems[expiredItems.length - 1];
 
                             loadingScreen.show();
-
-                            showService.getShowByTicketId(expiredItem.itemId).then(function(data){
-                                var show = data.data.show;
-                                scope.showPopover({
-                                    type:"expiredItem",
-                                    show: show,
-                                    item: expiredItem
-                                });
-                                cartService.removeExpiredItem(expiredItem);
-                                loadingScreen.hide();
-                            })
+                            console.log(expiredItems)
+                            scope.showPopover({
+                                type:"expiredItem",
+                                show: expiredItem.show,
+                                item: expiredItem
+                            });
+                            cartService.removeExpiredItem(expiredItem);
+                            loadingScreen.hide();
+                           
                         }
 
                     }, true)
@@ -71,16 +70,19 @@
                     }
 
                     scope.showPopover = function(options) {
-                
+
                         if (options.type == "itemsAdded") {
+                            var cartReservationTime = (scope.currentCart.items[scope.currentCart.items.length-1].timestampReservationEnd - scope.currentCart.items[scope.currentCart.items.length-1].timestampAdded) / 1000 / 60 ;
+                            var inactivityTime = scope.currentCart.items[scope.currentCart.items.length-1].inactivityExpirationDelay;
                             scope.popover.title = "Billets ajoutés au panier";
-                            scope.popover.content = "<p>Vos billets vous sont réservés pour une durée de " + CART.RESERVATION_TIME +" minutes à partir du moment de l'ajout du premier billet pour un spectacle donné.</p> <a href='#/caisse/revue' class='btn btn-block btn-goevents'>Passer à la caisse</a>";
+                            scope.popover.content = "<p>Vos billets vous sont réservés pour une durée de <strong>" + cartReservationTime +"</strong> minutes à partir du moment de l'ajout du premier billet pour un spectacle donné.</p><p>Ils peuvent aussi être automatiquement enlevés suite à une période d'inactivité de <strong>" +inactivityTime+ "</strong> minutes.</p> <a href='#/caisse/revue' class='btn btn-block btn-goevents'>Passer à la caisse</a>";
                         } else if (options.type == "expiredItem") {
+                            console.log(options);
                             var ticket = showService.getTicketInShowObjByTicketId(options.show, options.item.itemId);
                             var slugOptions = (ticket) ? {date:ticket.date} : {};
                             var showUrl = "spectacle/" + showService.getShowSlug(options.show, slugOptions);
                             scope.popover.title = "Billets retirés du panier";
-                            scope.popover.content = "<p>Le spectacle '<strong>" +options.show.title+ "</strong>' a été retiré de votre panier car le délais de réservation a expiré.</p> <a href='#/" +showUrl+ "' class='btn btn-block btn-goevents'>Page du spectacle</a>";
+                            scope.popover.content = "<p>Le spectacle '<strong>" +options.show.name+ "</strong>' a été retiré de votre panier car le délais de réservation a expiré ou en raison d'une période d'inactivité trop longue.</p> <a href='#/" +showUrl+ "' class='btn btn-block btn-goevents'>Page du spectacle</a>";
                         }
 
                         $timeout(function(){

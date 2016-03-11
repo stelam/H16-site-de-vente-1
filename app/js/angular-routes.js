@@ -69,6 +69,11 @@
 	        controller: 'showListController',
 	        ident: 'spectacles-search',
 	        title: 'Résultats de recherche'
+	      }).when('/spectacles/recherche/:searchQuery', {
+	        templateUrl: 'partials/show-list.html',
+	        controller: 'showListController',
+	        ident: 'spectacles-search',
+	        title: 'Résultats de recherche'
 	      }).
 	      otherwise({
 	        redirectTo: '/'

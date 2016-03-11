@@ -3,12 +3,24 @@
 
   angular.module('app')
     .factory('showService', ["$http", "SHOW_API_BASE_URL", "Slug", function($http, SHOW_API_BASE_URL, Slug){
+
+    	var _calculateShowDateFromTo = function(show){
+    		var fromDate = 0;
+    		var toDate = 0;
+    		show.showPresentationList.forEach(function(presentation){
+    			fromDate = (!fromDate || parseInt(presentation.timeinmillis) < fromDate) ? parseInt(presentation.timeinmillis) : fromDate;
+    			toDate = (!toDate || parseInt(presentation.timeinmillis) > toDate) ? parseInt(presentation.timeinmillis) : toDate;
+    		})
+    		show.fromDate = fromDate;
+    		show.toDate = toDate;
+    		return show;
+    	}
+
 	    return {
 	    	getListFeaturedShows : function(){
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/shows/featured',
-					params: 'limit=10, sort_by=created:desc', // exemple de params
+					url: SHOW_API_BASE_URL+'/show/featured',
 					headers: {'Authorization': 'Token token=xxxxYYYYZzzz'} // exemple de token si on utilise cette méthode d'authentification
 			    });
 	    	},
@@ -16,22 +28,24 @@
 	    	getListShows : function(){
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/shows/'
+					url: SHOW_API_BASE_URL+'/show/shows/'
 			    });
 	    	},
 
 	    	getListShowsByDate : function(dd, mm, yyyy){
+	    		
+	    		var timeinmillis = moment(dd + "/" + mm + "/" + yyyy, "DD/MM/YYYY");
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/shows/date/',
-					params: 'dd=' + dd + ', mm=' + mm + ', yyyy=' + yyyy
+					url: SHOW_API_BASE_URL+'/show',
+					params: {'timeinmillis' : timeinmillis.valueOf()}
 			    });
 	    	},
 
-	    	getShowById : function(){
+	    	getShowById : function(id){
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/show/1' // TODO: mettre le vrai id du spectacle quand le vrai service web sera disponible
+					url: SHOW_API_BASE_URL+'/show?id=' + id
 			    });
 	    	},
 
@@ -55,13 +69,13 @@
 	    	isTicketAvailable : function(showId, quantity) {
 	    		return $http({
 					method: 'GET',
-					url: SHOW_API_BASE_URL+'/ticket/1/available' // TODO: mettre le vrai id du spectacle quand le vrai service web sera disponible
-					// et mettre en paramètre la quantité
+					url: SHOW_API_BASE_URL+'/show/isShowAvailable', // TODO: mettre le vrai id du spectacle quand le vrai service web sera disponible
+					params: {presentationShowId: showId, quantity: quantity}
 			    });	    		
 	    	},
 
 	    	getShowSlug : function(show, options) {
-	    		var slug = Slug.slugify(show.title+"-"+show.artist+"-"+show.id);
+	    		var slug = Slug.slugify(show.name+"-"+show.artistName+"-"+show.id);
 				if (options.date) {
 					slug += "/" + options.date;
 				}
@@ -70,7 +84,7 @@
 
 	    	getTicketInShowObjByTicketId : function(show, ticketId) {
 	    		var found = false;
-	    		show.tickets.forEach(function(ticket){
+	    		show.showPresentationList.forEach(function(ticket){
 	    			if (parseInt(ticket.id) == parseInt(ticketId)) {
 	    				found = ticket;
 	    			}
@@ -80,7 +94,7 @@
 
 	    	getTicketInShowObjByTicketDate : function(show, ticketDate) {
 	    		var found = false;
-	    		show.tickets.forEach(function(ticket){
+	    		show.showPresentationList.forEach(function(ticket){
 	    			if ((ticket.date) == (ticketDate)) {
 	    				found = ticket;
 	    			}
@@ -88,12 +102,60 @@
 	    		return found;
 	    	},
 
-	    	test: function(){
+	    	add: function(show){
 	    		return $http({
-					method: 'GET',
-					url: 'http://agile-anchorage-60775.herokuapp.com/theater?id=1'
+					method: 'POST',
+					url: SHOW_API_BASE_URL+'/show/add',
+					data: show
 			    });
 	    		
+	    	},
+
+	    	edit: function(show){
+	    		return $http({
+					method: 'PUT',
+					url: SHOW_API_BASE_URL+'/show/edit',
+					data: show
+			    });
+	    		
+	    	},
+
+	    	delete: function(show){
+	    		return $http({
+					method: 'DELETE',
+					url: SHOW_API_BASE_URL+'/show/remove',
+					params: {id: show.id}
+			    });
+	    		
+	    	},
+
+	    	formatShow : function(show){
+	    		return _calculateShowDateFromTo(show);
+	    	},
+
+	    	searchByNameOrArtistName: function(query){
+	    		return $http({
+					method: 'GET',
+					url: SHOW_API_BASE_URL+'/show/search',
+					params: {query: query}
+			    });
+	    	},
+
+	    	getEmpty: {
+                name: "test",
+                artistName: "art",
+                imageUrl: "images/show-0.jpg",
+                description: "tete",
+                isFeatured: true,
+                showPresentationList : [
+                    {
+                        timeinmillis: Date.now() * 1000,
+                        formattedDate: moment(Date.now()).format('DD/MM/YYYY'),
+                        numberOfPlaces: 0,
+                        price: 0.00,
+                        theater: {}
+                    }
+                ]
 	    	}
 	    } 
     }])

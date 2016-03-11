@@ -28,7 +28,7 @@
 
     		]).then(function(res){
     			return {
-    				show : res[0].data.show
+    				show : res[0].data
     			}
     		}).catch(function(e){
                 messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
@@ -37,7 +37,7 @@
 
 
         this.validateSlug = function(show){
-            return ($routeParams.showSlug == Slug.slugify(show.title+"-"+show.artist+"-"+$scope.showId));
+            return ($routeParams.showSlug == Slug.slugify(show.name+"-"+show.artistName+"-"+$scope.showId));
         }
 
 
@@ -49,29 +49,32 @@
                 $scope.show = res.show;
 
                 // setter les quantités par défaut à 1 pour les billets
-                $scope.show.tickets.forEach(function(ticket){
+                $scope.show.showPresentationList.forEach(function(ticket){
                     ticket.quantity = 1;
                 })
 
                 // si une date a été spécifiée dans l'URL, présélectionner le billet correspondant à cette date
                 // sinon, sélectionner la première présentation par défaut
                 if ($routeParams.dd && $routeParams.mm && $routeParams.yyyy) {
-                    var preselectedTicket = showService.getTicketInShowObjByTicketDate($scope.show, $routeParams.dd+"/"+$routeParams.mm+"/"+$routeParams.yyyy);
+                    var preselectedTicket = showService.getTicketInShowObjByTicketDate($scope.show, moment($routeParams.dd+"/"+$routeParams.mm+"/"+$routeParams.yyyy, "DD/MM/YYYY").toValue());
                     if (preselectedTicket) {
                         $scope.itemOptions = preselectedTicket;
                     } else {
-                        $scope.itemOptions = $scope.show.tickets[0];
+                        $scope.itemOptions = $scope.show.showPresentationList[0];
                     }
                 } else {
-                    $scope.itemOptions = $scope.show.tickets[0];
+                    $scope.itemOptions = $scope.show.showPresentationList[0];
                 }
                 
 
                 // séparer les dollars et les cents
-                $scope.show.dollars = $scope.show.price.toString().split(".")[0];
-                $scope.show.cents = $scope.show.price.toString().split(".")[1];
+                $scope.itemOptions.dollars = $scope.itemOptions.price.toString().split(".")[0];
+                $scope.itemOptions.cents = $scope.itemOptions.price.toString().split(".")[1];
 
-                $rootScope.title = $scope.show.title + " - " + $scope.show.artist + " - du " + $scope.show.date;   
+                showService.formatShow($scope.show);
+
+                $rootScope.title = $scope.show.name + " - " + $scope.show.artistName;
+
             } else {
                 $location.path("/404");
             }

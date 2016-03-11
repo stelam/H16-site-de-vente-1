@@ -43,23 +43,31 @@
             $scope.deleteShow = function(show){
                 loadingScreen.show();
 
-                showService.delete(show).then(function(){
-                    $scope.shows.forEach(function(s,i){
-                        if (s.id == show.id){
-                            $scope.shows.splice(i,1);
-                        }
+
+                if (confirm("Êtes vous certain?") == true) {
+                   showService.delete(show).then(function(){
+                        $scope.shows.forEach(function(s,i){
+                            if (s.id == show.id){
+                                $scope.shows.splice(i,1);
+                            }
+                        })
+                        $scope.featuredShows.forEach(function(s,i){
+                            if (s.id == show.id){
+                                $scope.featuredShows.splice(i,1);
+                            }
+                        })
+                        loadingScreen.hide();
+                        messageService.showMessage(messageService.getMessage("INFO_DELETE_SUCCESSFUL"));
+                    },function(e){
+                        loadingScreen.hide();
+                        messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
                     })
-                    $scope.featuredShows.forEach(function(s,i){
-                        if (s.id == show.id){
-                            $scope.featuredShows.splice(i,1);
-                        }
-                    })
+                } else {
                     loadingScreen.hide();
-                    messageService.showMessage(messageService.getMessage("INFO_DELETE_SUCCESSFUL"));
-                },function(e){
-                    loadingScreen.hide();
-                    messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
-                })
+                }
+
+
+ 
             }
 
 

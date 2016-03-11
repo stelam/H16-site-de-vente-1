@@ -233,10 +233,9 @@
             currentCart.items.forEach(function(i){
                 nbIndividualItems += i.quantity;
             })
-
     		//if (item.quantity <= CART.MAX_SHOW_PURCHASE_QUANTITY) {
 
-            if (nbIndividualItems <= CART.MAX_SHOW_PURCHASE_QUANTITY){
+            if (nbIndividualItems + item.quantity <= CART.MAX_SHOW_PURCHASE_QUANTITY){
     			deferred.resolve(true);
     		} else {
     			deferred.reject(messageService.getMessage("ERROR_MAX_PURCHASE_QUANTITY_EXCEEDED"));
@@ -346,7 +345,11 @@
 	    	},
 
             removeItem :function(item){
-                return self.commitDeleteItem(item)
+                /*return self.commitDeleteItem(item)
+                    .then(function(data){return self.removeItemById(item.itemId)})
+                    .then(function(data){return self.updateCartTotal(item)})
+                    .then(function(data){return self.commitToLocalStorage()});*/
+                return self.updateItemQuantity(item, 0)
                     .then(function(data){return self.removeItemById(item.itemId)})
                     .then(function(data){return self.updateCartTotal(item)})
                     .then(function(data){return self.commitToLocalStorage()});

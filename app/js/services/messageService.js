@@ -41,7 +41,7 @@
 				type: "error",
 				code: "CS3",
 				title: "Erreur",
-				message: "Désolé, vous ne pouvez réserver un total de plus de " + CART.MAX_SHOW_PURCHASE_QUANTITY + " billets pour un spectacle."
+				message: "Calmez-vous, vous ne pouvez réserver un total de plus de " + CART.MAX_SHOW_PURCHASE_QUANTITY + " billets par session."
 			},
 
 			"ERROR_DELETE_ITEM" : {
@@ -98,7 +98,14 @@
 				code: "G3",
 				title: "Erreur",
 				message: "Échec lors de l'authentification."
-			}
+			},
+			"ERROR_REFERENCE_DELETE" : {
+				type: "error",
+				code: "G4",
+				title: "Erreur",
+				message: "Erreur : Cette entité ne peut être supprimée car elle est référencée par une autre."
+			},
+
 		};
 
     	return {

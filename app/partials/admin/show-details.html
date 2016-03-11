@@ -1,7 +1,7 @@
 <h1 class="" ng-if="!show.id">Création d'un spectacle</h1>
 <h1 class="" ng-if="show.id && !cloning">Modification d'un spectacle</h1>
 <h1 class="" ng-if="cloning">Duplication d'un spectacle</h1>
-{{show}}
+
 <div id="creationSpectacle">
 	<form class="form-horizontal">
 		<div class="form-group">
@@ -62,7 +62,7 @@
 		
 		<div class="presentation-list">
 			<article class="presentation" ng-repeat="presentation in show.showPresentationList">
-				{{$index}}
+
 				<div class="form-group">
 					<label for="inputSalle-{{$index}}" class="col-sm-2 control-label">Salle</label>
 					

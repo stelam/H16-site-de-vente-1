@@ -91,6 +91,13 @@
 				code: "G3",
 				title: "Information",
 				message: "Suppression réussie."
+			},
+
+			"ERROR_ADMIN_LOGIN" : {
+				type: "error",
+				code: "G3",
+				title: "Erreur",
+				message: "Échec lors de l'authentification."
 			}
 		};
 

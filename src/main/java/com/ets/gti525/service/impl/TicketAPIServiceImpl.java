@@ -19,18 +19,18 @@ import java.util.concurrent.TimeUnit;
 
 @Controller
 public class TicketAPIServiceImpl implements TicketAPIService {
-	private static final int CART_RESERVATION_MINUTES = 1; // maybe put this in a config file/system
-	private static final int INACTIVITY_EXPIRATION_MINUTES = 3; // maybe put this in a config file/system
-	
     @Autowired
     TicketDAO ticketDAO;
+
+    @Autowired
+    DataManager dataManager;
 
     @Override
     public ShoppingCart addTicket(@RequestBody Ticket ticket, HttpServletRequest request) {
         //ShoppingCart shoppingCart = new ShoppingCart();
         Calendar cal = Calendar.getInstance();
         long timeinmillis = cal.getTimeInMillis();
-        long expiringTimeinmillis = cal.getTimeInMillis() + CART_RESERVATION_MINUTES * 60 * 1000;
+        long expiringTimeinmillis = cal.getTimeInMillis() + dataManager.getCartReservationMinutes() * 60 * 1000;
         
         String uniqueID = UUID.randomUUID().toString();
         
@@ -59,14 +59,14 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         	ticket.setExpiringTimeinmillis(existingSameTicket.getExpiringTimeinmillis());
         	ticket.setTicketId(existingSameTicket.getTicketId());
         }
-        ticket.setInactivityExpirationDelay(INACTIVITY_EXPIRATION_MINUTES);
+        ticket.setInactivityExpirationDelay(dataManager.getInactivityExpirationMinutes());
         
         DataManager.ticketsInReservationList.put(ticket.getTicketId(), ticket);
         shoppingCart.addOrReplaceTicket(ticket);
         
         request.getSession(true).setAttribute("cart", shoppingCart);
         
-        request.getSession().setMaxInactiveInterval(INACTIVITY_EXPIRATION_MINUTES * 60);
+        request.getSession().setMaxInactiveInterval(dataManager.getInactivityExpirationMinutes() * 60);
         return shoppingCart;
     }
 
@@ -77,7 +77,7 @@ public class TicketAPIServiceImpl implements TicketAPIService {
 
         for (Ticket ticket : shoppingCart.getTicketList()) {
             Calendar cal = Calendar.getInstance();
-            if (cal.getTimeInMillis() - ticket.getTimeinmillis() > TimeUnit.MINUTES.toMillis(CART_RESERVATION_MINUTES)) {
+            if (cal.getTimeInMillis() - ticket.getTimeinmillis() > TimeUnit.MINUTES.toMillis(dataManager.getCartReservationMinutes())) {
                 ticketsToRemove.add(ticket);
             }
         }

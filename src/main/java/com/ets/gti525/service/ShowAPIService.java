@@ -1,6 +1,7 @@
 package com.ets.gti525.service;
 
 import com.ets.gti525.model.Show;
+import com.ets.gti525.model.ShowPresentationWrapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,5 +47,7 @@ public interface ShowAPIService {
     @RequestMapping(value = "/shows", method = RequestMethod.GET)
     List<Show> getShowsList();
 
+    @RequestMapping(value = "/showPresentationDetails", method = RequestMethod.GET)
+    ShowPresentationWrapper getShowPresentationDetails(@RequestParam Long presentationShowId);
 
 }

@@ -8,6 +8,7 @@ import com.ets.gti525.model.Province;
 import com.ets.gti525.model.Ticket;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -23,8 +24,16 @@ public class DataManager implements InitializingBean {
     @Autowired
     CredentialDAO credentialDAO;
 
+    private int cartReservationMinutes;
+    private int inactivityExpirationMinutes;
+
+    @Autowired
+    public DataManager(@Value("${cart.reservationtime}") int cartReservationMinutes, @Value("${inactivity.expirationtime}") int inactivityExpirationMinutes) {
+        this.cartReservationMinutes = cartReservationMinutes;
+        this.inactivityExpirationMinutes = inactivityExpirationMinutes;
+    }
+
     public static HashMap<String, Ticket> ticketsInReservationList = new HashMap<>();
-    private static final int CART_RESERVATION_MINUTES = 1; // maybe put this in a config file/system
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -94,14 +103,30 @@ public class DataManager implements InitializingBean {
         credentialDAO.save(credential);
     }
 
-    public static void updateReservationList(Long showPresentationId) {
+    public int getCartReservationMinutes() {
+        return cartReservationMinutes;
+    }
+
+    public void setCartReservationMinutes(int cartReservationMinutes) {
+        this.cartReservationMinutes = cartReservationMinutes;
+    }
+
+    public int getInactivityExpirationMinutes() {
+        return inactivityExpirationMinutes;
+    }
+
+    public void setInactivityExpirationMinutes(int inactivityExpirationMinutes) {
+        this.inactivityExpirationMinutes = inactivityExpirationMinutes;
+    }
+
+    public void updateReservationList(Long showPresentationId) {
         List<String> ticketsIdToRemove = new ArrayList<>();
         
 
         for (Map.Entry<String, Ticket> reservedTicket : DataManager.ticketsInReservationList.entrySet()) {
             if (Objects.equals(reservedTicket.getValue().getShowPresentationId(), showPresentationId)) {
                 Calendar cal = Calendar.getInstance();
-                if (cal.getTimeInMillis() - reservedTicket.getValue().getTimeinmillis() > TimeUnit.MINUTES.toMillis(CART_RESERVATION_MINUTES)) {
+                if (cal.getTimeInMillis() - reservedTicket.getValue().getTimeinmillis() > TimeUnit.MINUTES.toMillis(cartReservationMinutes)) {
                     ticketsIdToRemove.add(reservedTicket.getValue().getTicketId());
                 }
             }

@@ -43,6 +43,7 @@ public class BackendgoeventsApplication {
 		registration.addUrlPatterns("/show/add");
 		registration.addUrlPatterns("/show/remove");
 		registration.addUrlPatterns("/show/edit");
+		registration.addUrlPatterns("/show/showPresentationDetails");
 		registration.setName("adminFilter");
 		return registration;
 	}

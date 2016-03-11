@@ -5,10 +5,7 @@ import com.ets.gti525.DataManager;
 import com.ets.gti525.dao.ShowDAO;
 import com.ets.gti525.dao.ShowPresentationDAO;
 import com.ets.gti525.dao.TicketDAO;
-import com.ets.gti525.model.ShoppingCart;
-import com.ets.gti525.model.Show;
-import com.ets.gti525.model.ShowPresentation;
-import com.ets.gti525.model.Ticket;
+import com.ets.gti525.model.*;
 import com.ets.gti525.service.ShowAPIService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +27,9 @@ public class ShowAPIServiceImpl implements ShowAPIService {
 
     @Autowired
     private ShowPresentationDAO showPresentationDAO;
+
+    @Autowired
+    private DataManager dataManager;
 
     @Override
     public Show addShow(@RequestBody Show show) {
@@ -78,7 +78,7 @@ public class ShowAPIServiceImpl implements ShowAPIService {
     public boolean isShowAvailable(@RequestParam Long presentationShowId, @RequestParam Long quantity, HttpServletRequest request) {
         ShowPresentation showPresentation = showPresentationDAO.findOne(presentationShowId);
         int numberOfTicketSoldAndReserved = getBoughtTicketsForShow(showPresentation);
-        DataManager.updateReservationList(presentationShowId);
+        dataManager.updateReservationList(presentationShowId);
 
         for (Map.Entry<String, Ticket> entry : DataManager.ticketsInReservationList.entrySet()) {
             if (Objects.equals(entry.getValue().getShowPresentationId(), presentationShowId)) {
@@ -137,6 +137,17 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         }
 
         return filteredShowList;
+    }
+
+    @Override
+    public ShowPresentationWrapper getShowPresentationDetails(@RequestParam Long presentationShowId) {
+        ShowPresentation showPresentation = showPresentationDAO.findOne(presentationShowId);
+        int numberOfTicketSold = getBoughtTicketsForShow(showPresentation);
+
+        ShowPresentationWrapper showPresentationWrapper = new ShowPresentationWrapper();
+        showPresentationWrapper.setShowPresentation(showPresentation);
+        showPresentationWrapper.setNumberOfTicketsRemaining(showPresentation.getNumberOfPlaces() - numberOfTicketSold);
+        return showPresentationWrapper;
     }
 
     private List<ShowPresentation> getShowPresentationInDate(List<ShowPresentation> showPresentationList, long timeinmillisStart) {

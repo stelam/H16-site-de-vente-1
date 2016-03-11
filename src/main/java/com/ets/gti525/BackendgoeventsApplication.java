@@ -51,6 +51,7 @@ public class BackendgoeventsApplication {
 		registration.addUrlPatterns("/theater/add");
 		registration.addUrlPatterns("/theater/remove");
 		registration.addUrlPatterns("/theater/edit");
+		registration.addUrlPatterns("/show/shows");
 		registration.addUrlPatterns("/show/add");
 		registration.addUrlPatterns("/show/remove");
 		registration.addUrlPatterns("/show/edit");

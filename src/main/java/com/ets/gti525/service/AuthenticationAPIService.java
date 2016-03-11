@@ -16,4 +16,6 @@ public interface AuthenticationAPIService {
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     String authenticateUser(HttpServletRequest httpServletRequest, @RequestBody Credential credential);
 
+    @RequestMapping(value = "/check", method = RequestMethod.GET)
+    Boolean check(HttpServletRequest httpServletRequest);
 }

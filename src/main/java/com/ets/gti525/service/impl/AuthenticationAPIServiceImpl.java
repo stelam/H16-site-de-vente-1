@@ -3,10 +3,12 @@ package com.ets.gti525.service.impl;
 import com.ets.gti525.dao.CredentialDAO;
 import com.ets.gti525.model.Credential;
 import com.ets.gti525.service.AuthenticationAPIService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -35,6 +37,17 @@ public class AuthenticationAPIServiceImpl implements AuthenticationAPIService{
 
         httpServletRequest.getSession(true).setAttribute("USER_CONTEXT", SecurityContextHolder.getContext());
 
-        return credential.getUsername();
+        return "{\"username\" : \"" + credential.getUsername() + "\"}";
+    }
+    
+    @Override
+    public Boolean check(HttpServletRequest httpServletRequest){
+        SecurityContextImpl context = (SecurityContextImpl)httpServletRequest.getSession().getAttribute("USER_CONTEXT");
+        if (context == null) {
+        	throw new IllegalArgumentException("User not authorized.");
+        }
+
+        
+        return true;
     }
 }

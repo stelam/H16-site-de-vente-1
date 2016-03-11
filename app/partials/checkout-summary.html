@@ -12,20 +12,20 @@
 
 	<article class="col-sm-12 cart-item" ng-repeat="item in currentCart.items">
 		<div class="col-sm-4">
-			{{item.show.artist}} - {{item.show.title}}
+			{{item.show.artistName}} - {{item.show.name}}
 			<p class="reservation-timer">
 				Ces billets vous sont réservés pour encore 
 				<strong>{{item.remainingReservationTime | date:'m:ss'}}</strong>.
 			</p>
 		</div>
 		<div class="col-sm-2">
-			<p>{{item.date}}</p>
+			<p>{{item.date | date:'dd/MM/yyyy'}}</p>
 		</div>
 		<div class="col-sm-2">
-			<p>{{item.show.room}}</p>
+			<p>{{item.theater.name}}</p>
 		</div>
 		<div class="col-sm-2">
-			{{item.show.price}} $
+			{{item.price}} $
 		</div>
 		<div class="col-sm-2">
 			{{item.quantity}}
@@ -38,5 +38,5 @@
 	<div class="subtotal">
 		<span><sup class="dollar-sign">$</sup>{{currentCart.total.dollars}}<sup class="cents">{{currentCart.total.cents}}</sup></span>
 	</div>
-	<a class="btn btn-goevents btn-lg btn-continue" ng-click="continue()">Confirmer et placer la commande <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+	<a class="btn btn-goevents btn-lg btn-continue" ng-click="placeOrder()">Confirmer et placer la commande <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 </div>

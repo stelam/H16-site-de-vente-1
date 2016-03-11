@@ -54,7 +54,7 @@
     	});
 
 
-        $scope.continue = function(){
+        $scope.placeOrder = function(){
             loadingScreen.show();
 
 

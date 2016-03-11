@@ -34,6 +34,12 @@
                 res.featuredShows.forEach(function(fs){
                     if (fs.showPresentationList && fs.showPresentationList.length > 0){
                         fs = showService.formatShow(fs);
+
+                        var totalRemainingPlaces = 0;
+                        fs.showPresentationList.forEach(function(p){
+                            totalRemainingPlaces += p.numberOfPlaces;
+                        })
+                        fs.totalRemainingPlaces = totalRemainingPlaces;
                         $scope.shows.push(fs);
                     }
                         

@@ -16,7 +16,9 @@
 		</div>
 	</div>
 	<hr class="visible-sm visible-xs"/>
-	<div class="col-lg-4 col-sm-12 tickets-selection ">
+	{{totalRemainingPlaces}}
+	<div class="col-lg-4 col-sm-12 tickets-selection {{(show.totalRemainingPlaces == 0)  ? 'full' : ''}}">
+		<div class="tag-full" ng-if="show.totalRemainingPlaces == 0" title="Ce spectacle est à guichet fermé.">COMPLET</div>
 		<div class="col-lg-4 col-md-offset-3 col-md-3 col-lg-offset-2 blur-on-full">
 			<div class="price">
 				<span><sup class="dollar-sign">$</sup>{{itemOptions.dollars}}<sup class="cents">{{itemOptions.cents}}</sup><span>par billet</span></span>
@@ -26,7 +28,7 @@
 			<input ng-model="itemOptions.quantity" type="number" value="1" max="6" min="1" class="form-control" />
 		</div>
 		<div class="clear"></div>
-		<select class="form-control input-lg blur-on-full" ng-model="itemOptions" ng-options="ticket as (ticket.timeinmillis | date:'dd/MM/yyyy') for ticket in show.showPresentationList track by ticket.id">
+		<select class="form-control input-lg blur-on-full" ng-model="itemOptions" ng-change="onPresentationChange()" ng-options="ticket as (ticket.timeinmillis | date:'dd/MM/yyyy') for ticket in show.showPresentationList track by ticket.id">
 		</select>
 		<a ng-click="addToCart(); $event.stopPropagation();" class="btn btn-lg btn-add btn-block btn-goevents blur-on-full"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier</a>
 

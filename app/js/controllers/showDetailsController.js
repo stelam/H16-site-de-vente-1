@@ -48,6 +48,12 @@
             if (res && self.validateSlug(res.show)) {
                 $scope.show = res.show;
 
+                var totalRemainingPlaces = 0;
+                $scope.show.showPresentationList.forEach(function(p){
+                    totalRemainingPlaces += p.numberOfPlaces;
+                })
+                $scope.show.totalRemainingPlaces = totalRemainingPlaces;
+
                 // setter les quantités par défaut à 1 pour les billets
                 $scope.show.showPresentationList.forEach(function(ticket){
                     ticket.quantity = 1;
@@ -81,7 +87,11 @@
 
 
     	});
-
+        
+        $scope.onPresentationChange = function(){
+            $scope.itemOptions.dollars = $scope.itemOptions.price.toString().split(".")[0];
+            $scope.itemOptions.cents = $scope.itemOptions.price.toString().split(".")[1];
+        }
 
         $scope.addToCart = function(){
             loadingScreen.show();

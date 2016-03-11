@@ -294,8 +294,9 @@
             }
 
             currentCart.items.forEach(function(i){
-                total.price += parseFloat(parseFloat(i.price) * i.quantity).toFixed(2);
+                total.price += parseFloat(parseFloat(i.price) * parseInt(i.quantity));
             })
+            total.price = total.price.toFixed(2);
             total.dollars += parseInt(total.price.toString().split(".")[0]);
             total.cents += parseInt(total.price.toString().split(".")[1]);
 

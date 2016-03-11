@@ -11,6 +11,7 @@ public class ShowPresentation {
     private long timeinmillis;
     private int numberOfPlaces;
     private double price;
+    private boolean active;
 
     @OneToOne(cascade = CascadeType.MERGE)
     private Theater theater;
@@ -57,5 +58,13 @@ public class ShowPresentation {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

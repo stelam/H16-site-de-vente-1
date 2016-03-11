@@ -10,6 +10,8 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    private String name;
+    private String familyName;
     private String email;
     private String zipCode;
     private String address;
@@ -69,5 +71,21 @@ public class User {
 
     public void setProvince(Province province) {
         this.province = province;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
     }
 }

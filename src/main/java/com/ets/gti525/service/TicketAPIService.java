@@ -1,5 +1,6 @@
 package com.ets.gti525.service;
 
+import com.ets.gti525.model.Order;
 import com.ets.gti525.model.ShoppingCart;
 import com.ets.gti525.model.Ticket;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,4 +19,7 @@ public interface TicketAPIService {
 
     @RequestMapping(value = "/inCart", method = RequestMethod.GET)
     ShoppingCart getTicketsInCart(HttpServletRequest request);
+
+    @RequestMapping(value = "/order", method = RequestMethod.POST)
+    String saveOrder(Order order);
 }

@@ -1,7 +1,9 @@
 package com.ets.gti525.service.impl;
 
 import com.ets.gti525.DataManager;
+import com.ets.gti525.dao.OrderDAO;
 import com.ets.gti525.dao.TicketDAO;
+import com.ets.gti525.model.Order;
 import com.ets.gti525.model.ShoppingCart;
 import com.ets.gti525.model.Ticket;
 import com.ets.gti525.service.TicketAPIService;
@@ -21,6 +23,9 @@ import java.util.concurrent.TimeUnit;
 public class TicketAPIServiceImpl implements TicketAPIService {
     @Autowired
     TicketDAO ticketDAO;
+
+    @Autowired
+    OrderDAO orderDAO;
 
     @Autowired
     DataManager dataManager;
@@ -86,6 +91,13 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         request.getSession().setAttribute("cart", shoppingCart);
         return shoppingCart;
     }
-    
 
+    @Override
+    public String saveOrder(Order order) {
+        String confirmationNumber = UUID.randomUUID().toString();
+        order.setConfirmationNumber(confirmationNumber);
+        orderDAO.save(order);
+
+        return order.getConfirmationNumber();
+    }
 }

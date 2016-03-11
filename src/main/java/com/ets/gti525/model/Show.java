@@ -14,6 +14,7 @@ public class Show {
     private String imageUrl;
     private String description;
     private boolean isFeatured;
+    private boolean active;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<ShowPresentation> showPresentationList;
@@ -88,5 +89,13 @@ public class Show {
 
     public void setShowPresentationList(List<ShowPresentation> showPresentationList) {
         this.showPresentationList = showPresentationList;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

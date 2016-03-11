@@ -34,7 +34,18 @@ public class BackendgoeventsApplication {
 	}
 
 	@Bean
-	public FilterRegistrationBean someFilterRegistration() {
+	public FilterRegistrationBean theaterAdminFilterRegistration() {
+		FilterRegistrationBean registration = new FilterRegistrationBean();
+		registration.setFilter(adminFilter());
+		registration.addUrlPatterns("/theater/add");
+		registration.addUrlPatterns("/show/add");
+		registration.addUrlPatterns("/show/showPresentationDetails");
+		registration.setName("theaterAdminFilter");
+		return registration;
+	}
+
+	@Bean
+	public FilterRegistrationBean adminFilterRegistration() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
 		registration.setFilter(adminFilter());
 		registration.addUrlPatterns("/theater/add");
@@ -51,5 +62,10 @@ public class BackendgoeventsApplication {
 	@Bean(name = "adminFilter")
 	public Filter adminFilter() {
 		return new AuthenticationAdminFilter();
+	}
+
+	@Bean(name ="theaterAdminFilter")
+	public Filter theaterAdminFilter() {
+		return new AuthenticationTheaterAdminFilter();
 	}
 }

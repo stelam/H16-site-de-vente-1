@@ -101,6 +101,12 @@ public class DataManager implements InitializingBean {
         credential.setPassword("1234");
         credential.setRole("ADMIN");
         credentialDAO.save(credential);
+
+        credential = new Credential();
+        credential.setUsername("theaterAdmin");
+        credential.setPassword("9999");
+        credential.setRole("THEATER_ADMIN");
+        credentialDAO.save(credential);
     }
 
     public int getCartReservationMinutes() {

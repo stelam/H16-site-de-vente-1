@@ -1,6 +1,9 @@
 package com.ets.gti525.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class ShowPresentation {
@@ -13,7 +16,7 @@ public class ShowPresentation {
     private double price;
     private boolean active;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne()
     private Theater theater;
 
     public ShowPresentation() {

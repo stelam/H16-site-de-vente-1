@@ -10,7 +10,6 @@
 					method: 'POST',
 					url: SHOW_API_BASE_URL+'/theater/add',
 					data: theater,
-					headers: {'Authorization': 'Token token=xxxxYYYYZzzz'} // exemple de token si on utilise cette méthode d'authentification
 			    });
 	    	},
 	    	getAll : function(){

@@ -67,7 +67,7 @@
 					<label for="inputSalle-{{$index}}" class="col-sm-2 control-label">Salle</label>
 					
 					<div class="col-sm-10">
-						<select id="inputSalle-{{$index}}" class="form-control" ng-model="presentation.theater" ng-options="theater as theater.name for theater in theaters track by theater.name">
+						<select id="inputSalle-{{$index}}" ng-change="updateCapacity(presentation)" class="form-control" ng-model="presentation.theater" ng-options="theater as theater.name for theater in theaters track by theater.name">
 
 						</select>
 					</div>

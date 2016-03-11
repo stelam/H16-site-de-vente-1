@@ -13,6 +13,10 @@
 	    		$http({
 					method: 'POST',
 					url: SHOW_API_BASE_URL+'/authentication/authenticate',
+				    headers: { 
+				        'Accept': 'application/json',
+				        'Content-Type': 'application/json' 
+				    },
 					data: {
 						username: username,
 						password: password

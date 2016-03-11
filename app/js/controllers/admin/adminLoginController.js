@@ -15,7 +15,7 @@
                 password: ""
             }
             // Instancier le contrôleur de base
-            $controller('baseAdminController', { $scope: $scope });
+            //$controller('baseAdminController', { $scope: $scope });
 
 
             var init = function(){

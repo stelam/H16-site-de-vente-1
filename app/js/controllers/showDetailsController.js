@@ -85,12 +85,15 @@
 
         $scope.addToCart = function(){
             loadingScreen.show();
+            console.log($scope.itemOptions);
             var item = {
                 itemId : parseInt($scope.itemOptions.id),
                 quantity: $scope.itemOptions.quantity,
                 show: $scope.show,
-                date: $scope.itemOptions.date,
-                time: $scope.itemOptions.time
+                date: $scope.itemOptions.timeinmillis,
+                time: $scope.itemOptions.time,
+                theater: $scope.itemOptions.theater,
+                price: $scope.itemOptions.price
             }
             cartService.addItem(item, $scope.itemOptions.quantity).then(function(){
                 loadingScreen.hide();

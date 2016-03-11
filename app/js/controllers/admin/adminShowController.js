@@ -53,6 +53,8 @@
                 // si c'est une nouvelle spectacle, on assigne la première salle par défaut
                 if (!res.show){
                     $scope.show.showPresentationList[0].theater = $scope.theaters[0];
+                    if ($scope.theaters[0])
+                        $scope.show.showPresentationList[0].numberOfPlaces = $scope.theaters[0].capacity;
                 } else {
                     $scope.show = res.show;
                     $scope.formatPresentationDatesInReadable();
@@ -71,8 +73,8 @@
                 $scope.show.showPresentationList.push({
                     timeinmillis: Date.now() * 1000,
                     theater: $scope.theaters[0],
+                    numberOfPlaces: ($scope.theaters[0]) ? $scope.theaters[0].capacity : 0,
                     formattedDate: moment(Date.now()).format('DD/MM/YYYY'),
-                    numberOfPlaces: 0,
                     price: 0.00
                 })
             }
@@ -110,6 +112,10 @@
                     loadingScreen.hide();
                     messageService.showMessage(messageService.getMessage("ERROR_API_CALL"));
                 })
+            }
+
+            $scope.updateCapacity = function(presentation, theater){
+                presentation.numberOfPlaces = presentation.theater.capacity;
             }
 
             $scope.formatPresentationDatesInMillis = function(){

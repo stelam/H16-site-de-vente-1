@@ -228,7 +228,15 @@
 
     	this.validateItemQuantity = function(item) {
     		var deferred = $q.defer();
-    		if (item.quantity <= CART.MAX_SHOW_PURCHASE_QUANTITY) {
+            var nbIndividualItems = 0;
+
+            currentCart.items.forEach(function(i){
+                nbIndividualItems += i.quantity;
+            })
+
+    		//if (item.quantity <= CART.MAX_SHOW_PURCHASE_QUANTITY) {
+
+            if (nbIndividualItems <= CART.MAX_SHOW_PURCHASE_QUANTITY){
     			deferred.resolve(true);
     		} else {
     			deferred.reject(messageService.getMessage("ERROR_MAX_PURCHASE_QUANTITY_EXCEEDED"));
@@ -286,7 +294,7 @@
             }
 
             currentCart.items.forEach(function(i){
-                total.price += parseFloat(parseFloat(i.show.price) * i.quantity).toFixed(2);
+                total.price += parseFloat(parseFloat(i.price) * i.quantity).toFixed(2);
             })
             total.dollars += parseInt(total.price.toString().split(".")[0]);
             total.cents += parseInt(total.price.toString().split(".")[1]);

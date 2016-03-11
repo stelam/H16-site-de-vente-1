@@ -1,7 +1,6 @@
 package com.ets.gti525.service.impl;
 
 
-
 import com.ets.gti525.DataManager;
 import com.ets.gti525.dao.ShowDAO;
 import com.ets.gti525.dao.ShowPresentationDAO;
@@ -12,16 +11,13 @@ import com.ets.gti525.model.ShowPresentation;
 import com.ets.gti525.model.Ticket;
 import com.ets.gti525.service.ShowAPIService;
 import com.google.common.collect.Lists;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-
 import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 @Controller
 public class ShowAPIServiceImpl implements ShowAPIService {
@@ -81,14 +77,7 @@ public class ShowAPIServiceImpl implements ShowAPIService {
     @Override
     public boolean isShowAvailable(@RequestParam Long presentationShowId, @RequestParam Long quantity, HttpServletRequest request) {
         ShowPresentation showPresentation = showPresentationDAO.findOne(presentationShowId);
-        List<Ticket> ticketList = ticketDAO.findByShowPresentationId(presentationShowId);
-        int numberOfTicketSoldAndReserved = 0;
-        
-        for (Ticket ticket : ticketList) {
-            if (Objects.equals(ticket.getShowPresentationId(), showPresentation.getId())) {
-                numberOfTicketSoldAndReserved += ticket.getQuantity();
-            }
-        }
+        int numberOfTicketSoldAndReserved = getBoughtTicketsForShow(showPresentation);
         DataManager.updateReservationList(presentationShowId);
 
         for (Map.Entry<String, Ticket> entry : DataManager.ticketsInReservationList.entrySet()) {
@@ -111,6 +100,14 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         }
         
         return (numberOfTicketSoldAndReserved + quantity) <= showPresentation.getNumberOfPlaces();
+    }
+
+    @Override
+    public boolean isShowClosed(@RequestParam Long presentationShowId) {
+        ShowPresentation showPresentation = showPresentationDAO.findOne(presentationShowId);
+        int numberOfticketSold = getBoughtTicketsForShow(showPresentation);
+
+        return (numberOfticketSold >= showPresentation.getNumberOfPlaces());
     }
 
     @Override
@@ -156,5 +153,18 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         }
 
         return filteredShowPresentationList;
+    }
+
+    private int getBoughtTicketsForShow(ShowPresentation showPresentation) {
+        List<Ticket> ticketList = ticketDAO.findByShowPresentationId(showPresentation.getId());
+        int numberOfTicketSold = 0;
+
+        for (Ticket ticket : ticketList) {
+            if (Objects.equals(ticket.getShowPresentationId(), showPresentation.getId())) {
+                numberOfTicketSold += ticket.getQuantity();
+            }
+        }
+
+        return numberOfTicketSold;
     }
 }

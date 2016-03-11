@@ -5,6 +5,7 @@ import com.ets.gti525.dao.TicketDAO;
 import com.ets.gti525.model.ShoppingCart;
 import com.ets.gti525.model.Ticket;
 import com.ets.gti525.service.TicketAPIService;
+import org.dom4j.IllegalAddException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +41,10 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         }
         
         shoppingCart.removeExpiredTickets();
+
+        if (shoppingCart.getTicketList().size() >= 6) {
+            throw new IllegalAddException("Can't add ticket in cart. Cart is full");
+        }
     
     	Ticket existingSameTicket = shoppingCart.getTicketInCartByShowPresentationId(ticket.getShowPresentationId());
     	

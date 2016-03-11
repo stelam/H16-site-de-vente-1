@@ -3,9 +3,9 @@ package com.ets.gti525.service.impl;
 import com.ets.gti525.DataManager;
 import com.ets.gti525.dao.OrderDAO;
 import com.ets.gti525.dao.TicketDAO;
-import com.ets.gti525.model.Order;
 import com.ets.gti525.model.ShoppingCart;
 import com.ets.gti525.model.Ticket;
+import com.ets.gti525.model.TicketOrder;
 import com.ets.gti525.service.TicketAPIService;
 import org.dom4j.IllegalAddException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +94,7 @@ public class TicketAPIServiceImpl implements TicketAPIService {
     }
 
     @Override
-    public String saveOrder(@RequestBody Order order) {
+    public String saveOrder(@RequestBody TicketOrder order) {
         String confirmationNumber = UUID.randomUUID().toString();
         order.setConfirmationId(confirmationNumber);
         orderDAO.save(order);

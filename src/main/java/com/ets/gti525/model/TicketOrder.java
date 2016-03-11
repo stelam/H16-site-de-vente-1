@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Order {
+public class TicketOrder {
 
     @Id
     @GeneratedValue
@@ -19,7 +19,7 @@ public class Order {
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
-    public Order() {
+    public TicketOrder() {
 
     }
 

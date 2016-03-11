@@ -1,32 +1,39 @@
 package com.ets.gti525.model;
 
+import javax.persistence.*;
 
+@Entity
 public class ShowPresentation {
 
-    private int id;
-    private String timestamp;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private long timeinmillis;
     private int numberOfPlaces;
     private double price;
+    private boolean active;
+
+    @OneToOne(cascade = CascadeType.MERGE)
     private Theater theater;
 
     public ShowPresentation() {
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public long getTimeinmillis() {
+        return timeinmillis;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setTimeinmillis(long timeinmillis) {
+        this.timeinmillis = timeinmillis;
     }
 
     public int getNumberOfPlaces() {
@@ -51,5 +58,13 @@ public class ShowPresentation {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

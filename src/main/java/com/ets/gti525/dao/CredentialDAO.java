@@ -1,9 +1,12 @@
 package com.ets.gti525.dao;
 
 import com.ets.gti525.model.Credential;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CredentialDAO {
+@Repository
+public interface CredentialDAO extends CrudRepository<Credential, Long>{
 
-    Credential getCredential(Credential credential);
+    Credential findByUsername(String username);
 
 }

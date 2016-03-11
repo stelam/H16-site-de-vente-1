@@ -1,27 +1,83 @@
 package com.ets.gti525.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Ticket {
 
-    private int id;
-    private int showPresentationId;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    public Ticket() {
+    private String ticketId;
+    private Long showPresentationId;
+    private Long timeinmillis;
+    private Long expiringTimeinmillis;
+    private int inactivityExpirationDelay;
+    private int quantity;
 
+
+	public Ticket() {
+
+   }
+	
+	// le id de la réservation
+    public String getTicketId() {
+        return ticketId;
     }
 
-    public int getId() {
+    public void setTicketId(String ticketId) {
+        this.ticketId = ticketId;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getShowPresentationId() {
+    public Long getShowPresentationId() {
         return showPresentationId;
     }
 
-    public void setShowPresentationId(int showPresentationId) {
+    public void setShowPresentationId(Long showPresentationId) {
         this.showPresentationId = showPresentationId;
     }
+
+    public Long getTimeinmillis() {
+        return timeinmillis;
+    }
+
+    public void setTimeinmillis(Long timeinmillis) {
+        this.timeinmillis = timeinmillis;
+    }
+    
+    public Long getExpiringTimeinmillis() {
+        return expiringTimeinmillis;
+    }
+
+    public void setExpiringTimeinmillis(Long timeinmillis) {
+        this.expiringTimeinmillis = timeinmillis;
+    }
+    
+    public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public int getInactivityExpirationDelay() {
+		return inactivityExpirationDelay;
+	}
+	
+	public void setInactivityExpirationDelay(int inactivityExpirationDelay) {
+		this.inactivityExpirationDelay = inactivityExpirationDelay;
+	}
+
 }

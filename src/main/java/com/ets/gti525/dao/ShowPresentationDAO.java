@@ -2,9 +2,10 @@ package com.ets.gti525.dao;
 
 
 import com.ets.gti525.model.ShowPresentation;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ShowPresentationDAO {
-
-    ShowPresentation findShowPresentationById(int id);
+@Repository
+public interface ShowPresentationDAO extends CrudRepository<ShowPresentation, Long> {
 
 }

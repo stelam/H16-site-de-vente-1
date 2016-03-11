@@ -82,7 +82,7 @@
                             var slugOptions = (ticket) ? {date:ticket.date} : {};
                             var showUrl = "spectacle/" + showService.getShowSlug(options.show, slugOptions);
                             scope.popover.title = "Billets retirés du panier";
-                            scope.popover.content = "<p>Le spectacle '<strong>" +options.show.name+ "</strong>' a été retiré de votre panier car le délais de réservation a expiré.</p> <a href='#/" +showUrl+ "' class='btn btn-block btn-goevents'>Page du spectacle</a>";
+                            scope.popover.content = "<p>Le spectacle '<strong>" +options.show.name+ "</strong>' a été retiré de votre panier car le délais de réservation a expiré ou en raison d'une période d'inactivité trop longue.</p> <a href='#/" +showUrl+ "' class='btn btn-block btn-goevents'>Page du spectacle</a>";
                         }
 
                         $timeout(function(){

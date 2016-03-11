@@ -2,8 +2,8 @@
  "use strict";
 
   angular.module('app')
-    .factory('cartService', ["$http", "$q", "$interval", 'localStorageService', "SHOW_API_BASE_URL", "REAL_SHOW_API_BASE_URL", "CART", "showService", "messageService",
-	function($http, $q, $interval, localStorageService, SHOW_API_BASE_URL, REAL_SHOW_API_BASE_URL, CART, showService, messageService){
+    .factory('cartService', ["$http", "$q", "$rootScope", "$interval", 'localStorageService', "SHOW_API_BASE_URL", "REAL_SHOW_API_BASE_URL", "CART", "showService", "messageService",
+	function($http, $q, $rootScope, $interval, localStorageService, SHOW_API_BASE_URL, REAL_SHOW_API_BASE_URL, CART, showService, messageService){
     	var self = this;
     	var currentCart = {
     		items: [],
@@ -20,9 +20,9 @@
     	this.updateTimers = function(){
     		currentCart.items.forEach(function(item){
     			item.remainingReservationTime = item.timestampReservationEnd - Date.now();
+                var inactiveTimeMinutes = ((Date.now() - $rootScope.inactiveSince) / 1000) / 60;
 
-
-    			if (item.remainingReservationTime <= 0) {
+    			if (item.remainingReservationTime <= 0 || inactiveTimeMinutes >= item.inactivityExpirationDelay) {
     				self.removeItemById(item.itemId);
     				self.addExpiredItem(item);
     				self.commitToLocalStorage();

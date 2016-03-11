@@ -1,5 +1,7 @@
 package com.ets.gti525;
 
+import com.ets.gti525.filter.AuthenticationAdminFilter;
+import com.ets.gti525.filter.AuthenticationTheaterAdminFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
@@ -33,31 +35,25 @@ public class BackendgoeventsApplication {
 		return new ServletListenerRegistrationBean<>(new SessionListener());
 	}
 
-	/*@Bean
+	@Bean
 	public FilterRegistrationBean theaterAdminFilterRegistration() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
 		registration.setFilter(theaterAdminFilter());
-		/*registration.addUrlPatterns("/theater/add");
+		registration.addUrlPatterns("/theater/add");
 		registration.addUrlPatterns("/show/add");
 		registration.addUrlPatterns("/show/showPresentationDetails");
-		registration.addUrlPatterns("/whatever");
 		registration.setName("theaterAdminFilter");
 		return registration;
-	}*/
+	}
 
 	@Bean
 	public FilterRegistrationBean adminFilterRegistration() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
 		registration.setFilter(adminFilter());
-		registration.addUrlPatterns("/theater/add");
 		registration.addUrlPatterns("/theater/remove");
 		registration.addUrlPatterns("/theater/edit");
-		registration.addUrlPatterns("/show/shows");
-		registration.addUrlPatterns("/show/add");
 		registration.addUrlPatterns("/show/remove");
 		registration.addUrlPatterns("/show/edit");
-		registration.addUrlPatterns("/show/showPresentationDetails");
-		registration.addUrlPatterns("/whatever2");
 		registration.setName("adminFilter");
 		return registration;
 	}
@@ -67,8 +63,8 @@ public class BackendgoeventsApplication {
 		return new AuthenticationAdminFilter();
 	}
 
-/*	@Bean(name ="theaterAdminFilter")
+	@Bean(name ="theaterAdminFilter")
 	public Filter theaterAdminFilter() {
 		return new AuthenticationTheaterAdminFilter();
-	}*/
+	}
 }

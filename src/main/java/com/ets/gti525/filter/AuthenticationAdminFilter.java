@@ -1,14 +1,11 @@
-package com.ets.gti525;
+package com.ets.gti525.filter;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextImpl;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AuthenticationAdminFilter implements Filter {
+public class AuthenticationAdminFilter extends BaseFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -17,18 +14,9 @@ public class AuthenticationAdminFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
+        super.doFilter(servletRequest, servletResponse, filterChain);
 
         if (httpServletRequest.getMethod().equals("OPTIONS")) {
-            filterChain.doFilter(servletRequest, servletResponse);
-            return;
-        }
-
-        SecurityContextImpl context = (SecurityContextImpl)httpServletRequest.getSession().getAttribute("USER_CONTEXT");
-        if (context == null) {
-           httpServletResponse.sendError(401, "NOT AUTHORIZED");
-           
             return;
         }
 

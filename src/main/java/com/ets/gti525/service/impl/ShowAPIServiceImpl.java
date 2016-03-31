@@ -158,7 +158,8 @@ public class ShowAPIServiceImpl implements ShowAPIService {
 
         List<ShowPresentation> filteredShowPresentationList = new ArrayList<>();
         for (ShowPresentation showPresentation : showPresentationList) {
-            if (showPresentation.getTimeinmillis() >= timeinmillisStart && showPresentation.getTimeinmillis() <= timeinmillisEnd) {
+        	// System.out.println(showPresentation.getTimeinmillis() + ">=" + timeinmillisStart + " && <= " + timeinmillisEnd);
+            if (showPresentation.getTimeinmillis() >= timeinmillisStart && showPresentation.getTimeinmillis() < timeinmillisEnd) {
                 filteredShowPresentationList.add(showPresentation);
             }
         }

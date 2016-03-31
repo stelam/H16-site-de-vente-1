@@ -32,6 +32,7 @@ public class Show {
         this.description = show.description;
         this.isFeatured = show.isFeatured;
         this.showPresentationList = show.showPresentationList;
+        this.active = show.active;
     }
 
     public Long getId() {

@@ -244,7 +244,7 @@
     		//if (item.quantity <= CART.MAX_SHOW_PURCHASE_QUANTITY) {
 
             // item.oldQuantity = item.quantity;
-
+            console.log("IN")
             if (nbIndividualItems + (item.quantity - item.oldQuantity) <= CART.MAX_SHOW_PURCHASE_QUANTITY){
     			deferred.resolve(true);
     		} else {
@@ -370,10 +370,6 @@
 	    	},
 
             removeItem :function(item){
-                /*return self.commitDeleteItem(item)
-                    .then(function(data){return self.removeItemById(item.itemId)})
-                    .then(function(data){return self.updateCartTotal(item)})
-                    .then(function(data){return self.commitToLocalStorage()});*/
                 return self.updateItemQuantity(item, 0)
                     .then(function(data){return self.removeItemById(item.itemId)})
                     .then(function(data){return self.updateCartTotal(item)})

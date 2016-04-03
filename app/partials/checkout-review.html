@@ -30,7 +30,7 @@
 			{{item.price}} $
 		</div>
 		<div class="col-sm-2">
-			<input type="number" class="form-control input-lg" ng-model="item.quantity" min="1" max="6" ng-change="changeItemQuantity(item, '{{item.quantity}}')" ng-model-options="{ debounce: 1000 }"/>
+			<input type="number" class="form-control input-lg" ng-model="item.quantity" min="0" max="6" ng-change="changeItemQuantity(item, '{{item.quantity}}')" ng-model-options="{ debounce: 1000 }"/>
 		</div>
 		<div class="col-sm-1 actions">
 			<a class="btn btn-goevents btn-lg" ng-click="removeItem(item)"> x</a>

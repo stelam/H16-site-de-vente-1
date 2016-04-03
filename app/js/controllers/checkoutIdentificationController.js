@@ -57,6 +57,8 @@
 
             var newWindow = window.open("fake-auth-social.html",'Authentification sociale','height=225,width=500');
             if (window.focus) {newWindow.focus()}
+
+
             newWindow.onbeforeunload = function(){
                 loadingScreen.showFor(1500);
                 var user = authenticationService.getFakeUser();
@@ -64,6 +66,7 @@
                 $timeout(function(){
                     checkoutService.setCompletedStep("identification");
                     $location.path("/caisse/informations-paiement");
+                    authenticationService.authenticate();
                 }, 1500)
             }
 

@@ -47,6 +47,12 @@
 	        ident: 'checkout-anonymous-identification',
 	        title: 'Caisse - Identification',
 	        checkoutStep : 2
+	      }).when('/caisse/authentification-reseau-social', {
+	        templateUrl: 'partials/checkout-authentication.html',
+	        controller: 'checkoutIdentificationController',
+	        ident: 'checkout-authentication',
+	        title: 'Caisse - Identification - Authentification au réseau social',
+	        checkoutStep : 2
 	      }).when('/caisse/informations-paiement', {
 	        templateUrl: 'partials/checkout-payment-information.html',
 	        controller: 'checkoutPaymentController',

@@ -54,21 +54,7 @@
         });
 
         $scope.delegateAuth = function(){
-
-            var newWindow = window.open("fake-auth-social.html",'Authentification sociale','height=225,width=500');
-            if (window.focus) {newWindow.focus()}
-
-
-            newWindow.onbeforeunload = function(){
-                loadingScreen.showFor(1500);
-                var user = authenticationService.getFakeUser();
-                authenticationService.setUser(user);
-                $timeout(function(){
-                    checkoutService.setCompletedStep("identification");
-                    $location.path("/caisse/informations-paiement");
-                    authenticationService.authenticate();
-                }, 1500)
-            }
+            $location.path("/caisse/authentification-reseau-social");
 
         }
 
@@ -80,6 +66,27 @@
                 $location.path("/caisse/informations-paiement");
             }).error(function(e){
                 messageService.showMessage(messageService.getMessage("ERROR_FORM"));
+            })
+        }
+
+        $scope.submitSocialAuthentication = function(){
+            loadingScreen.show();
+            $validationProvider.validate($scope.authenticationForm).success(function(){
+                authenticationService.authenticate($scope.user).then(function(){
+                    checkoutService.setCompletedStep("identification");
+                    $location.path("/caisse/informations-paiement");
+                    loadingScreen.hide();
+                }, function(){
+                    // temporary
+                    checkoutService.setCompletedStep("identification");
+                    $scope.user = authenticationService.getFakeUser();
+                    $scope.user.socialLogin = true;
+                    authenticationService.setUser($scope.user);
+                    loadingScreen.hide();
+                    $location.path("/caisse/informations-paiement");
+                })
+            }).error(function(e){
+                loadingScreen.hide();
             })
         }
 

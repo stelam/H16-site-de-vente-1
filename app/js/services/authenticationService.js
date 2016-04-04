@@ -15,7 +15,8 @@
 				province: "",
 				postalCode: ""
 			},
-			email: ""
+			email: "",
+			password: ""
 		}
 
 
@@ -35,7 +36,8 @@
 					province: "Québec",
 					postalCode: "H0H0H0"
 				},
-				email: "john@gmail.com"
+				email: "john@gmail.com",
+				password: ""
 			}
 		}
 
@@ -70,7 +72,7 @@
     		resetUser: resetUser,
     		setUserSocialLogin: setUserSocialLogin,
 
-	    	authenticate : function(){
+	    	authenticate : function(user){
 	    		return $http({
 					method: 'POST',
 					url: AUTH_API_BASE_URL+'/auth/authorizationrequest',

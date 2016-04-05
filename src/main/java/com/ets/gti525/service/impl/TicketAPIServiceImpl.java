@@ -41,6 +41,7 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         String uniqueID = UUID.randomUUID().toString();
         
         ShoppingCart shoppingCart = (ShoppingCart) request.getSession(true).getAttribute("cart");
+        System.out.println(request.getSession(true));
         
         if (shoppingCart == null) {
         	shoppingCart = new ShoppingCart();
@@ -53,6 +54,7 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         }
     
     	Ticket existingSameTicket = shoppingCart.getTicketInCartByShowPresentationId(ticket.getShowPresentationId());
+    	System.out.println("SHOW PRES ID" + ticket.getShowPresentationId());
     	
         // tickets with matching showPresentationId must have the same timer settings
         // otherwise, we create new timer settings for the first ticket of a kind
@@ -69,6 +71,8 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         
         DataManager.ticketsInReservationList.put(ticket.getTicketId(), ticket);
         shoppingCart.addOrReplaceTicket(ticket);
+        System.out.println(ticket.getTicketId());
+        System.out.println("QTY:"+DataManager.ticketsInReservationList.get(ticket.getTicketId()).getQuantity());
         
         request.getSession(true).setAttribute("cart", shoppingCart);
         

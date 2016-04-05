@@ -11,6 +11,7 @@ import org.dom4j.IllegalAddException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -100,5 +101,15 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         orderDAO.save(order);
 
         return order;
+    }
+
+    @Override
+    public List<Ticket> ticketsSold(@RequestParam("showPresentationId") Long showPresentationId) {
+        if (showPresentationId == null) {
+            throw new IllegalArgumentException("Bad parameter");
+        }
+
+        List<Ticket> ticketOrderList = ticketDAO.findByShowPresentationId(showPresentationId);
+        return ticketOrderList;
     }
 }

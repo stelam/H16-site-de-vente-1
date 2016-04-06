@@ -10,13 +10,37 @@
 	<div class="col-sm-12">
 		<h2>Informations de paiement</h2>
 	</div>
+
+	<div class="col-sm-6">
+		<input type="text" class="form-control input-lg" 
+			placeholder="Prénom" 
+			required="required" 
+			validator="required" 
+			name="cardFirstName" 
+			ng-model="payment.credit_card.first_name" 
+			valid-method="blur" 
+			required-error-message="Le prénom est requis." 
+		/>
+	</div>
+	<div class="col-sm-6">
+		<input type="text" class="form-control input-lg" 
+			placeholder="Nom de famille" 
+			required="required" 
+			validator="required" 
+			name="carFirstName" 
+			ng-model="payment.credit_card.last_name" 
+			valid-method="blur" 
+			required-error-message="Le nom est requis." 
+		/>
+	</div>
+
 	<div class="col-sm-9">
 		<input type="text" class="form-control input-lg" 
 			placeholder="Numéro de carte de crédit" 
 			required="required" 
 			validator="required, number, maxlength=16, minlength=16" 
 			name="cardNumber" 
-			ng-model="payment.number" 
+			ng-model="payment.credit_card.number" 
 			valid-method="blur" 
 			required-error-message="Le numéro de est requis." 
 			number-error-message="Seuls des chiffres sont permis." 
@@ -26,11 +50,11 @@
 	</div>
 	<div class="col-sm-3">
 		<input type="text" class="form-control input-lg" 
-			placeholder="CCV" 
+			placeholder="CVV" 
 			required="required" 
 			validator="required, number, maxlength=3, minlength=3" 
-			name="cardCcv" 
-			ng-model="payment.ccv" 
+			name="cardCvv" 
+			ng-model="payment.credit_card.cvv" 
 			valid-method="blur" 
 			required-error-message="Le CCV est requis." 
 			number-error-message="Seuls des chiffres sont permis." 
@@ -43,20 +67,20 @@
 			required="required" 
 			validator="required" 
 			name="expirationMonth" 
-			ng-model="payment.expirationMonth" 
+			ng-model="payment.credit_card.expiration_month" 
 			valid-method="blur" 
 			required-error-message="Le mois d'expiration est requis." 
 		>
 			<option value="">- Mois d'expiration -</option>
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9">9</option>
+			<option value="1">01</option>
+			<option value="2">02</option>
+			<option value="3">03</option>
+			<option value="4">04</option>
+			<option value="5">05</option>
+			<option value="6">06</option>
+			<option value="7">07</option>
+			<option value="8">08</option>
+			<option value="9">09</option>
 			<option value="10">10</option>
 			<option value="11">11</option>
 			<option value="12">12</option>
@@ -67,7 +91,7 @@
 			required="required" 
 			validator="required" 
 			name="expirationYear" 
-			ng-model="payment.expirationYear" 
+			ng-model="payment.credit_card.expiration_year" 
 			valid-method="blur" 
 			required-error-message="L'année d'expiration est requise." 
 		>

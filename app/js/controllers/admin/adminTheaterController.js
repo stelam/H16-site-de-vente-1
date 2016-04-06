@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('adminTheaterController', ["$scope", "$routeParams", "$controller", "authenticationService", "messageService", "$q", "$location", "provinceService", "theaterService", 
-        function($scope, $routeParams, $controller, authenticationService, messageService, $q, $location, provinceService, theaterService){
+    .controller('adminTheaterController', ["$scope", "$routeParams", "$controller", "messageService", "$q", "$location", "provinceService", "theaterService", 
+        function($scope, $routeParams, $controller, messageService, $q, $location, provinceService, theaterService){
             var self = this;
             var asyncCalls = [];
 

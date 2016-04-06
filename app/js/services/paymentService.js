@@ -5,12 +5,23 @@
     .factory('paymentService', ["$q", "$http", "SHOW_API_BASE_URL", "PAYMENT_API_BASE_URL", "PAYMENT_API_KEY",
 	function($q, $http, SHOW_API_BASE_URL, PAYMENT_API_BASE_URL, PAYMENT_API_KEY){
 		var payment = {
-			preauthorized: false,
-			number : "1111111111111111",
-			ccv: "111",
-			expirationMonth: "1",
-			expirationYear: "2017",
-			amount: 79.99
+			amount: 0,
+			label: "",
+			credit_card: {
+				number : "1337474812964632",
+				cvv: "339",
+				expiration_month: "4",
+				expiration_year: "2018",
+				first_name: "",
+				last_name: ""
+			}
+		}
+
+		var paymentPreauthorization = {
+			amount: 0,
+			expired_at: "",
+			id: "",
+			status: false
 		}
 
 		var getPayment = function(){
@@ -21,37 +32,39 @@
 			payment = p;
 		}
 
+		var getPaymentPreauthoriation = function(){
+			return paymentPreauthorization;
+		}
+
+		var setPaymentPreauthoriation = function(pp){
+			paymentPreauthorization = pp;
+		}
+
     	return {
     		setPayment: setPayment,
     		getPayment: getPayment,
+    		setPaymentPreauthoriation: setPaymentPreauthoriation,
+    		getPaymentPreauthoriation: getPaymentPreauthoriation,
 
-	    	preauthorize : function(){
+	    	preauthorize : function(paymentObject){
 	    		return $http({
 					method: 'POST',
-					url: PAYMENT_API_BASE_URL+'/payment/preauthorize',
-					params: {
-						cardNumber: payment.number, 
-						ccv: payment.ccv,
-						expirationMonth: payment.expirationMonth,
-						expirationYear: payment.expirationYear,
-						amount: payment.amount,
-						apiKey: PAYMENT_API_KEY
-					}
+					url: SHOW_API_BASE_URL+'/payment/preauthorize',
+					withCredentials: false,
+					data: paymentObject
 			    });
 	    	},
 
 	    	pay : function(){
+	    		var intent = {
+	    			"client_id" : paymentPreauthorization.id,
+	    			"intent" : "confirm"
+	    		}
 	    		return $http({
 					method: 'POST',
-					url: PAYMENT_API_BASE_URL+'/pay',
-					params: {
-						cardNumber: payment.number, 
-						ccv: payment.ccv,
-						expirationMonth: payment.expirationMonth,
-						expirationYear: payment.expirationYear,
-						amount: payment.amount,
-						apiKey: PAYMENT_API_KEY
-					}
+					url: SHOW_API_BASE_URL+'/payment/send',
+					withCredentials: false,
+					data: intent
 			    });
 	    	}
     	}

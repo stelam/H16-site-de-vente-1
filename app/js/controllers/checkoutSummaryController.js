@@ -51,6 +51,13 @@
                     checkoutService.resetSteps();
                 }
             }, true);      
+
+            // s'assurer que le paiement est préauthorisé
+            if (paymentService.getPaymentPreauthoriation().status != "authorized"){
+                console.log(paymentService.getPaymentPreauthoriation().status);
+                $location.path("/caisse/revue");
+                checkoutService.resetSteps();
+            }
     	});
 
 
@@ -60,7 +67,7 @@
 
             paymentService.pay().then(function(data){
                 loadingScreen.hide();
-                if (data.data.success == true) {
+                if (data.status == 200) {
 
                     orderService.commitOrder($scope.currentCart, $scope.user, data.data.transactionId).then(function(){
                         checkoutService.setCompletedStep("payment");
@@ -72,10 +79,12 @@
                 }
             }, function(errorData){
                 loadingScreen.hide();
-                if (errorData.status == 406) // le code va sûrement changer
+                /*if (errorData.status == 406) // le code va sûrement changer
                     messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_REJECTED"));
                 else
-                    messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));
+                    messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));*/
+                messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_REJECTED"));
+                $location.path("/caisse/informations-paiement");
             })
 
         }

@@ -21,7 +21,7 @@
 			},{
 				provinceName: "Ontario"
 			},{
-				provinceName: "Quebec"
+				provinceName: "Québec"
 			},{
 				provinceName: "Saskatchewan"
 			},{

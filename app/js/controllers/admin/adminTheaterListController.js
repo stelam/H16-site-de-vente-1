@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('adminTheaterListController', ["$scope", "$controller", "authenticationService", "messageService", "$q", "provinceService", "theaterService", 
-        function($scope, $controller, authenticationService, messageService, $q, provinceService, theaterService){
+    .controller('adminTheaterListController', ["$scope", "$controller", "messageService", "$q", "provinceService", "theaterService", 
+        function($scope, $controller, messageService, $q, provinceService, theaterService){
             var self = this;
             $scope.theaters = [];
  

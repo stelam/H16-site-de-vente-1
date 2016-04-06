@@ -32,6 +32,7 @@
 
 	angular.module('app').config(['$httpProvider', function($httpProvider) {
 		$httpProvider.defaults.withCredentials = true;
+		$httpProvider.defaults.headers.common['API-TOKEN'] = '87b8c7ea-2dfb-4402-98e9-d20995a18ec5';
 	}])
 
 

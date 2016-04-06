@@ -6,14 +6,18 @@ import com.ets.gti525.dao.TicketDAO;
 import com.ets.gti525.model.ShoppingCart;
 import com.ets.gti525.model.Ticket;
 import com.ets.gti525.model.TicketOrder;
+import com.ets.gti525.model.TicketTO;
 import com.ets.gti525.service.TicketAPIService;
+
 import org.dom4j.IllegalAddException;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -108,12 +112,19 @@ public class TicketAPIServiceImpl implements TicketAPIService {
     }
 
     @Override
-    public List<Ticket> ticketsSold(@RequestParam("showPresentationId") Long showPresentationId) {
+    public List<TicketTO> ticketsSold(@RequestParam("showPresentationId") Long showPresentationId) {
         if (showPresentationId == null) {
             throw new IllegalArgumentException("Bad parameter");
         }
-
-        List<Ticket> ticketOrderList = ticketDAO.findByShowPresentationId(showPresentationId);
-        return ticketOrderList;
+        
+        List<Ticket> ticketList = ticketDAO.findByShowPresentationId(showPresentationId);
+        List<TicketTO> ticketTOList = new ArrayList<>();
+        
+        for (Ticket ticket : ticketList){
+        	TicketTO ticketTO = new TicketTO(ticket);
+        	ticketTOList.add(ticketTO);
+        }
+        
+        return ticketTOList;
     }
 }

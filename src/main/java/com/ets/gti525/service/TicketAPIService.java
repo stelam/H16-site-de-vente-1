@@ -3,6 +3,7 @@ package com.ets.gti525.service;
 import com.ets.gti525.model.ShoppingCart;
 import com.ets.gti525.model.Ticket;
 import com.ets.gti525.model.TicketOrder;
+import com.ets.gti525.model.TicketTO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,5 +23,5 @@ public interface TicketAPIService {
     TicketOrder saveOrder(@RequestBody TicketOrder order);
 
     @RequestMapping(value = "/ticketsSold", method = RequestMethod.GET)
-    List<Ticket> ticketsSold(@RequestParam("showPresentationId") Long showPresentationId);
+    List<TicketTO> ticketsSold(@RequestParam("showPresentationId") Long showPresentationId);
 }

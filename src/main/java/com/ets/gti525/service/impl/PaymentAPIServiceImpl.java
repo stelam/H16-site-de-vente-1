@@ -7,6 +7,7 @@ import com.ets.gti525.model.PaymentPreauthorization;
 import com.ets.gti525.service.AuthenticationAPIService;
 import com.ets.gti525.service.PaymentAPIService;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -21,10 +22,13 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
+
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -59,21 +63,40 @@ public class PaymentAPIServiceImpl implements PaymentAPIService{
 		con.setRequestProperty("Accept", "application/json");
 		con.setRequestProperty("User-Agent", USER_AGENT);
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		con.setRequestProperty("X-API-KEY", "jadflkghah894wihiwqr8i");
-		con.setRequestProperty("x-api-key","jadflkghah894wihiwqr8i");
+		con.setRequestProperty("X-API-KEY", "13098dad-a371-47c1-b8f3-e828026abb59");
 
-		String urlParameters = "sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
+		//String urlParameters = "sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
+		JSONObject payment = new JSONObject();
+		JSONObject creditCard = new JSONObject();
+		JSONObject parent = new JSONObject();
+		
+		payment.put("amount","20.00");
+		payment.put("label","Ceci est un test");
+		
+		creditCard.put("number", "1337474812964632");
+		creditCard.put("first_name", "John");
+		creditCard.put("last_name", "Doe");
+		creditCard.put("cvv", 339);
+		creditCard.put("expiration_month", "04");
+		creditCard.put("expiration_year", "2018");
+		
+		payment.put("credit_card", creditCard);
+		
+		con.setDoOutput(true);
+		
+		OutputStreamWriter wr= new OutputStreamWriter(con.getOutputStream());
+		wr.write(payment.toString());
 		
 		// Send post request
-		con.setDoOutput(true);
-		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		wr.writeBytes(urlParameters);
+		
+		//DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		//wr.writeBytes(urlParameters);
 		wr.flush();
 		wr.close();
 
 		int responseCode = con.getResponseCode();
 		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + urlParameters);
+		System.out.println("Post parameters : " + payment.toString());
 		System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(

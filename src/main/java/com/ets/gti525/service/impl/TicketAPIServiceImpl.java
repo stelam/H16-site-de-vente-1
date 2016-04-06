@@ -101,10 +101,12 @@ public class TicketAPIServiceImpl implements TicketAPIService {
     }
 
     @Override
-    public TicketOrder saveOrder(@RequestBody TicketOrder order) {
+    public TicketOrder saveOrder(@RequestBody TicketOrder order, HttpServletRequest request) {
         String confirmationNumber = UUID.randomUUID().toString();
         order.setConfirmationId(confirmationNumber);
         orderDAO.save(order);
+
+        request.getSession().setAttribute("cart", null);
 
         return order;
     }

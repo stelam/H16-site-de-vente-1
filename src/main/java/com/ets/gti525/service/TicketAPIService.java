@@ -20,7 +20,7 @@ public interface TicketAPIService {
     ShoppingCart getTicketsInCart(HttpServletRequest request);
 
     @RequestMapping(value = "/order", method = RequestMethod.POST)
-    TicketOrder saveOrder(@RequestBody TicketOrder order);
+    TicketOrder saveOrder(@RequestBody TicketOrder order, HttpServletRequest request);
 
     @RequestMapping(value = "/ticketsSold", method = RequestMethod.GET)
     List<TicketTO> ticketsSold(@RequestParam("showPresentationId") Long showPresentationId);

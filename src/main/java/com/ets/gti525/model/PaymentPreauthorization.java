@@ -5,26 +5,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.json.simple.JSONObject;
+
 
 public class PaymentPreauthorization {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private String id;
     private String label;
     private String amount;
     private String status;
     private String expired_at;
 
-    public PaymentPreauthorization() {
-
+    public PaymentPreauthorization(JSONObject jsonObject) {
+    	this.id = (String) jsonObject.get("id");
+    	this.label = (String) jsonObject.get("label");
+    	this.amount = (String) jsonObject.get("amount");
+    	this.status = (String) jsonObject.get("status");
+    	this.expired_at = (String) jsonObject.get("expired_at");
+    	
+    	System.out.println(this.id);
     }
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

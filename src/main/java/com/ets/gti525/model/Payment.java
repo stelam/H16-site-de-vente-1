@@ -7,13 +7,15 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 public class Payment {
 
     private double amount;
     private String label;
+    
+    @OneToOne(cascade = CascadeType.ALL)
     private CreditCard credit_card;
     
 	public double getAmount() {

@@ -43,22 +43,6 @@ public class DataManager implements InitializingBean {
 
     private void initializeProvince() {
         Province province = new Province();
-        province.setProvinceName("Quebec");
-        provinceDAO.save(province);
-
-        province = new Province();
-        province.setProvinceName("Ontario");
-        provinceDAO.save(province);
-
-        province = new Province();
-        province.setProvinceName("Manitoba");
-        provinceDAO.save(province);
-
-        province = new Province();
-        province.setProvinceName("Saskatchewan");
-        provinceDAO.save(province);
-
-        province = new Province();
         province.setProvinceName("Alberta");
         provinceDAO.save(province);
 
@@ -67,23 +51,35 @@ public class DataManager implements InitializingBean {
         provinceDAO.save(province);
 
         province = new Province();
+        province.setProvinceName("Île-du-Prince-Édouard");
+        provinceDAO.save(province);
+
+        province = new Province();
+        province.setProvinceName("Manitoba");
+        provinceDAO.save(province);
+
+        province = new Province();
         province.setProvinceName("Nouveau-Brunswick");
         provinceDAO.save(province);
 
         province = new Province();
-        province.setProvinceName("Nouvelle-Ecosse");
+        province.setProvinceName("Nouvelle-Écosse");
         provinceDAO.save(province);
 
         province = new Province();
-        province.setProvinceName("Terre-Neuve et Labrador");
+        province.setProvinceName("Ontario");
         provinceDAO.save(province);
 
         province = new Province();
-        province.setProvinceName("Ile du Prince Edouard");
+        province.setProvinceName("Québec");
         provinceDAO.save(province);
 
         province = new Province();
-        province.setProvinceName("Yukon");
+        province.setProvinceName("Saskatchewan");
+        provinceDAO.save(province);
+
+        province = new Province();
+        province.setProvinceName("Terre-Neuve-et-Labrador");
         provinceDAO.save(province);
 
         province = new Province();
@@ -91,7 +87,11 @@ public class DataManager implements InitializingBean {
         provinceDAO.save(province);
 
         province = new Province();
-        province.setProvinceName("Territoires du Nord-Ouest");
+        province.setProvinceName("Territoire du Nord-Ouest");
+        provinceDAO.save(province);
+
+        province = new Province();
+        province.setProvinceName("Yukon");
         provinceDAO.save(province);
     }
 

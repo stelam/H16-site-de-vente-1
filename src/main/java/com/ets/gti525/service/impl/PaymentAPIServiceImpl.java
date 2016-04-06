@@ -1,36 +1,33 @@
 package com.ets.gti525.service.impl;
 
-import com.ets.gti525.dao.CredentialDAO;
-import com.ets.gti525.model.Credential;
 import com.ets.gti525.model.Payment;
+import com.ets.gti525.model.PaymentIntent;
 import com.ets.gti525.model.PaymentPreauthorization;
-import com.ets.gti525.service.AuthenticationAPIService;
 import com.ets.gti525.service.PaymentAPIService;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPatch;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.AbstractHttpMessage;
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.servlet.http.HttpServletRequest;
-
-
-
-
-
-
-
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -42,76 +39,101 @@ public class PaymentAPIServiceImpl implements PaymentAPIService{
 	private final String USER_AGENT = "Mozilla/5.0";
 	
 	@Override
-	public PaymentPreauthorization preauthorizePayment(Payment payment) {
-		try {
-			this.postPaymentPreauthorization();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public PaymentPreauthorization preauthorizePayment(@RequestBody Payment payment) throws ParseException, IOException {
+		return this.postPaymentPreauthorization(payment);
 	}
 	
-	private void postPaymentPreauthorization() throws IOException {
+
+	@Override
+	public void sendPayment(@RequestBody PaymentIntent intent) throws ParseException, IOException {
+		this.patchSendPayment(intent);
+	}
+	
+	private AbstractHttpMessage initConnection(String method, String url, StringEntity params) throws IOException {
+		
+		if (method.equals("POST")){
+			HttpPost request = new HttpPost(url);
+	        params.setContentType("application/json");
+	        request.addHeader("content-type", "application/json");
+	        request.addHeader("Accept", "application/json");
+	        request.addHeader("X-API-KEY", "13098dad-a371-47c1-b8f3-e828026abb59");
+	        request.setEntity(params);
+	        return request;
+		} else {
+			HttpPatch request = new HttpPatch(url);
+	        params.setContentType("application/json");
+	        request.addHeader("content-type", "application/json");
+	        request.addHeader("Accept", "application/json");
+	        request.addHeader("X-API-KEY", "13098dad-a371-47c1-b8f3-e828026abb59");
+	        request.setEntity(params);
+	        return request;
+		}
+		
+	}
+	
+	private PaymentPreauthorization postPaymentPreauthorization(Payment pay) throws IOException, ParseException {
 		String url = "https://aqueous-crag-25661.herokuapp.com/api/payments";
-		URL obj = new URL(url);
-		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-
-		//add reuquest header
-		con.setRequestMethod("POST");
-		con.setRequestProperty("Content-Type", "application/json");
-		con.setRequestProperty("Accept", "application/json");
-		con.setRequestProperty("User-Agent", USER_AGENT);
-		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		con.setRequestProperty("X-API-KEY", "13098dad-a371-47c1-b8f3-e828026abb59");
-
-		//String urlParameters = "sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
+		HttpClient httpClient = new DefaultHttpClient();
+		
+		// constructing json object to send as parameter
 		JSONObject payment = new JSONObject();
 		JSONObject creditCard = new JSONObject();
-		JSONObject parent = new JSONObject();
 		
-		payment.put("amount","20.00");
-		payment.put("label","Ceci est un test");
-		
-		creditCard.put("number", "1337474812964632");
-		creditCard.put("first_name", "John");
-		creditCard.put("last_name", "Doe");
-		creditCard.put("cvv", 339);
-		creditCard.put("expiration_month", "04");
-		creditCard.put("expiration_year", "2018");
-		
+		payment.put("amount", pay.getAmount());
+		payment.put("label", pay.getLabel());
+
+		creditCard.put("number", pay.getCredit_card().getNumber());
+		creditCard.put("first_name", pay.getCredit_card().getFirst_name());
+		creditCard.put("last_name", pay.getCredit_card().getLast_name());
+		creditCard.put("cvv", pay.getCredit_card().getCvv());
+		creditCard.put("expiration_month", pay.getCredit_card().getExpiration_month());
+		creditCard.put("expiration_year", pay.getCredit_card().getExpiration_year());
+
 		payment.put("credit_card", creditCard);
 		
-		con.setDoOutput(true);
+		StringEntity params = new StringEntity(payment.toString(),"UTF-8");
+		AbstractHttpMessage request = this.initConnection("POST", url, params);
 		
-		OutputStreamWriter wr= new OutputStreamWriter(con.getOutputStream());
-		wr.write(payment.toString());
-		
-		// Send post request
-		
-		//DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		//wr.writeBytes(urlParameters);
-		wr.flush();
-		wr.close();
+        
+        HttpResponse response = httpClient.execute((HttpUriRequest) request);
+        BufferedReader br = new BufferedReader(
+                new InputStreamReader((response.getEntity().getContent())));
 
-		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + payment.toString());
-		System.out.println("Response Code : " + responseCode);
-
-		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
-
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
+        String output;
+        StringBuffer responseBuffer = new StringBuffer();
+        while ((output = br.readLine()) != null) {
+        	responseBuffer.append(output);
+        }
+        
+		httpClient.getConnectionManager().shutdown();
 		
-		//print result
-		System.out.println(response.toString());
+		
+		// parse json
+        JSONObject jsonObj;
+        JSONParser parser = new JSONParser();
+        Object object = parser.parse(responseBuffer.toString());
+        jsonObj = (JSONObject) object;
+		PaymentPreauthorization pp = new PaymentPreauthorization(jsonObj);
+		
+		return pp;
+	}
+	
+	private void patchSendPayment(PaymentIntent intent) throws IOException {
+		System.out.println("sending");
+		String url = "https://aqueous-crag-25661.herokuapp.com/api/payments/" + intent.getClient_id();
+		HttpClient httpClient = new DefaultHttpClient();
+		
+		JSONObject intentObject = new JSONObject();
+		intentObject.put("intent", intent.getIntent());
+		
+		StringEntity params = new StringEntity(intentObject.toString(),"UTF-8");
+		AbstractHttpMessage request = this.initConnection("PATCH", url, params);
+		
+		httpClient.execute((HttpUriRequest) request);
+		
+		httpClient.getConnectionManager().shutdown();
 
 	}
+
     
 }

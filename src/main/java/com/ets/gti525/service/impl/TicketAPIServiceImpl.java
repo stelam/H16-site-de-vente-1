@@ -8,16 +8,13 @@ import com.ets.gti525.model.Ticket;
 import com.ets.gti525.model.TicketOrder;
 import com.ets.gti525.model.TicketTO;
 import com.ets.gti525.service.TicketAPIService;
-
 import org.dom4j.IllegalAddException;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -37,7 +34,7 @@ public class TicketAPIServiceImpl implements TicketAPIService {
     DataManager dataManager;
 
     @Override
-    public ShoppingCart addTicket(@RequestBody Ticket ticket, HttpServletRequest request) {
+    public ShoppingCart addTicket(@RequestBody List<Ticket> tickets, HttpServletRequest request) {
         //ShoppingCart shoppingCart = new ShoppingCart();
         Calendar cal = Calendar.getInstance();
         long timeinmillis = cal.getTimeInMillis();
@@ -57,27 +54,28 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         if (shoppingCart.getTicketList().size() >= 6) {
             throw new IllegalAddException("Can't add ticket in cart. Cart is full");
         }
-    
-    	Ticket existingSameTicket = shoppingCart.getTicketInCartByShowPresentationId(ticket.getShowPresentationId());
-    	System.out.println("SHOW PRES ID" + ticket.getShowPresentationId());
-    	
-        // tickets with matching showPresentationId must have the same timer settings
-        // otherwise, we create new timer settings for the first ticket of a kind
-        if (existingSameTicket == null) {
-        	ticket.setTimeinmillis(timeinmillis);
-            ticket.setExpiringTimeinmillis(expiringTimeinmillis);
-            ticket.setTicketId(uniqueID);
-        } else {
-        	ticket.setTimeinmillis(existingSameTicket.getTimeinmillis());
-        	ticket.setExpiringTimeinmillis(existingSameTicket.getExpiringTimeinmillis());
-        	ticket.setTicketId(existingSameTicket.getTicketId());
+
+        for(Ticket ticket: tickets) {
+            Ticket existingSameTicket = shoppingCart.getTicketInCartByShowPresentationId(ticket.getShowPresentationId());
+            System.out.println("SHOW PRES ID" + ticket.getShowPresentationId());
+
+            // tickets with matching showPresentationId must have the same timer settings
+            // otherwise, we create new timer settings for the first ticket of a kind
+            if (existingSameTicket == null) {
+                ticket.setTimeinmillis(timeinmillis);
+                ticket.setExpiringTimeinmillis(expiringTimeinmillis);
+                ticket.setTicketId(uniqueID);
+            } else {
+                ticket.setTimeinmillis(existingSameTicket.getTimeinmillis());
+                ticket.setExpiringTimeinmillis(existingSameTicket.getExpiringTimeinmillis());
+                ticket.setTicketId(existingSameTicket.getTicketId());
+            }
+            ticket.setInactivityExpirationDelay(dataManager.getInactivityExpirationMinutes());
+
+            DataManager.ticketsInReservationList.put(ticket.getTicketId(), ticket);
+            shoppingCart.addOrReplaceTicket(ticket);
+            System.out.println(ticket.getTicketId());
         }
-        ticket.setInactivityExpirationDelay(dataManager.getInactivityExpirationMinutes());
-        
-        DataManager.ticketsInReservationList.put(ticket.getTicketId(), ticket);
-        shoppingCart.addOrReplaceTicket(ticket);
-        System.out.println(ticket.getTicketId());
-        System.out.println("QTY:"+DataManager.ticketsInReservationList.get(ticket.getTicketId()).getQuantity());
         
         request.getSession(true).setAttribute("cart", shoppingCart);
         

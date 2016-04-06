@@ -82,7 +82,7 @@ public class ShowAPIServiceImpl implements ShowAPIService {
 
         for (Map.Entry<String, Ticket> entry : DataManager.ticketsInReservationList.entrySet()) {
             if (Objects.equals(entry.getValue().getShowPresentationId(), presentationShowId)) {
-                    numberOfTicketSoldAndReserved += entry.getValue().getQuantity();
+                    numberOfTicketSoldAndReserved++;
             }
         }
 
@@ -95,7 +95,7 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         
 	    	Ticket existingSameTicket = shoppingCart.getTicketInCartByShowPresentationId(presentationShowId);
 	        if (existingSameTicket != null) {
-	        	quantity -= existingSameTicket.getQuantity();
+	        	quantity--;
 	        }
         }
         
@@ -173,7 +173,7 @@ public class ShowAPIServiceImpl implements ShowAPIService {
 
         for (Ticket ticket : ticketList) {
             if (Objects.equals(ticket.getShowPresentationId(), showPresentation.getId())) {
-                numberOfTicketSold += ticket.getQuantity();
+                numberOfTicketSold++;
             }
         }
 

@@ -2,7 +2,6 @@ package com.ets.gti525.model;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -36,22 +35,21 @@ public class ShoppingCart {
     public void setTicketList(List<Ticket> ticketList) {
         this.ticketList = ticketList;
     }
-    
-    public Ticket getTicketInCartByShowPresentationId(long showPresentationId){
 
-    	for (Ticket ticket : ticketList) {
-    		if (ticket.getShowPresentationId().equals(showPresentationId)) {
-    			return ticket;
-    		}
-    	}   		
-    	return null;
-    }
+	public Ticket getTicketInCartByTicketId(String ticketId) {
+		for (Ticket ticket : ticketList) {
+			if (ticket.getTicketId().equals(ticketId)) {
+				return ticket;
+			}
+		}
+		return null;
+	}
     
     public void addOrReplaceTicket(Ticket ticket) {
     	Boolean replaced = false;
     	int i = 0;
     	for (Ticket t : ticketList) {
-    		if (t.getShowPresentationId().equals(ticket.getShowPresentationId())) {
+    		if (t.getTicketId().equals(ticket.getTicketId())) {
     			ticketList.set(i, ticket);
     			replaced = true;
     		}

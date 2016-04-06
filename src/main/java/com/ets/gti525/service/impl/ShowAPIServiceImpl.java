@@ -92,11 +92,11 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         if (shoppingCart != null){
         	shoppingCart.removeExpiredTickets();
 
-        
-	    	Ticket existingSameTicket = shoppingCart.getTicketInCartByShowPresentationId(presentationShowId);
-	        if (existingSameTicket != null) {
-	        	quantity--;
-	        }
+//
+//	    	Ticket existingSameTicket = shoppingCart.getTicketInCartByShowPresentationId(presentationShowId);
+//	        if (existingSameTicket != null) {
+//	        	quantity--;
+//	        }
         }
         
         return (numberOfTicketSoldAndReserved + quantity) <= showPresentation.getNumberOfPlaces();

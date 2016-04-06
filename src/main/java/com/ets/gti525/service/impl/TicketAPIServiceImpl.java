@@ -53,10 +53,12 @@ public class TicketAPIServiceImpl implements TicketAPIService {
             throw new IllegalAddException("Can't add ticket in cart. Cart is full");
         }
 
-        for(Ticket ticket: tickets) {
+        for (Ticket ticket: tickets) {
             String uniqueID = UUID.randomUUID().toString();
-            Ticket existingSameTicket = shoppingCart.getTicketInCartByShowPresentationId(ticket.getShowPresentationId());
-            System.out.println("SHOW PRES ID" + ticket.getShowPresentationId());
+            Ticket existingSameTicket = null;
+            if (ticket.getTicketId() != null && !ticket.getTicketId().isEmpty()) {
+                existingSameTicket = shoppingCart.getTicketInCartByTicketId(ticket.getTicketId());
+            }
 
             // tickets with matching showPresentationId must have the same timer settings
             // otherwise, we create new timer settings for the first ticket of a kind

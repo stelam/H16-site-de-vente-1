@@ -13,4 +13,5 @@ SITE DE VENTE : http://evening-fortress-76486.herokuapp.com/
 ======
 
 **Top secret credentials**
+
 API-TOKEN: 87b8c7ea-2dfb-4402-98e9-d20995a18ec5 (à mettre dans le header des requêtes)

@@ -40,8 +40,6 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         long timeinmillis = cal.getTimeInMillis();
         long expiringTimeinmillis = cal.getTimeInMillis() + dataManager.getCartReservationMinutes() * 60 * 1000;
         
-        String uniqueID = UUID.randomUUID().toString();
-        
         ShoppingCart shoppingCart = (ShoppingCart) request.getSession(true).getAttribute("cart");
         System.out.println(request.getSession(true));
         
@@ -56,6 +54,7 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         }
 
         for(Ticket ticket: tickets) {
+            String uniqueID = UUID.randomUUID().toString();
             Ticket existingSameTicket = shoppingCart.getTicketInCartByShowPresentationId(ticket.getShowPresentationId());
             System.out.println("SHOW PRES ID" + ticket.getShowPresentationId());
 

@@ -66,7 +66,13 @@ public class SocialAPIServiceImpl implements SocialAPIService{
 		
 		
 		System.out.println(responseBuffer.toString());
-        return responseBuffer.toString();
+		if (responseBuffer.toString().equals("Login NOT OK!")) {
+			return "{}";
+		}
+		else {
+			return responseBuffer.toString();
+		}
+        
 	}
 	
 	private String getUserById(String id) throws ClientProtocolException, IOException, ParseException {

@@ -41,7 +41,7 @@
 <div class="col-md-3 col-sm-12 subtotal-container" ng-if="currentCart.items.length > 0">
 	<h3>Sous-total : </h3>
 	<div class="subtotal">
-		<span><sup class="dollar-sign">$</sup>{{currentCart.total.dollars}}<sup class="cents">{{currentCart.total.cents}}</sup></span>
+		<span><sup class="dollar-sign">$</sup>{{currentCart.total.dollars}}<sup class="cents">{{(!currentCart.total.cents) ? '00' : currentCart.total.cents}}</sup></span>
 	</div>
 	<a class="btn btn-goevents btn-lg btn-continue" ng-click="continue()">Continuer <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 </div>

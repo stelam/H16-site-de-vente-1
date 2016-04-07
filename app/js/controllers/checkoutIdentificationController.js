@@ -78,9 +78,12 @@
                     if (data.data.code) {
                         $scope.user.socialCode = data.data.code;
                         $scope.user.socialUserId = data.data.userId;
-                        console.log($scope.user);
+                        $scope.user.socialLogin = true;
+                        $scope.user.firstName = data.data.userId;
+                        $scope.user.lastName = data.data.userId;
                         checkoutService.setCompletedStep("identification");
                         authenticationService.setUser($scope.user)
+
                         $location.path("/caisse/informations-paiement");
                     } else {
                         messageService.showMessage(messageService.getMessage("ERROR_ADMIN_LOGIN"));

@@ -3,7 +3,7 @@
 <div class="col-sm-4 col-sm-offset-1 subtotal-container center payment">
 	<h2>TOTAL</h2>
 	<div class="subtotal">
-		<span><sup class="dollar-sign">$</sup>{{currentCart.total.dollars}}<sup class="cents">{{currentCart.total.cents}}</sup></span>
+		<span><sup class="dollar-sign">$</sup>{{currentCart.total.dollars}}<sup class="cents">{{(!currentCart.total.cents) ? '00' : currentCart.total.cents}}</sup></span>
 	</div>
 </div>
 <form name="paymentForm" class="col-lg-4 col-sm-6 col-sm-7 payment-form">

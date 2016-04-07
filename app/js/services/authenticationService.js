@@ -2,8 +2,8 @@
  "use strict";
 
   angular.module('app')
-    .factory('authenticationService', ["$q", "AUTH_API_BASE_URL", "$http",
-	function($q, AUTH_API_BASE_URL, $http){
+    .factory('authenticationService', ["$q", "SHOW_API_BASE_URL", "$http",
+	function($q, SHOW_API_BASE_URL, $http){
 		var user = {
 			socialLogin : false,
 			firstName: "",
@@ -75,12 +75,14 @@
 	    	authenticate : function(user){
 	    		return $http({
 					method: 'POST',
-					url: AUTH_API_BASE_URL+'/auth/authorizationrequest',
+					url: SHOW_API_BASE_URL+'/social/authenticate',
+				    headers: { 
+				        'Accept': 'application/json',
+				        'Content-Type': 'application/json' 
+				    },
 					data: {
-						email : "stelam@gmail.com",
-						password : "1212",
-						client_id: 2,
-						response_type: "code"
+						username: user.email,
+						password: user.password
 					}
 			    });
 	    	},

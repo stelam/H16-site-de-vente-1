@@ -42,6 +42,7 @@
 	    		$http({
 					method: 'POST',
 					url: SHOW_API_BASE_URL+'/ticket/order', 
+					withCredentials: true,
 					data: ticketOrder
 			    }).then(function(data){
 			    	order.orderId = data.data.confirmationId;

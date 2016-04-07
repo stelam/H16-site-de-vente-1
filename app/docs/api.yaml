@@ -1,0 +1,437 @@
+# API site de ventes 1
+swagger: '2.0'
+info:
+  title: Equipe de vente API
+  description: Ventes de billets de spectacles
+  version: "1.0.0"
+# the domain of the service
+host: agile-anchorage-60775.herokuapp.com
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /
+produces:
+  - application/json
+paths:
+  /show/add:
+    post:
+      summary: Créer Spectacle
+      description: Permet de créer d'un spectacle avec tous ces paramètres associés.
+        
+      parameters:
+        - name: name
+          in: query
+          description: Spécifie le nom du spectacle
+          required: true
+          type: string
+        - name: description
+          in: query
+          description: Spécifie la description du spectacle
+          required: true
+          type: string
+        - name: artistName
+          in: query
+          description: Spécifie l'artiste du spectacle
+          required: true
+          type: string
+        - name: isFeatured
+          in: query
+          description: Spécifie si le spectacle est en vedette ou pas
+          required: true
+          type: boolean
+        - name: imageUrl
+          in: query
+          description: Spécifie l'image du spectacle
+          required: true
+          type: string
+        - name: active
+          in: query
+          description: Spécifie si le spectacle est visible ou pas sur l'application (toujours visible dans le panneau administrateur)
+          required: true
+          type: boolean
+        - name: showPresentationList
+          in: body
+          description: La liste des présentations du spectacle. Ne pas définir de ID pour les présentations à ajouter.
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/showPresentation'
+      tags:
+        - Shows
+      responses:
+        200:
+          description: Le spectacle a été ajouté.
+          schema:
+            $ref: '#/definitions/show'
+        500:
+          description: Erreur dans la creation du spectacle
+        
+  /show/remove:
+    delete:
+      summary: Supprimer un spectacle
+      description: Permet de supprimer un spectacle
+      parameters:
+        - name: id
+          in: query
+          description: Spécifie l'identifiant du spetacle
+          required: true
+          type: number
+          format: long
+      tags:
+        - Shows
+      responses:
+        200:
+          description: Un Spectacle a été supprimé
+        500:
+          description: Erreur au moment de supprimer un spectacle
+          
+  /show/edit:
+    put:
+      summary: Modifier un spectacle
+      description: Permet de modifier un spectacle 
+      parameters:
+        - name: name
+          in: query
+          description: Spécifie le nom du spectacle
+          required: true
+          type: string
+        - name: description
+          in: query
+          description: Spécifie la description du spectacle
+          required: true
+          type: string
+        - name: artistName
+          in: query
+          description: Spécifie l'artiste du spectacle
+          required: true
+          type: string
+        - name: isFeatured
+          in: query
+          description: Spécifie si le spectacle est en vedette ou pas
+          required: true
+          type: boolean
+        - name: imageUrl
+          in: query
+          description: Spécifie l'image du spectacle
+          required: true
+          type: string
+        - name: active
+          in: query
+          description: Spécifie si le spectacle est visible ou pas sur l'application (toujours visible dans le panneau administrateur)
+          required: true
+          type: boolean
+        - name: showPresentationList
+          in: body
+          description: La liste des présentations du spectacle
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/showPresentation'
+      tags:
+        - Shows
+      responses:
+        200:
+          description: Le spectacle a été modifié
+          schema:
+            $ref: '#/definitions/show'
+        500:
+          description: Erreur au moment de modifier un spectacle
+          
+        
+  /theater/add:
+    post:
+      summary: Creer une nouvelle salle
+      description: Permet de creer une nouvelle salle 
+      parameters:
+        - name: name
+          in: query
+          description: Spécifie le nom de la salle
+          required: true
+          type: string
+        - name: id
+          in: query
+          description: Spécifie l'identifiant de la salle 
+          required: true
+          type: number
+          format: long
+        - name: phoneNumber
+          in: query
+          description: Spécifie le numéro de téléphone de la salle
+          required: true
+          type: string
+        - name: zipCode
+          in: query
+          description: Spécifie le code postal de la salle 
+          required: true
+          type: string
+        - name: address
+          in: query
+          description: Spécifie l'adresse de la salle
+          required: true
+          type: string
+        - name: city
+          in: query
+          description: Spécifie la ville de la salle 
+          required: true
+          type: string
+        - name: capacity
+          in: query
+          description: Spécifie la capacité de la salle 
+          required: true
+          type: number
+          format: integer
+        - name: active
+          in: query
+          description: Spécifie si la salle est visible ou pas dans l'application (toujours visible dans le panneau administrateur) 
+          required: true
+          type: boolean 
+      tags:
+        - Theater
+      responses:
+        200:
+          description: Objet theater qui a été créée
+          schema:
+            $ref: '#/definitions/theater'
+        500:
+          description: Erreur au moment de creer une salle
+          
+  /theater/remove:
+    delete:
+      summary: Supprimer une salle
+      description: Permet de supprimer une salle 
+      parameters:
+        - name: id
+          in: query
+          description: Spécifie l'identifiant de la salle 
+          required: true
+          type: number
+          format: long
+      tags:
+        - Theater
+      responses:
+        200:
+          description: Une salle a été supprimée
+        500:
+          description: Erreur au moment de supprimer une salle
+          
+  /theater/edit:
+    put:
+      summary: Modifie une  salle
+      description: Permet de modifier une salle 
+      parameters:
+        - name: name
+          in: query
+          description: Spécifie le nom de la salle
+          required: true
+          type: string
+        - name: phoneNumber
+          in: query
+          description: Spécifie le numéro de téléphone de la salle
+          required: true
+          type: string
+        - name: zipCode
+          in: query
+          description: Spécifie le code postal de la salle 
+          required: true
+          type: string
+        - name: address
+          in: query
+          description: Spécifie l'adresse de la salle
+          required: true
+          type: string
+        - name: city
+          in: query
+          description: Spécifie la ville de la salle 
+          required: true
+          type: string
+        - name: capacity
+          in: query
+          description: Spécifie la capacité de la salle 
+          required: true
+          type: number
+          format: integer
+        - name: active
+          in: query
+          description: Spécifie si la salle est visible ou pas dans l'application (toujours visible dans le panneau administrateur) 
+          required: true
+          type: boolean 
+      tags:
+        - Theater
+      responses:
+        200:
+          description: La salle qui a été modifiée
+          schema:
+            $ref: '#/definitions/theater'
+        500:
+          description: Erreur au moment de modifier une salle
+          
+          
+  /show/showPresentationDetails:
+    get:
+      summary: Détails d'une présentation (avec nombre de billets restants)
+      description: Obtenir les informations concernant les billets vendus, et les billets restants pour une présentation d’un spectacle
+      parameters: 
+        - name: presentationShowId
+          in: query
+          description: Spécifie l'identifiant de la présentation
+          required: true
+          type: number
+          format: long
+          
+      tags:
+        - Shows
+      responses:
+        200:
+          description: Propriétés d'une présentation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/showPresentationDetails'
+        500:
+          description: Erreur au moment d'envoyer les détails dun billet
+          
+  /ticket/ticketsSold:
+    get:
+      summary: Billets vendus
+      description: Obtenir la liste de billets vendus pour une présentation donnée
+      parameters:
+        - name: showPresentationId
+          in: query
+          description: L'identifiant de la présentation
+          required: true
+          type: number
+      tags:
+        - Tickets
+      responses:
+        200:
+          description: Liste des billets vendus, tableau vide si aucun billet vendu
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ticket'
+        500:
+          description: Erreur, mauvais paramètre envoyé
+          
+definitions:
+  showPresentation:
+    type: object
+    properties:
+      id: 
+        type: number
+        description: Le ID de la présentation (ne pas inclure lors d'un ADD)
+      timeinmillis:
+        type: number
+        description: La date epoch (en millisecondes) de la présentation
+      numberOfPlaces:
+        type: number
+        description: Le nombre de places disponibles pour cette présentation
+      price:
+        type: number
+        description: Le prix pour cette présentation
+      active:
+        type: boolean
+        description: Flag actif / inactif
+      theater:
+        $ref: '#/definitions/theater'
+          
+  theater:
+    type: object
+    properties:
+      id:
+        type: number
+        description: L'identifiant de la salle
+      name:
+        type: string
+        description: Le nom de la salle
+      zipCode:
+        type: string
+        description: Le code postal de la salle
+      address:
+        type: string
+        description: Numéro civique et rue
+      city:
+        type: string
+        description: Ville de la salle
+      capacity:
+        type: number
+        description: La capacité maximale de la salle
+      active:
+        type: boolean
+        description: Flag actif ou inactif
+      province:
+        $ref: '#/definitions/province'
+      
+  province:
+    type: object
+    properties:
+      id:
+        type: number
+        description: Le ID de la province
+      provinceName:
+        type: string
+        description: Le nom de la province
+  
+  show:
+    type: object
+    properties:
+      id:
+        type: number
+        description: Le ID du spectacle
+      name:
+        type: string
+        description: Le nom du spectacle
+      artistName:
+        type: string
+        description: Le nom de l'artiste
+      imageUrl:
+        type: string
+        description: L'URL de la vignette du spectacle
+      description:
+        type: string
+        description: La description du spectacle
+      isFeatured:
+        type: boolean
+        description: Flag en vedette ou pas
+      active:
+        type: boolean
+        description: Flag actif / inactif
+      showPresentationList:
+        type: array
+        items: 
+          $ref: '#/definitions/showPresentation'
+
+        
+  showPresentationDetails:
+    type: object
+    properties:
+      id:
+        type: number
+        description: Spécifie l'identifiant de la salle
+      active:
+        type: boolean
+        description: Spécifie si la salle est visible ou pas dans l'application (toujours visible dans le panneau administrateur)
+      timeinmillis:
+        type: number
+        description: Spécifie le temps restant pour acheter un spectacle
+      numberOfPlaces:
+        type: number
+        description: Spécifie le nombre de place disponible pour le spectacle
+      price:
+        type: number
+        description: Spécifie le prix du billet pour le spectacle
+        
+  ticket:
+    type: object
+    properties:
+      id_billet:
+        type: number
+        description: Le id du billet
+      id_spectacle:
+        type: number
+        description: Le id de la présentation
+      codeVerification:
+        type: string
+        description: Le code de vérification du billet

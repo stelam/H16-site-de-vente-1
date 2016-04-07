@@ -50,7 +50,7 @@
 	    		return $http({
 					method: 'POST',
 					url: SHOW_API_BASE_URL+'/payment/preauthorize',
-					withCredentials: false,
+					withCredentials: true,
 					data: paymentObject
 			    });
 	    	},
@@ -63,7 +63,7 @@
 	    		return $http({
 					method: 'POST',
 					url: SHOW_API_BASE_URL+'/payment/send',
-					withCredentials: false,
+					withCredentials: true,
 					data: intent
 			    });
 	    	}

@@ -72,18 +72,30 @@
         $scope.submitSocialAuthentication = function(){
             loadingScreen.show();
             $validationProvider.validate($scope.authenticationForm).success(function(){
-                authenticationService.authenticate($scope.user).then(function(){
-                    checkoutService.setCompletedStep("identification");
-                    $location.path("/caisse/informations-paiement");
+                authenticationService.authenticate($scope.user).then(function(data){
+                    console.log(data);
                     loadingScreen.hide();
+                    if (data.data.code) {
+                        $scope.user.socialCode = data.data.code;
+                        $scope.user.socialUserId = data.data.userId;
+                        console.log($scope.user);
+                        checkoutService.setCompletedStep("identification");
+                        authenticationService.setUser($scope.user)
+                        $location.path("/caisse/informations-paiement");
+                    } else {
+                        messageService.showMessage(messageService.getMessage("ERROR_ADMIN_LOGIN"));
+                    }
+
+                    
                 }, function(){
                     // temporary
-                    checkoutService.setCompletedStep("identification");
+                    /*checkoutService.setCompletedStep("identification");
                     $scope.user = authenticationService.getFakeUser();
                     $scope.user.socialLogin = true;
-                    authenticationService.setUser($scope.user);
+                    authenticationService.setUser($scope.user);*/
                     loadingScreen.hide();
-                    $location.path("/caisse/informations-paiement");
+                    messageService.showMessage(messageService.getMessage("ERROR_ADMIN_LOGIN"));
+                    //$location.path("/caisse/informations-paiement");
                 })
             }).error(function(e){
                 loadingScreen.hide();

@@ -5,15 +5,11 @@ import com.ets.gti525.model.PaymentIntent;
 import com.ets.gti525.model.PaymentPreauthorization;
 import com.ets.gti525.service.PaymentAPIService;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.AbstractHttpMessage;
@@ -25,12 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 
 @Controller
@@ -119,7 +110,6 @@ public class PaymentAPIServiceImpl implements PaymentAPIService{
 	}
 	
 	private void patchSendPayment(PaymentIntent intent) throws IOException {
-		System.out.println("sending");
 		String url = "https://aqueous-crag-25661.herokuapp.com/api/payments/" + intent.getClient_id();
 		HttpClient httpClient = new DefaultHttpClient();
 		

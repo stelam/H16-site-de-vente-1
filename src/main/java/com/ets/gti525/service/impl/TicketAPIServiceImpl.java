@@ -103,12 +103,30 @@ public class TicketAPIServiceImpl implements TicketAPIService {
     }
 
     @Override
-    public TicketOrder saveOrder(@RequestBody TicketOrder order) {
+    public TicketOrder saveOrder(@RequestBody TicketOrder order, HttpServletRequest request) {
         String confirmationNumber = UUID.randomUUID().toString();
         order.setConfirmationId(confirmationNumber);
-        orderDAO.save(order);
+        
+        
+        // create individual tickets
+        TicketOrder orderToSave = new TicketOrder(order);
+        orderToSave.setConfirmationId(confirmationNumber);
+        List<Ticket> orderToSaveTicketList = new ArrayList<Ticket>();
+        for (Ticket ticket : order.getTicketBoughtList()) {
+        	for (int i = 0; i<ticket.getQuantity(); i++){
+        		String individualTicketId = UUID.randomUUID().toString();
+        		System.out.println(individualTicketId);
+        		Ticket individualTicket = new Ticket(ticket, individualTicketId);
+        		orderToSaveTicketList.add(individualTicket);
+        	}
+        }
+        orderToSave.setTicketBoughtList(orderToSaveTicketList);
+        
+        orderDAO.save(orderToSave);
+        
+        request.getSession().setAttribute("cart", null);
 
-        return order;
+        return orderToSave;
     }
 
     @Override

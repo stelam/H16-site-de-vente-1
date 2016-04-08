@@ -80,7 +80,7 @@ public class DataManager implements InitializingBean {
     	
     	ShowPresentation showPresentation = new ShowPresentation();
     	showPresentation.setId((long)1);
-    	showPresentation.setTimeinmillis((long)1460088000000L);
+    	showPresentation.setTimeinmillis((long)1460156400000L);
     	showPresentation.setNumberOfPlaces(3000);
     	showPresentation.setPrice(179.59);
     	showPresentation.setActive(false);

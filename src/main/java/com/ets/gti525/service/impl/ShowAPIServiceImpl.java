@@ -101,10 +101,10 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         dataManager.updateReservationList(presentationShowId);
         
         // check if show is still active first
-        Show show = this.getShowByShowPresentationId(presentationShowId);
+        /*Show show = this.getShowByShowPresentationId(presentationShowId);
         if (show == null || show.isActive() == false) {
         	return false;
-        }
+        }*/
 
         for (Map.Entry<String, Ticket> entry : DataManager.ticketsInReservationList.entrySet()) {
             if (Objects.equals(entry.getValue().getShowPresentationId(), presentationShowId)) {

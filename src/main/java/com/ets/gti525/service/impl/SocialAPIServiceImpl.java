@@ -3,15 +3,20 @@ package com.ets.gti525.service.impl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import com.ets.gti525.dao.ShowDAO;
 import com.ets.gti525.dao.ShowPresentationDAO;
 import com.ets.gti525.model.Credential;
+import com.ets.gti525.model.Show;
 import com.ets.gti525.model.ShowPresentation;
 import com.ets.gti525.model.Ticket;
 import com.ets.gti525.model.TicketOrder;
 import com.ets.gti525.service.SocialAPIService;
+import com.google.common.collect.Lists;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -36,6 +41,9 @@ public class SocialAPIServiceImpl implements SocialAPIService{
 
     @Autowired
     private ShowPresentationDAO showPresentationDAO;
+    
+    @Autowired
+    private ShowDAO showDAO;
 
 	@Override
 	public String authenticate(@RequestBody Credential credential) throws IOException, ParseException {
@@ -174,21 +182,28 @@ public class SocialAPIServiceImpl implements SocialAPIService{
     public TicketOrder commitToSocial(@RequestBody TicketOrder order, @RequestParam String accessToken, @RequestParam String idUser) throws ClientProtocolException, IOException {
         for (Ticket ticket : order.getTicketBoughtList()) {
         	for (int i = 0; i<ticket.getQuantity(); i++){
-        		//POST /api/billet { “idShow”: 2, “idUser”: 1, “amount”: 99.99 “qrCode”: “9e8ac295a6a01b06d3404a9485ebdfdc74b7c59824d14981a34f72d22746b118f061e5b448167805ad01aa151902be03c90d1cc69c81cf85548136df194f4058” }
-        		String url = "https://stark-lowlands-60666.herokuapp.com/api/billet?access_token="+accessToken;
         		HttpClient httpClient = new DefaultHttpClient();
         		
-        		// get the ticket amount $
-        		ShowPresentation presentation = showPresentationDAO.findOne(ticket.getShowPresentationId());      		
+        		// get the presentation
+        		ShowPresentation presentation = showPresentationDAO.findOne(ticket.getShowPresentationId());   
         		
+        		// get the show
+        		System.out.println(presentation.getId());
+        		Show show = this.getShowByShowPresentationId(presentation.getId());
+        		
+        		// format date
+        		String formattedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSX").format(presentation.getTimeinmillis());
+        		System.out.println(formattedDate);
+        		
+        		// créer le spectacle
+        		// POST /api/spectacle { “name”: “Osheaga”, “artist”: “Metallica”, “datetime”: “yyyy-MM-dd’T’HH:mm:ssX”, “location”: “Montreal” }
+        		String url = "https://stark-lowlands-60666.herokuapp.com/api/spectacle?access_token="+accessToken;
         		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        	    nameValuePairs.add(new BasicNameValuePair("idShow", String.valueOf(ticket.getShowPresentationId())));
-        	    nameValuePairs.add(new BasicNameValuePair("idUser", idUser));
-        	    nameValuePairs.add(new BasicNameValuePair("qrCode", ticket.getTicketId()));
-        	    nameValuePairs.add(new BasicNameValuePair("amount", String.valueOf(presentation.getPrice())));
-        	    
-        	    System.out.println(String.valueOf(String.valueOf(ticket.getShowPresentationId())));
-        	    
+        	    nameValuePairs.add(new BasicNameValuePair("name", show.getName()));
+        	    nameValuePairs.add(new BasicNameValuePair("artist", show.getArtistName()));
+        	    nameValuePairs.add(new BasicNameValuePair("datetime", formattedDate));
+        	    nameValuePairs.add(new BasicNameValuePair("location", presentation.getTheater().getName()));
+
         	    UrlEncodedFormEntity entity;
         	    entity = new UrlEncodedFormEntity(nameValuePairs);
         	    
@@ -197,6 +212,30 @@ public class SocialAPIServiceImpl implements SocialAPIService{
                 request.setEntity(entity);
         		
                 HttpResponse response = httpClient.execute((HttpUriRequest) request);
+                
+                
+        		httpClient.getConnectionManager().shutdown();
+        		httpClient = new DefaultHttpClient();
+        		
+        		//POST /api/billet { “idShow”: 2, “idUser”: 1, “amount”: 99.99 “qrCode”: “9e8ac295a6a01b06d3404a9485ebdfdc74b7c59824d14981a34f72d22746b118f061e5b448167805ad01aa151902be03c90d1cc69c81cf85548136df194f4058” }
+        		url = "https://stark-lowlands-60666.herokuapp.com/api/billet?access_token="+accessToken;
+
+        		
+        		nameValuePairs = new ArrayList<NameValuePair>();
+        	    nameValuePairs.add(new BasicNameValuePair("idShow", "1")); // pour l'instant
+        	    nameValuePairs.add(new BasicNameValuePair("idUser", idUser));
+        	    nameValuePairs.add(new BasicNameValuePair("qrCode", ticket.getTicketId()));
+        	    nameValuePairs.add(new BasicNameValuePair("amount", String.valueOf(presentation.getPrice())));
+        	    
+        	    System.out.println(String.valueOf(String.valueOf(ticket.getShowPresentationId())));
+        	    
+        	    entity = new UrlEncodedFormEntity(nameValuePairs);
+        	    
+    	    	request = new HttpPost(url);
+                request.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                request.setEntity(entity);
+        		
+            	response = httpClient.execute((HttpUriRequest) request);
                 
         		httpClient.getConnectionManager().shutdown();
         		
@@ -207,5 +246,21 @@ public class SocialAPIServiceImpl implements SocialAPIService{
 
         return order;
     }
+    
+    protected Show getShowByShowPresentationId(Long showPresentationId){
 
+        List<Show> showList = Lists.newArrayList(showDAO.findAll());
+
+        for (Show show : showList) {
+            if (show.getShowPresentationList() != null) {
+            	for (ShowPresentation sp : show.getShowPresentationList()) {
+            		if (sp.getId() == showPresentationId) {
+            			return show;
+            		}
+            	}
+            }
+        }
+        
+        return null;
+    }
 }

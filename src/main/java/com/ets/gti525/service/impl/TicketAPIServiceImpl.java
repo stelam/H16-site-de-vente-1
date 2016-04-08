@@ -4,6 +4,7 @@ import com.ets.gti525.DataManager;
 import com.ets.gti525.dao.OrderDAO;
 import com.ets.gti525.dao.TicketDAO;
 import com.ets.gti525.dao.ShowDAO;
+import com.ets.gti525.dao.TicketOrderDAO;
 import com.ets.gti525.model.ShoppingCart;
 import com.ets.gti525.model.Show;
 import com.ets.gti525.model.ShowPresentation;
@@ -32,6 +33,9 @@ public class TicketAPIServiceImpl implements TicketAPIService {
 
     @Autowired
     TicketDAO ticketDAO;
+    
+    @Autowired
+    TicketOrderDAO ticketOrderDAO;
 
     @Autowired
     OrderDAO orderDAO;
@@ -175,6 +179,11 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         }
         
         return ticketTOList;
+    }
+    
+    @Override
+    public List<TicketOrder> getOrderList() {
+        return Lists.newArrayList(ticketOrderDAO.findAll());
     }
     
     protected Show getShowByShowPresentationId(Long showPresentationId){

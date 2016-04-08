@@ -1,12 +1,15 @@
 package com.ets.gti525.service;
 
 import com.ets.gti525.model.ShoppingCart;
+import com.ets.gti525.model.Theater;
 import com.ets.gti525.model.Ticket;
 import com.ets.gti525.model.TicketOrder;
 import com.ets.gti525.model.TicketTO;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 @RestController
@@ -22,6 +25,8 @@ public interface TicketAPIService {
     @RequestMapping(value = "/order", method = RequestMethod.POST)
     TicketOrder saveOrder(@RequestBody TicketOrder order, HttpServletRequest request);
 
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    List<TicketOrder> getOrderList();
 
     @RequestMapping(value = "/ticketsSold", method = RequestMethod.GET)
     List<TicketTO> ticketsSoldThenDeactivate(@RequestParam("showPresentationId") Long showPresentationId);

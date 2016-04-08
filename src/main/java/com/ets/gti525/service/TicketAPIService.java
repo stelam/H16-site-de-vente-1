@@ -23,5 +23,9 @@ public interface TicketAPIService {
     TicketOrder saveOrder(@RequestBody TicketOrder order, HttpServletRequest request);
 
     @RequestMapping(value = "/ticketsSold", method = RequestMethod.GET)
+    List<TicketTO> ticketsSoldThenDeactivate(@RequestParam("showPresentationId") Long showPresentationId);
+    
+    @RequestMapping(value = "/ticketsSoldKeepActive", method = RequestMethod.GET)
     List<TicketTO> ticketsSold(@RequestParam("showPresentationId") Long showPresentationId);
+    
 }

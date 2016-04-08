@@ -43,6 +43,7 @@ public class BackendgoeventsApplication {
 		registration.addUrlPatterns("/show/add");
 		registration.addUrlPatterns("/show/showPresentationDetails");
 		registration.addUrlPatterns("/ticket/ticketsSold");
+		registration.addUrlPatterns("/ticket/ticketsSoldKeepActive");
 		registration.setName("theaterAdminFilter");
 		return registration;
 	}

@@ -99,6 +99,12 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         ShowPresentation showPresentation = showPresentationDAO.findOne(presentationShowId);
         int numberOfTicketSoldAndReserved = getBoughtTicketsForShow(showPresentation);
         dataManager.updateReservationList(presentationShowId);
+        
+        // check if show is still active first
+        Show show = this.getShowByShowPresentationId(presentationShowId);
+        if (show == null || show.isActive() == false) {
+        	return false;
+        }
 
         for (Map.Entry<String, Ticket> entry : DataManager.ticketsInReservationList.entrySet()) {
             if (Objects.equals(entry.getValue().getShowPresentationId(), presentationShowId)) {
@@ -200,5 +206,21 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         return numberOfTicketSold;
     }
 
+    private Show getShowByShowPresentationId(Long showPresentationId){
+
+        List<Show> showList = Lists.newArrayList(showDAO.findAll());
+
+        for (Show show : showList) {
+            if (show.getShowPresentationList() != null) {
+            	for (ShowPresentation sp : show.getShowPresentationList()) {
+            		if (sp.getId() == showPresentationId) {
+            			return show;
+            		}
+            	}
+            }
+        }
+        
+        return null;
+    }
 
 }

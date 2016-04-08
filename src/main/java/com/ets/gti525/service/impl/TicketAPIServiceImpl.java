@@ -3,14 +3,17 @@ package com.ets.gti525.service.impl;
 import com.ets.gti525.DataManager;
 import com.ets.gti525.dao.OrderDAO;
 import com.ets.gti525.dao.TicketDAO;
+import com.ets.gti525.dao.ShowDAO;
 import com.ets.gti525.model.ShoppingCart;
+import com.ets.gti525.model.Show;
+import com.ets.gti525.model.ShowPresentation;
 import com.ets.gti525.model.Ticket;
 import com.ets.gti525.model.TicketOrder;
 import com.ets.gti525.model.TicketTO;
 import com.ets.gti525.service.TicketAPIService;
+import com.google.common.collect.Lists;
 
 import org.dom4j.IllegalAddException;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +35,9 @@ public class TicketAPIServiceImpl implements TicketAPIService {
 
     @Autowired
     OrderDAO orderDAO;
+    
+    @Autowired
+    ShowDAO showDAO;
 
     @Autowired
     DataManager dataManager;
@@ -144,5 +150,45 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         }
         
         return ticketTOList;
+    }
+    
+    @Override
+    public List<TicketTO> ticketsSoldThenDeactivate(@RequestParam("showPresentationId") Long showPresentationId) {
+        if (showPresentationId == null) {
+            throw new IllegalArgumentException("Bad parameter");
+        }
+        
+        List<Ticket> ticketList = ticketDAO.findByShowPresentationId(showPresentationId);
+        List<TicketTO> ticketTOList = new ArrayList<>();
+        
+        for (Ticket ticket : ticketList){
+        	TicketTO ticketTO = new TicketTO(ticket);
+        	ticketTOList.add(ticketTO);
+        }
+        
+        Show show = this.getShowByShowPresentationId(showPresentationId);
+        if (show != null){
+        	show.setActive(false);
+        	showDAO.save(show);
+        }
+        
+        return ticketTOList;
+    }
+    
+    private Show getShowByShowPresentationId(Long showPresentationId){
+
+        List<Show> showList = Lists.newArrayList(showDAO.findAll());
+
+        for (Show show : showList) {
+            if (show.getShowPresentationList() != null) {
+            	for (ShowPresentation sp : show.getShowPresentationList()) {
+            		if (sp.getId() == showPresentationId) {
+            			return show;
+            		}
+            	}
+            }
+        }
+        
+        return null;
     }
 }

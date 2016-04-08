@@ -70,14 +70,26 @@ public class SocialAPIServiceImpl implements SocialAPIService{
 			return "{}";
 		}
 		else {
-			return responseBuffer.toString();
+			// parse json
+	        JSONObject jsonObj;
+	        JSONParser parser = new JSONParser();
+	        Object object = parser.parse(responseBuffer.toString());
+	        jsonObj = (JSONObject) object;
+
+	        Long userId = (Long) jsonObj.get("userId");
+	        String code = (String) jsonObj.get("code");
+	        
+	        String token = this.getAccessToken(code);
+	        
+	        return this.getUserById(userId, token);
 		}
         
 	}
 	
-	private String getUserById(String id) throws ClientProtocolException, IOException, ParseException {
-		String accessToken = this.getAccessToken();
-		String url = "https://stark-lowlands-60666.herokuapp.com/api/utilisateur/"+id+"?access_token="+accessToken;
+	private String getUserById(Long id, String accessToken) throws ClientProtocolException, IOException, ParseException {
+		//String accessToken = this.getAccessToken();
+		String url = "https://stark-lowlands-60666.herokuapp.com/api/utilisateur/"+String.valueOf(id)+"?access_token="+accessToken;
+		System.out.println(url);
 		HttpClient httpClient = new DefaultHttpClient();
 		
 		
@@ -108,15 +120,18 @@ public class SocialAPIServiceImpl implements SocialAPIService{
 		
 	}
 	
-	private String getAccessToken() throws ClientProtocolException, IOException, ParseException {
+	
+	private String getAccessToken(String code) throws ClientProtocolException, IOException, ParseException {
+		
 		String url = "https://stark-lowlands-60666.herokuapp.com/auth/tokenrequest";
 		HttpClient httpClient = new DefaultHttpClient();
 		
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 	    
 	    nameValuePairs.add(new BasicNameValuePair("client_id", "2"));
-	    nameValuePairs.add(new BasicNameValuePair("client_secret", "25dd672512d4519d9e466cd781ac28559f0cf3098c10486881d7ddeadb363b8f9e9e56ca79637ea846870275aab8c8127bc30e52e567a4a6cd60384bb3bdfc67"));
+	    nameValuePairs.add(new BasicNameValuePair("client_secret", "0e69f839017442fd779ca49f09cab8e66394c894a16f24b4112f7b5f5bc64a9fecebf89e45e010fd2ca9188a5035f4289436064f69070439118587f53c39b72c"));
 	    nameValuePairs.add(new BasicNameValuePair("grant_type", "authorization_code"));
+	    nameValuePairs.add(new BasicNameValuePair("code", code));
 	    
 	    UrlEncodedFormEntity entity;
 	    entity = new UrlEncodedFormEntity(nameValuePairs);

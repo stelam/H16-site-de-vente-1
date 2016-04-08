@@ -6,7 +6,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('featuredShowListController', [ "showService", "$scope", "$q", "messageService", function(showService, $scope, $q, messageService){
+    .controller('featuredShowListController', [ "showService", "$scope", "$q", "$timeout", "messageService", 
+        function(showService, $scope, $q, $timeout, messageService){
     	$scope.shows = [];
 
     	var init = function(){
@@ -44,6 +45,20 @@
                     }
                         
                 })
+
+                //dirty, but oh well, last minute
+                $scope.ad = {};
+                function initAds() {
+                    if (!$("#id_0 img").attr("src")) {
+                        $timeout(function(){
+                            initAds();
+                        }, 500)
+                    } else {
+                        $scope.ad.url = "http:" + $("#id_0").attr("href");
+                        $scope.ad.imgSrc = "http:" + $("#id_0 img").attr("src");
+                    }
+                }
+                initAds();
             }
     	});
 

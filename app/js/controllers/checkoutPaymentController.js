@@ -67,18 +67,20 @@
                 console.log(JSON.stringify($scope.payment));
                 paymentService.preauthorize($scope.payment).then(function(data){
                     loadingScreen.hide();
-                    if (data.data.status == 200) {
+                    if (data.status == 200) {
                         paymentService.setPaymentPreauthoriation(data.data);
                         $location.path("/caisse/sommaire");
                     } else {
                         messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));
+
                     }
                 }, function(errorData){
                     loadingScreen.hide();
                     if (errorData.status == 422) // le code va sûrement changer
                         messageService.showMessage(messageService.getMessage("ERROR_PREAUTHORIZATION_REJECTED"));
-                    else
+                    else{
                         messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));
+                    }
                 })
             }).error(function(e){
                 messageService.showMessage(messageService.getMessage("ERROR_FORM"));

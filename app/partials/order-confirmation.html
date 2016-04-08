@@ -20,7 +20,7 @@
 	</div>
 	<div class="col-sm-12 instructions" ng-if="user.socialLogin">
 		<p class=""><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Vos billets peuvent être récupérés de façon électronique sur le site de portefeuille de billets, ainsi que par l'entremise de l'application mobile. </p>
-		<a class="btn btn-goevents btn-lg" href="http://google.com" target="_blank">Aller sur le site de portefeuille de billets<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+		<a class="btn btn-goevents btn-lg" href="http://stark-lowlands-60666.herokuapp.com/login" target="_blank">Aller sur le site de portefeuille de billets<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 	</div>
 
 	<div class="col-sm-12 instructions" ng-if="!user.socialLogin">
@@ -30,24 +30,20 @@
 	<div class="col-sm-10 cart-items">
 		<h2>Détails de la commande <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> </h2>
 		<div class="col-sm-12 head">
-			<label class="col-sm-2">&nbsp;</label>
-			<label class="col-sm-2">Date</label>
+			<label class="col-sm-4">&nbsp;</label>
+			<label class="col-sm-3">Date</label>
 			<label class="col-sm-3">Lieu</label>
 			<label class="col-sm-2">Quantité</label>
-			<label class="col-sm-2"># confirmation</label>
 		</div>
 		<article class="col-sm-12 cart-item" ng-repeat="item in orderCart.items">
-			<div class="col-sm-2">
+			<div class="col-sm-4">
 				{{item.show.artistName}} - {{item.show.name}}
 			</div>
-			<div class="col-sm-2">
-				<p>{{item.date | date:'dd/MM/yyyy'}}</p>
+			<div class="col-sm-3">
+				<p>{{item.date | date:'dd/MM/yyyy HH:mm'}}</p>
 			</div>
 			<div class="col-sm-3">
 				<p>{{item.theater.name}}</p>
-			</div>
-			<div class="col-sm-2">
-				{{item.quantity}}
 			</div>
 			<div class="col-sm-2">
 				{{item.quantity}}

@@ -9,8 +9,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('showListController', [ "showService", "$scope", "$q", "$routeParams", "$rootScope", "messageService", 
-        function(showService, $scope, $q, $routeParams, $rootScope, messageService){
+    .controller('showListController', [ "showService", "$scope", "$timeout", "$q", "$filter", "$routeParams", "$rootScope", "messageService", 
+        function(showService, $scope, $timeout, $q, $filter, $routeParams, $rootScope, messageService){
     	$scope.shows = [];
         $scope.dateFilter = false;
         $scope.searchQuery = false;
@@ -74,6 +74,22 @@
                     }
                         
                 })
+
+                $scope.shows = $filter('unique')($scope.shows, "id");
+
+                //dirty, but oh well, last minute
+                $scope.ad = {};
+                function initAds() {
+                    if (!$("#id_0 img").attr("src")) {
+                        $timeout(function(){
+                            initAds();
+                        }, 500)
+                    } else {
+                        $scope.ad.url = "http:" + $("#id_0").attr("href");
+                        $scope.ad.imgSrc = "http:" + $("#id_0 img").attr("src");
+                    }
+                }
+                initAds();
             }
     		
 

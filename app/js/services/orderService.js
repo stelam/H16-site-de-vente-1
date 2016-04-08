@@ -55,6 +55,26 @@
 			    return deferred.promise;
 	    	},
 
+	    	commitToSocial: function(orderObject, accessToken, userId){
+	    		var deferred = $q.defer();
+	    		$http({
+					method: 'POST',
+					url: SHOW_API_BASE_URL+'/social/commitToSocial', 
+					withCredentials: true,
+					data: orderObject,
+					params: {
+						accessToken: accessToken,
+						idUser: userId
+					}
+			    }).then(function(data){
+			    	deferred.resolve(data);
+			    }, function(e){
+			    	deferred.reject(e);
+			    })
+
+			    return deferred.promise;
+	    	},
+
 	    	getOrder : getOrder
     	}
     }])

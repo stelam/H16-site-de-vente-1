@@ -60,33 +60,91 @@
             }
     	});
 
+        $scope.checkActive = function(){
+            var deferred = $q.defer();
+            loadingScreen.show();
+            var shows;
+            var error = false;
+            $scope.itemsToRemove =[];
+            // check if all presentations are still active
+            showService.getListShows().then(function(data){
+                shows = data.data;
+                $scope.currentCart.items.forEach(function(item){
+                    shows.forEach(function(s){
+                        if (s.id == item.show.id) {
+                            if (!s.active){
+                                error = true;
+                                $scope.itemsToRemove.push(item);
+                            }
+                        }
+                    })
+                })
+                deferred.resolve(error);
+            })
+
+            return deferred.promise;
+        }
 
         $scope.placeOrder = function(){
             loadingScreen.show();
 
-            //showService.isTicketAvailable()
+            $scope.checkActive().then(function(error){
+                if (!error) {
+                    paymentService.pay().then(function(data){
+                        loadingScreen.hide();
+                        if (data.status == 200) { 
 
-            paymentService.pay().then(function(data){
-                loadingScreen.hide();
-                if (data.status == 200) {
+                            orderService.commitOrder($scope.currentCart, $scope.user, data.data.transactionId).then(function(orderData){
 
-                    orderService.commitOrder($scope.currentCart, $scope.user, data.data.transactionId).then(function(){
-                        checkoutService.setCompletedStep("payment");
-                        $location.path("/confirmation-achat");
-                    }, function(){
-                        messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));
+                                authenticationService.authenticate($scope.user).then(function(authData){
+                                    if (authData.data.id >= 0) {
+                                        orderService.commitToSocial(orderData.data, authData.data.accessToken, $scope.user.socialUserId).then(function(){
+                                            checkoutService.setCompletedStep("payment");
+                                            $location.path("/confirmation-achat");
+                                        }, function(){
+                                            checkoutService.setCompletedStep("payment");
+                                            $location.path("/confirmation-achat");
+                                            messageService.showMessage(messageService.getMessage("ERROR_COMMIT_SOCIAL"));
+                                        })
+                                    } else {
+                                        checkoutService.setCompletedStep("payment");
+                                        $location.path("/confirmation-achat");
+                                        messageService.showMessage(messageService.getMessage("ERROR_COMMIT_SOCIAL"));
+                                    }
+                                }, function(){
+                                    checkoutService.setCompletedStep("payment");
+                                    $location.path("/confirmation-achat");
+                                    messageService.showMessage(messageService.getMessage("ERROR_COMMIT_SOCIAL"));
+                                })
+
+                            }, function(){
+                                messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));
+                            })
+                            
+                        }
+                    }, function(errorData){
+                        loadingScreen.hide();
+                        /*if (errorData.status == 406) // le code va sûrement changer
+                            messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_REJECTED"));
+                        else
+                            messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));*/
+                        messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_REJECTED"));
+                        $location.path("/caisse/informations-paiement");
                     })
-                    
+                } else {
+
+                    for (var i =0; i< $scope.itemsToRemove.length; i++){
+                        cartService.removeItem($scope.itemsToRemove[i]).then(function(){
+                            loadingScreen.hide();
+                            messageService.showMessage(messageService.getMessage("ERROR_INACTIVE_SHOW"));
+                            $location.path("/caisse/revue");
+                        })
+                    }
+
                 }
-            }, function(errorData){
-                loadingScreen.hide();
-                /*if (errorData.status == 406) // le code va sûrement changer
-                    messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_REJECTED"));
-                else
-                    messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));*/
-                messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_REJECTED"));
-                $location.path("/caisse/informations-paiement");
             })
+
+            
 
         }
 

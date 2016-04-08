@@ -16,7 +16,7 @@
 </header>
 <div class="row shows small-gutter">
 
-	<article class="show-item col-sm-12 col-md-6 col-lg-4 ng-fade {{(show.totalRemainingPlaces == 0)  ? 'full' : ''}}" ng-repeat-start="show in shows | unique" ng-if="show.active">
+	<article class="show-item col-sm-12 col-md-6 col-lg-4 ng-fade {{(show.totalRemainingPlaces == 0)  ? 'full' : ''}}" ng-repeat-start="show in shows" ng-if="show.active">
 		<a href="#/spectacle/{{show.name | slugify}}-{{show.artistName | slugify}}-{{show.id}}">
 			<div class="show-image" style='background-image:url("{{show.imageUrl}}")'></div>
 			<img alt="image du spectacle" ng-src="images/aspect-ratio.png" />
@@ -28,8 +28,9 @@
 		</a>
 	</article>
 	<article class="show-item col-sm-12 col-md-6 col-lg-4 ng-fade" ng-if="$index == 1">
-		<a href="http://google.com" target="_blank">
-			<img alt="image du spectacle" src="images/pseudo-pub-2.jpg" />
+		<a href="{{ad.url}}" target="_blank">
+			<div class="show-image" style='background-image:url("{{ad.imgSrc}}")'></div>
+			<img alt="image du spectacle" ng-src="images/aspect-ratio.png" />
 			<div class="show-infos">
 				<h3>Publicité</h3>
 			</div>

@@ -75,6 +75,7 @@ public class DataManager implements InitializingBean {
     	show.setArtistName("Artistes variés");
     	show.setImageUrl("http://www.metalsucks.net/wp-content/uploads/2013/03/Heavy-MTL-2013.jpg");
     	show.setIsFeatured(true);
+    	show.setDescription("Le festival de musique Heavy MONTRÉAL est la destination nord-américaine par excellence des amateurs de musique rock, punk et heavy metal. Depuis sa première édition en 2008, le festival a accueilli près de 300 000 fans qui se sont rassemblés pour y voir des groupes comme Metallica, Iron Maiden et plusieurs autres.");
     	show.setActive(true);
     	
     	ShowPresentation showPresentation = new ShowPresentation();
@@ -105,6 +106,7 @@ public class DataManager implements InitializingBean {
     	show.setId((long)2);
     	show.setName("Spectacle de test");
     	show.setArtistName("Testeurs");
+    	show.setDescription("Ceci est un test.");
     	show.setImageUrl("images/show-0.jpg");
     	show.setIsFeatured(true);
     	show.setActive(true);

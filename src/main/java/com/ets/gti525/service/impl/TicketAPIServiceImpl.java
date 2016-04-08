@@ -134,6 +134,8 @@ public class TicketAPIServiceImpl implements TicketAPIService {
 
         return orderToSave;
     }
+    
+
 
     @Override
     public List<TicketTO> ticketsSold(@RequestParam("showPresentationId") Long showPresentationId) {
@@ -175,7 +177,7 @@ public class TicketAPIServiceImpl implements TicketAPIService {
         return ticketTOList;
     }
     
-    private Show getShowByShowPresentationId(Long showPresentationId){
+    protected Show getShowByShowPresentationId(Long showPresentationId){
 
         List<Show> showList = Lists.newArrayList(showDAO.findAll());
 

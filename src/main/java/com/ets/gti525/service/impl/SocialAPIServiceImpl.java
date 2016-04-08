@@ -6,7 +6,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ets.gti525.dao.ShowPresentationDAO;
 import com.ets.gti525.model.Credential;
+import com.ets.gti525.model.ShowPresentation;
+import com.ets.gti525.model.Ticket;
+import com.ets.gti525.model.TicketOrder;
 import com.ets.gti525.service.SocialAPIService;
 
 import org.apache.http.HttpResponse;
@@ -15,23 +19,23 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.AbstractHttpMessage;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class SocialAPIServiceImpl implements SocialAPIService{
 
-
+    @Autowired
+    private ShowPresentationDAO showPresentationDAO;
 
 	@Override
 	public String authenticate(@RequestBody Credential credential) throws IOException, ParseException {
@@ -115,8 +119,13 @@ public class SocialAPIServiceImpl implements SocialAPIService{
 		httpClient.getConnectionManager().shutdown();
 		
 		System.out.println(responseBuffer.toString());
+        JSONObject jsonObj;
+        JSONParser parser = new JSONParser();
+        Object object = parser.parse(responseBuffer.toString());
+        jsonObj = (JSONObject) object;
+        jsonObj.put("accessToken", accessToken);
 		
-        return responseBuffer.toString();
+        return jsonObj.toString();
 		
 	}
 	
@@ -161,24 +170,42 @@ public class SocialAPIServiceImpl implements SocialAPIService{
 		
 	}
 	
-	private AbstractHttpMessage initConnection(String method, String url, StringEntity params) throws IOException {
-		
-		if (method.equals("POST")){
-			HttpPost request = new HttpPost(url);
-	        params.setContentType("application/x-www-form-urlencoded");
-	        request.addHeader("Content-Type", "application/x-www-form-urlencoded");
-	        request.addHeader("Accept", "application/x-www-form-urlencoded");
-	        request.setEntity(params);
-	        return request;
-		} else {
-			HttpPatch request = new HttpPatch(url);
-	        params.setContentType("application/json");
-	        request.addHeader("content-type", "application/json");
-	        request.addHeader("Accept", "application/json");
-	        request.addHeader("X-API-KEY", "13098dad-a371-47c1-b8f3-e828026abb59");
-	        request.setEntity(params);
-	        return request;
-		}
-		
-	}
+    @Override
+    public TicketOrder commitToSocial(@RequestBody TicketOrder order, @RequestParam String accessToken, @RequestParam String idUser) throws ClientProtocolException, IOException {
+        for (Ticket ticket : order.getTicketBoughtList()) {
+        	for (int i = 0; i<ticket.getQuantity(); i++){
+        		//POST /api/billet { “idShow”: 2, “idUser”: 1, “amount”: 99.99 “qrCode”: “9e8ac295a6a01b06d3404a9485ebdfdc74b7c59824d14981a34f72d22746b118f061e5b448167805ad01aa151902be03c90d1cc69c81cf85548136df194f4058” }
+        		String url = "https://stark-lowlands-60666.herokuapp.com/api/billet?access_token="+accessToken;
+        		HttpClient httpClient = new DefaultHttpClient();
+        		
+        		// get the ticket amount $
+        		ShowPresentation presentation = showPresentationDAO.findOne(ticket.getShowPresentationId());      		
+        		
+        		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        	    nameValuePairs.add(new BasicNameValuePair("idShow", String.valueOf(ticket.getShowPresentationId())));
+        	    nameValuePairs.add(new BasicNameValuePair("idUser", idUser));
+        	    nameValuePairs.add(new BasicNameValuePair("qrCode", ticket.getTicketId()));
+        	    nameValuePairs.add(new BasicNameValuePair("amount", String.valueOf(presentation.getPrice())));
+        	    
+        	    System.out.println(String.valueOf(String.valueOf(ticket.getShowPresentationId())));
+        	    
+        	    UrlEncodedFormEntity entity;
+        	    entity = new UrlEncodedFormEntity(nameValuePairs);
+        	    
+        		HttpPost request = new HttpPost(url);
+                request.addHeader("Content-Type", "application/x-www-form-urlencoded");
+                request.setEntity(entity);
+        		
+                HttpResponse response = httpClient.execute((HttpUriRequest) request);
+                
+        		httpClient.getConnectionManager().shutdown();
+        		
+
+        	}
+        }
+
+
+        return order;
+    }
+
 }

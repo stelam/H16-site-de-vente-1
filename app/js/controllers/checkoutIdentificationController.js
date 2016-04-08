@@ -75,13 +75,13 @@
                 authenticationService.authenticate($scope.user).then(function(data){
                     console.log(data);
                     loadingScreen.hide();
-                    if (data.data.code) {
-                        $scope.user.socialCode = data.data.code;
-                        $scope.user.socialUserId = data.data.userId;
+                    if (data.data.id >= 0) {
+                        $scope.user.socialUserId = data.data.id;
                         $scope.user.socialLogin = true;
-                        $scope.user.firstName = data.data.userId;
-                        $scope.user.lastName = data.data.userId;
+                        $scope.user.firstName = (data.data.firstName) ? data.data.firstName : "Pas de prénom";
+                        $scope.user.lastName = (data.data.lastName) ? data.data.lastName : "2cool4lastname";
                         checkoutService.setCompletedStep("identification");
+                        console.log($scope.user);
                         authenticationService.setUser($scope.user)
 
                         $location.path("/caisse/informations-paiement");

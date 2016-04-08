@@ -69,7 +69,7 @@
 				type: "error",
 				code: "PR2",
 				title: "Erreur",
-				message: "Une erreur s'est produite lors de la préautorisation, veuillez réessayer."
+				message: "Une erreur s'est produite lors de la préautorisation, veuillez réessayer. Si l'erreur persiste, veuillez communiquer avec votre institution financière."
 			},
 
 			"INFO_ADD_SUCCESSFUL" : {

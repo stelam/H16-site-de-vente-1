@@ -38,6 +38,7 @@
         		loadingScreen.hide();
                 if (res){
                     $scope.theaters = res.theaters;
+                    console.log(JSON.stringify(res.theaters));
                 }
 
         	});

@@ -64,6 +64,7 @@
         $scope.placeOrder = function(){
             loadingScreen.show();
 
+            //showService.isTicketAvailable()
 
             paymentService.pay().then(function(data){
                 loadingScreen.hide();

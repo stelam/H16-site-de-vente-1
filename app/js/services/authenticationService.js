@@ -16,7 +16,8 @@
 				postalCode: ""
 			},
 			email: "",
-			password: ""
+			password: "",
+			socialId: ""
 		}
 
 

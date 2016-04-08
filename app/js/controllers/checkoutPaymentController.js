@@ -67,9 +67,11 @@
                 console.log(JSON.stringify($scope.payment));
                 paymentService.preauthorize($scope.payment).then(function(data){
                     loadingScreen.hide();
-                    if (data.status == 200) {
+                    if (data.data.status == 200) {
                         paymentService.setPaymentPreauthoriation(data.data);
                         $location.path("/caisse/sommaire");
+                    } else {
+                        messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));
                     }
                 }, function(errorData){
                     loadingScreen.hide();

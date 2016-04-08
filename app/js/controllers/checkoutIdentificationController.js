@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('checkoutIdentificationController', ["$injector", "$timeout", "$location", "cartService", "checkoutService", "messageService", "authenticationService", "$scope", "$q", "$routeParams", "$rootScope", 
-        function($injector, $timeout, $location, cartService, checkoutService, messageService, authenticationService, $scope, $q, $routeParams, $rootScope){
+    .controller('checkoutIdentificationController', ["$injector", "$timeout", "$location", "provinceService", "cartService", "checkoutService", "messageService", "authenticationService", "$scope", "$q", "$routeParams", "$rootScope", 
+        function($injector, $timeout, $location, provinceService, cartService, checkoutService, messageService, authenticationService, $scope, $q, $routeParams, $rootScope){
         var self = this;
 
         var $validationProvider = $injector.get('$validation');
@@ -18,8 +18,21 @@
             loadingScreen.show();
             $scope.currentCart = cartService.currentCart;
             $scope.user = authenticationService.getUser();
-            $scope.provinces = ["Québec", "Ontario"]
-             
+            $scope.provinces = [
+                "Québec",
+                "Colombie-Britannique",
+                "Île-du-Prince-Édouard",
+                "Manitoba",
+                "Nouveau-Brunswick",
+                "Nouvelle-Écosse",
+                "Ontario",
+                "Saskatchewan",
+                "Terre-Neuve-et-Labrador",
+                "Nunavut",
+                "Territoire du Nord-Ouest",
+                "Yukon"
+            ]
+
             $scope.anonymousIdentificationForm = {}
 
             return $q.all([

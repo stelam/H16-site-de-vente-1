@@ -4,12 +4,25 @@
   angular.module('app')
     .factory('paymentService', ["$q", "$http", "SHOW_API_BASE_URL", "PAYMENT_API_BASE_URL", "PAYMENT_API_KEY",
 	function($q, $http, SHOW_API_BASE_URL, PAYMENT_API_BASE_URL, PAYMENT_API_KEY){
-		var payment = {
+		/*var payment = {
 			amount: 0,
 			label: "",
 			credit_card: {
 				number : "1337427807129058",
 				cvv: "332",
+				expiration_month: "1",
+				expiration_year: "2017",
+				first_name: "",
+				last_name: ""
+			}
+		}*/
+
+		var payment = {
+			amount: 0,
+			label: "",
+			credit_card: {
+				number : "",
+				cvv: "",
 				expiration_month: "1",
 				expiration_year: "2017",
 				first_name: "",

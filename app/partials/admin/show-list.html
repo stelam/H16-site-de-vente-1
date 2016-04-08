@@ -1,31 +1,13 @@
 <section>
 
-    <h2 ng-if="featuredShows.length > 0">Spectacles en vedette</h2>
-    <div id="liste-spectacles-inactifs">
-        <div class="row" ng-repeat="show in featuredShows">
-            <div class="col-md-6">
-                <h4>
-                    <a class="titleShow" href="#/spectacle/{{show.id}}" >
-                        {{show.name}}                   
-                    </a>
-                </h4>
-            </div>
-            <div class="col-md-6">
-                <a href="#/spectacle/{{show.id}}" type="button" class="btn btn-default">Modifier</a>
-                <button ng-click="cloneShow(show)" type="button" class="btn btn-warning">Dupliquer</button>
-                <button ng-click="deleteShow(show)"  type="button" class="btn btn-danger">Supprimer</button>
-                <!--<span class=" handle glyphicon glyphicon-move" aria-hidden="true"></span>-->
-            </div>
-        </div>
-    </div>
 
-    <h2 ng-if="shows.length - featuredShows.length > 0">Spectacles actifs</h2>
+    <h2>Spectacles</h2>
     <div id="liste-spectacles-inactifs">
-        <div class="row" ng-repeat="show in shows" ng-if="!show.isFeatured">
+        <div class="row" ng-repeat="show in shows">
             <div class="col-md-6">
                 <h4>
                     <a class="titleShow" href="#/spectacle/{{show.id}}" >
-                        {{show.name}}                   
+                        {{show.name}} {{(show.isFeatured) ? "(en vedette)" : ""}} {{(!show.active) ? "(inactif)" : ""}}                  
                     </a>
                 </h4>
             </div>

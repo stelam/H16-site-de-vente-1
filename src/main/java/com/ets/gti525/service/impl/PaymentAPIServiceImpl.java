@@ -47,7 +47,7 @@ public class PaymentAPIServiceImpl implements PaymentAPIService{
 	        params.setContentType("application/json");
 	        request.addHeader("content-type", "application/json");
 	        request.addHeader("Accept", "application/json");
-	        request.addHeader("X-API-KEY", "8e64ec66-54f8-4278-be67-0433506f5692");
+	        request.addHeader("X-API-KEY", "ae4fbdc6-8e14-4221-8c15-521e38000a63");
 	        request.setEntity(params);
 	        return request;
 		} else {
@@ -55,7 +55,7 @@ public class PaymentAPIServiceImpl implements PaymentAPIService{
 	        params.setContentType("application/json");
 	        request.addHeader("content-type", "application/json");
 	        request.addHeader("Accept", "application/json");
-	        request.addHeader("X-API-KEY", "8e64ec66-54f8-4278-be67-0433506f5692");
+	        request.addHeader("X-API-KEY", "ae4fbdc6-8e14-4221-8c15-521e38000a63");
 	        request.setEntity(params);
 	        return request;
 		}

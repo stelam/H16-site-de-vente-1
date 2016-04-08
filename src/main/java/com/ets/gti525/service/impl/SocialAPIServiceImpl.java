@@ -18,6 +18,7 @@ import com.ets.gti525.model.TicketOrder;
 import com.ets.gti525.service.SocialAPIService;
 import com.google.common.collect.Lists;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -28,6 +29,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -192,17 +194,18 @@ public class SocialAPIServiceImpl implements SocialAPIService{
         		Show show = this.getShowByShowPresentationId(presentation.getId());
         		
         		// format date
-        		String formattedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSX").format(presentation.getTimeinmillis());
+        		String formattedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(presentation.getTimeinmillis());
         		System.out.println(formattedDate);
         		
         		// créer le spectacle
         		// POST /api/spectacle { “name”: “Osheaga”, “artist”: “Metallica”, “datetime”: “yyyy-MM-dd’T’HH:mm:ssX”, “location”: “Montreal” }
-        		String url = "https://stark-lowlands-60666.herokuapp.com/api/spectacle?access_token="+accessToken;
+        		String url = "https://stark-lowlands-60666.herokuapp.com/api/spectacle";
         		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         	    nameValuePairs.add(new BasicNameValuePair("name", show.getName()));
         	    nameValuePairs.add(new BasicNameValuePair("artist", show.getArtistName()));
         	    nameValuePairs.add(new BasicNameValuePair("datetime", formattedDate));
         	    nameValuePairs.add(new BasicNameValuePair("location", presentation.getTheater().getName()));
+        	    nameValuePairs.add(new BasicNameValuePair("access_token", accessToken));
 
         	    UrlEncodedFormEntity entity;
         	    entity = new UrlEncodedFormEntity(nameValuePairs);
@@ -212,7 +215,8 @@ public class SocialAPIServiceImpl implements SocialAPIService{
                 request.setEntity(entity);
         		
                 HttpResponse response = httpClient.execute((HttpUriRequest) request);
-                
+                HttpEntity httpE = response.getEntity();
+                String showId = EntityUtils.toString(httpE, "UTF-8");
                 
         		httpClient.getConnectionManager().shutdown();
         		httpClient = new DefaultHttpClient();
@@ -220,9 +224,12 @@ public class SocialAPIServiceImpl implements SocialAPIService{
         		//POST /api/billet { “idShow”: 2, “idUser”: 1, “amount”: 99.99 “qrCode”: “9e8ac295a6a01b06d3404a9485ebdfdc74b7c59824d14981a34f72d22746b118f061e5b448167805ad01aa151902be03c90d1cc69c81cf85548136df194f4058” }
         		url = "https://stark-lowlands-60666.herokuapp.com/api/billet?access_token="+accessToken;
 
+        	    BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+
+
         		
         		nameValuePairs = new ArrayList<NameValuePair>();
-        	    nameValuePairs.add(new BasicNameValuePair("idShow", "1")); // pour l'instant
+        	    nameValuePairs.add(new BasicNameValuePair("idShow", showId)); // pour l'instant
         	    nameValuePairs.add(new BasicNameValuePair("idUser", idUser));
         	    nameValuePairs.add(new BasicNameValuePair("qrCode", ticket.getTicketId()));
         	    nameValuePairs.add(new BasicNameValuePair("amount", String.valueOf(presentation.getPrice())));

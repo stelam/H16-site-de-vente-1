@@ -21,7 +21,17 @@ public class Ticket {
 
 	public Ticket() {
 
-   }
+    }
+	
+	public Ticket(Ticket t, String ticketId){
+		this.id = t.id;
+		this.ticketId = ticketId;
+		this.showPresentationId = t.showPresentationId;
+		this.timeinmillis = t.timeinmillis;
+		this.expiringTimeinmillis = t.expiringTimeinmillis;
+		this.inactivityExpirationDelay = t.inactivityExpirationDelay;
+		this.quantity = 1;
+	}
 	
 	// le id de la réservation
     public String getTicketId() {

@@ -22,6 +22,13 @@ public class TicketOrder {
     public TicketOrder() {
 
     }
+    
+    public TicketOrder(TicketOrder o){
+    	this.id = o.id;
+    	this.confirmationId = o.confirmationId;
+    	this.totalPrice = o.totalPrice;
+    	this.user = o.user;
+    }
 
     public Long getId() {
         return id;

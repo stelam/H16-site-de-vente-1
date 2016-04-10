@@ -8,12 +8,14 @@ import com.ets.gti525.dao.TicketDAO;
 import com.ets.gti525.model.*;
 import com.ets.gti525.service.ShowAPIService;
 import com.google.common.collect.Lists;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.*;
 
 @Controller
@@ -50,6 +52,24 @@ public class ShowAPIServiceImpl implements ShowAPIService {
     public List<Show> getShowsByArtist(@RequestParam String artistName) {
         return showDAO.findByArtistName(artistName);
     }
+    
+	@Override
+	public List<Show> getShowsByTheater(@RequestParam Long theaterId) {
+        List<Show> showList = Lists.newArrayList(showDAO.findAll());
+        List<Show> filteredShowList = new ArrayList<>();
+        for (Show show : showList) {
+            if (show.getShowPresentationList() != null) {
+            	for (ShowPresentation sp : show.getShowPresentationList()) {
+            		if (sp.getTheater().getId() == theaterId) {
+            			Show filteredShow = new Show(show);
+            			filteredShowList.add(filteredShow);
+            			break;
+            		}
+            	}
+            }
+        }
+        return filteredShowList;
+	}
 
     @Override
     public void removeShow(@RequestParam Long id) {
@@ -79,6 +99,12 @@ public class ShowAPIServiceImpl implements ShowAPIService {
         ShowPresentation showPresentation = showPresentationDAO.findOne(presentationShowId);
         int numberOfTicketSoldAndReserved = getBoughtTicketsForShow(showPresentation);
         dataManager.updateReservationList(presentationShowId);
+        
+        // check if show is still active first
+        /*Show show = this.getShowByShowPresentationId(presentationShowId);
+        if (show == null || show.isActive() == false) {
+        	return false;
+        }*/
 
         for (Map.Entry<String, Ticket> entry : DataManager.ticketsInReservationList.entrySet()) {
             if (Objects.equals(entry.getValue().getShowPresentationId(), presentationShowId)) {
@@ -179,4 +205,22 @@ public class ShowAPIServiceImpl implements ShowAPIService {
 
         return numberOfTicketSold;
     }
+
+    private Show getShowByShowPresentationId(Long showPresentationId){
+
+        List<Show> showList = Lists.newArrayList(showDAO.findAll());
+
+        for (Show show : showList) {
+            if (show.getShowPresentationList() != null) {
+            	for (ShowPresentation sp : show.getShowPresentationList()) {
+            		if (sp.getId() == showPresentationId) {
+            			return show;
+            		}
+            	}
+            }
+        }
+        
+        return null;
+    }
+
 }

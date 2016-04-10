@@ -12,6 +12,7 @@ public class Show {
     private String name;
     private String artistName;
     private String imageUrl;
+    @Lob
     private String description;
     private boolean isFeatured;
     private boolean active;

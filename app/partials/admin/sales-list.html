@@ -1,0 +1,37 @@
+<section>
+
+
+    <h2>Liste des ventes</h2>
+    <div id="liste-spectacles-inactifs">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <td>Transaction</td>
+                        <td>Prix</td>
+                        <td>Client</td>
+                        <td>Id présentations</td>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="sale in sales">
+                            <td>{{sale.confirmationId}}</td>
+
+                            <td>{{sale.totalPrice}}</td>
+
+                            <td>{{sale.user.familyName}}</td>
+
+                            <td>
+                                <span ng-repeat="ticket in sale.ticketBoughtList">
+                                {{ticket.showPresentationId}}.</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+</section>

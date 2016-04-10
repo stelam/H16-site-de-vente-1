@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('adminShowController', ["$scope", "$controller", "$location", "$routeParams", "authenticationService", "messageService", "theaterService", "showService", "$q", 
-        function($scope, $controller, $location, $routeParams, authenticationService, messageService, theaterService, showService, $q){
+    .controller('adminShowController', ["$scope", "$controller", "$location", "$routeParams", "messageService", "theaterService", "showService", "$q", 
+        function($scope, $controller, $location, $routeParams, messageService, theaterService, showService, $q){
             var self = this;
             var asyncCalls = [
                 theaterService.getAll()
@@ -88,7 +88,7 @@
                     timeinmillis: Date.now() * 1000,
                     theater: $scope.theaters[0],
                     numberOfPlaces: ($scope.theaters[0]) ? $scope.theaters[0].capacity : 0,
-                    formattedDate: moment(Date.now()).format('DD/MM/YYYY'),
+                    formattedDate: moment(Date.now()).format('DD/MM/YYYY HH:mm'),
                     price: 0.00
                 })
             }
@@ -134,13 +134,15 @@
 
             $scope.formatPresentationDatesInMillis = function(){
                 $scope.show.showPresentationList.forEach(function(p){
-                    p.timeinmillis = moment(p.formattedDate, 'DD/MM/YYYY').valueOf();
+                    console.log(p.formattedDate);
+                    p.timeinmillis = moment(p.formattedDate, 'DD/MM/YYYY HH:mm').valueOf();
+                    console.log(p.timeinmillis);
                 })
             }
 
             $scope.formatPresentationDatesInReadable = function(){
                 $scope.show.showPresentationList.forEach(function(p){
-                    p.formattedDate = moment(p.timeinmillis).format("DD/MM/YYYY");
+                    p.formattedDate = moment(p.timeinmillis).format("DD/MM/YYYY HH:mm");
                 })
             }
 

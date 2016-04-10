@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('showDetailsController', [ "showService", "messageService", "cartService", "$scope", "$q", "$routeParams", "$rootScope", "Slug", "$location",
-    function(showService, messageService, cartService, $scope, $q, $routeParams, $rootScope, Slug, $location){
+    .controller('showDetailsController', [ "showService", "messageService", "cartService", "$scope", "$q", "$routeParams", "$rootScope", "Slug", "$location", "$timeout",
+    function(showService, messageService, cartService, $scope, $q, $routeParams, $rootScope, Slug, $location, $timeout){
 
     	$scope.show = {};
         $scope.showId = $routeParams.showSlug.split("-").pop();
@@ -80,6 +80,11 @@
                 showService.formatShow($scope.show);
 
                 $rootScope.title = $scope.show.name + " - " + $scope.show.artistName;
+
+                $timeout(function(){
+                    $(".backdrop").addClass("loaded");
+                }, 500)
+                
 
             } else {
                 $location.path("/404");

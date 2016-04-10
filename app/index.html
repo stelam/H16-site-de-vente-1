@@ -3,10 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title ng-bind="'GOEVENTS! &mdash; ' + title">GOEVENTS!</title>
-		<meta name="description" content="Static site - GOEVENTS!">
+		<meta name="description" content="GOEVENTS! - Vente de billets de spectacles">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="css/styles.css?v=1.0">
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
 		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
@@ -58,10 +57,13 @@
 			</footer>-->
 		</div>
 
-
+		
 
 		<!-- Modal content-->
 		<modal></modal>
+
+
+		<a id="pub" style="display:none;" width="728" height="90"><a/>
 
 		<!-- BOWER components -->
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -115,6 +117,7 @@
 		<script src="js/services/paymentService.js"></script>
 		<script src="js/services/orderService.js"></script>
 		<script src="js/services/httpActivityInterceptorService.js"></script>
+		<script src="js/services/provinceService.js"></script>
 		
 
 		<!-- directives -->
@@ -128,5 +131,32 @@
 		<script src="js/directives/search.js"></script>
 
 		<script src="js/static-scripts.js"></script>
+
+		<script type="text/javascript">
+		    var _paq = _paq || [];
+		    var client = "2b08d7f33d65606780965fa8d28da4771dba70dd";
+		    (function() {
+		       var u = "//analysets.tk/collector/";
+		       _paq.unshift(['action', "visit"]);
+		       var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+		       g.type = 'text/javascript';
+		       g.async = true;
+		       g.defer = true;
+		       g.src = u + 'collector.js';
+		       s.parentNode.insertBefore(g, s);
+		   })();
+		</script>
+		<script type="text/javascript">
+		    var client = "2b08d7f33d65606780965fa8d28da4771dba70dd";
+		    (function() {
+		       var u = "//analysets.tk/advertisement/";
+		       var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+		       g.type = 'text/javascript';
+		       g.async = true;
+		       g.defer = true;
+		       g.src = u + 'get_ads.js';
+		       s.parentNode.insertBefore(g, s);
+		   })();
+		</script>
 	</body>
 </html>

@@ -5,20 +5,12 @@
 				<div class="row featuring small-gutter">
 					<article class="show-item col-sm-6 ng-fade {{(show.totalRemainingPlaces == 0)  ? 'full' : ''}}" ng-repeat-start="show in shows" ng-if="show.active">
 						<a href="#/spectacle/{{show.name | slugify}}-{{show.artistName | slugify}}-{{show.id}}">
-							<img alt="image du spectacle" ng-src="images/show-{{show.id}}.jpg" />
+							<div class="show-image" style='background-image:url("{{show.imageUrl}}")'></div>
+							<img alt="image du spectacle" ng-src="images/aspect-ratio.png" />
 							<div class="show-infos">
 								<h2>{{show.name}}</h2>
 								<h3 ng-if="show.fromDate != show.toDate">Du {{show.fromDate | date:'dd/MM/yyyy'}} au {{show.toDate | date:'dd/MM/yyyy'}} @ {{show.showPresentationList[0].theater.name}}</h3>
 								<h3 ng-if="show.fromDate == show.toDate">Le {{show.fromDate | date:'dd/MM/yyyy'}} @ {{show.showPresentationList[0].theater.name}}</h3>
-							</div>
-						</a>
-					</article>
-
-					<article class="show-item col-sm-6 ng-fade" ng-if="$index == 0">
-						<a href="http://google.com" target="_blank">
-							<img alt="Publicité" src="images/pseudo-pub-2.jpg" />
-							<div class="show-infos">
-								<h3>Publicité</h3>
 							</div>
 						</a>
 					</article>

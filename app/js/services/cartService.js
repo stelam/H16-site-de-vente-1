@@ -52,15 +52,21 @@
 
             if (existingItem) {
                 existingItem.quantity = item.quantity;
+                existingItem.oldQuantity = item.oldQuantity;
                 item = existingItem;
                 item.reservationId = existingItem.reservationId;
+                console.log("NEW QUANTY" + item.quantity);
                 //url += "/" + item.reservationId;
             }
+
+            console.log(item.quantity);
+
 
             var ticketToSend = {
                 showPresentationId : item.itemId,
                 quantity: item.quantity
             }
+
 
     		$http({
 				method: "POST",
@@ -83,12 +89,12 @@
                             return reservationId = ticket.ticketId;
                         }
                     })
-
+                    console.log(reservationId);
                     item.reservationId = reservationId;
                     item.timestampAdded = receivedTicket.timeinmillis;
                     item.timestampReservationEnd = receivedTicket.expiringTimeinmillis;
                     item.inactivityExpirationDelay = receivedTicket.inactivityExpirationDelay;
-
+                    
 					self.addItem(item);
 					deferred.resolve(true);
 
@@ -159,6 +165,7 @@
     				currentCart.items[index] = item;	
     				self.recountTotalNbItems();
     				replaced = true;
+                    console.log("replaced")
     			}
     		})
     		return replaced;
@@ -194,6 +201,7 @@
             var existingItem = self.getItemById(item.itemId);
             var existingItemQuantity = (existingItem && !item.reservationId) ? parseInt(existingItem.quantity) : 0;
             console.log(item.itemId);
+            console.log(quantity);
     		showService.isTicketAvailable(item.itemId, quantity).then(function(data){
     			//if (data.data.available && parseInt(data.data.maxQuantity) >= quantity + existingItemQuantity) {
                 if (data.data == true){
@@ -235,9 +243,12 @@
             })
     		//if (item.quantity <= CART.MAX_SHOW_PURCHASE_QUANTITY) {
 
-            if (nbIndividualItems + item.quantity <= CART.MAX_SHOW_PURCHASE_QUANTITY){
+            // item.oldQuantity = item.quantity;
+            console.log("IN")
+            if (nbIndividualItems + (item.quantity - item.oldQuantity) <= CART.MAX_SHOW_PURCHASE_QUANTITY){
     			deferred.resolve(true);
     		} else {
+                console.log(nbIndividualItems + "+" + item.quantity);
     			deferred.reject(messageService.getMessage("ERROR_MAX_PURCHASE_QUANTITY_EXCEEDED"));
     		}
 
@@ -248,18 +259,32 @@
     		var deferred = $q.defer();
 
     		var existingItem = self.getItemById(item.itemId);
+            
     		if (existingItem) {
+                item.oldQuantity = existingItem.quantity;
     			item.quantity = existingItem.quantity + quantity;
-    		}
+    		} else {
+                item.oldQuantity = 0;
+            }
+            console.log("oldqty="+item.oldQuantity);
     		deferred.resolve(true);
 
     		return deferred.promise;
     	}
 
-        this.changeItemQuantity = function(item, quantity) {
+        this.changeItemQuantity = function(item, newQuantity) {
             var deferred = $q.defer();
 
-            item.quantity = quantity;
+            var existingItem = self.getItemById(item.itemId);
+            
+            if (existingItem) {
+                item.oldQuantity = existingItem.quantity;
+            } else {
+                item.oldQuantity = 0;
+            }
+
+            
+            item.quantity = newQuantity;
             deferred.resolve(true);
 
             return deferred.promise;
@@ -345,10 +370,6 @@
 	    	},
 
             removeItem :function(item){
-                /*return self.commitDeleteItem(item)
-                    .then(function(data){return self.removeItemById(item.itemId)})
-                    .then(function(data){return self.updateCartTotal(item)})
-                    .then(function(data){return self.commitToLocalStorage()});*/
                 return self.updateItemQuantity(item, 0)
                     .then(function(data){return self.removeItemById(item.itemId)})
                     .then(function(data){return self.updateCartTotal(item)})

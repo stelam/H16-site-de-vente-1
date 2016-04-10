@@ -38,9 +38,14 @@
 
             // si la nouvelle quantité est invalide, 
             // remettre l'ancienne quantité
-            if (!item.quantity) {
+            if (!item.quantity && item.quantity !== 0) {
                 item.quantity = parseInt(oldQuantity);
                 messageService.showMessage(messageService.getMessage("ERROR_MAX_PURCHASE_QUANTITY_EXCEEDED"));
+            }else if (item.quantity === 0) {
+                loadingScreen.show();
+                cartService.removeItem(item).then(function(){
+                    loadingScreen.hide();
+                })
             } else {
                 loadingScreen.show();
 

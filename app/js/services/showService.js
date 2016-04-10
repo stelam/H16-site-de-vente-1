@@ -160,7 +160,7 @@
                 showPresentationList : [
                     {
                         timeinmillis: Date.now() * 1000,
-                        formattedDate: moment(Date.now()).format('DD/MM/YYYY'),
+                        formattedDate: moment(Date.now()).format('DD/MM/YYYY HH:mm'),
                         numberOfPlaces: 0,
                         price: 0.00,
                         theater: {}

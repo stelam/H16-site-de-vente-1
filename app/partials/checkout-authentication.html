@@ -1,0 +1,36 @@
+<checkout-steps></checkout-steps>
+
+<form name="authenticationForm" ng-submit="submitSocialAuthentication()" class="anon-form col-md-6 col-sm-12 col-md-offset-3" novalidate>
+
+	<h2>Authentification au réseau social</h2>
+	<div class="col-sm-6">
+		<input type="text" class="form-control input-lg" 
+			required="required" 
+			validator="required, email" 
+			name="email" 
+			placeholder="Adresse courriel" 
+			ng-model="user.email" 
+			valid-method="blur" 
+			required-error-message="Votre adresse courriel est requise." 
+			email-error-message="Adresse courriel invalide." 
+		/>
+	</div>
+
+	<div class="col-sm-6 pull-right">
+		<input type="password" class="form-control input-lg" 
+			required="required" 
+			validator="required" 
+			name="password" 
+			placeholder="Mot de passe" 
+			ng-model="user.password" 
+			valid-method="blur" 
+			required-error-message="Le mot de passe est requis." 
+		/>
+	</div>
+
+	<div class="col-sm-12">
+		<hr/>
+		<a class="btn btn-goevents btn-lg" href="#/caisse/methode-identification"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Revenir</a>
+		<button class="btn btn-goevents btn-lg pull-right">Continuer<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" validation-submit="authenticationForm"></span></button>
+	</div>
+</form>

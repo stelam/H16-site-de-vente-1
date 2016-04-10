@@ -51,6 +51,13 @@
 				message: "Erreur lors de la suppression de l'item du panier."
 			},
 
+			"ERROR_INACTIVE_SHOW" : {
+				type: "error",
+				code: "CS5",
+				title: "Erreur",
+				message: "Un des spectacles n'est plus disponible; les billets concernés ont été retirés de votre panier."
+			},
+
 			"ERROR_FORM" : {
 				type: "error",
 				code: "F1",
@@ -69,7 +76,7 @@
 				type: "error",
 				code: "PR2",
 				title: "Erreur",
-				message: "Une erreur s'est produite lors de la préautorisation, veuillez réessayer."
+				message: "Une erreur s'est produite lors de la préautorisation, veuillez réessayer. Si l'erreur persiste, veuillez communiquer avec votre institution financière."
 			},
 
 			"INFO_ADD_SUCCESSFUL" : {
@@ -105,7 +112,12 @@
 				title: "Erreur",
 				message: "Erreur : Cette entité ne peut être supprimée car elle est référencée par une autre."
 			},
-
+			"ERROR_COMMIT_SOCIAL" : {
+				type: "error",
+				code: "S1",
+				title: "Erreur",
+				message: "Attention : La transaction a réussi, mais il y a eu un problème lors de la communication de votre achat avec votre réseau social."
+			},
 		};
 
     	return {

@@ -4,7 +4,7 @@
 		
 		<span ng-if="!dateFilter && !searchQuery">Tous les spectacles à l'affiche </span>
 		<span ng-if="dateFilter">Spectacles du {{dateFilter.dd}}/{{dateFilter.mm}}/{{dateFilter.yyyy}}</span>
-		<span ng-if="searchQuery">{{shows.length}} résultat{{(shows.length > 1) ? s : ''}} pour "{{searchQuery}}"</span>
+		<span ng-if="searchQuery">Résultats pour "{{searchQuery}}"</span>
 
 		<span id="calendar" class='input-group date' datetime-picker data-link="true" date-obj="dateFilter">
 			<input type='text' class='' />
@@ -18,7 +18,8 @@
 
 	<article class="show-item col-sm-12 col-md-6 col-lg-4 ng-fade {{(show.totalRemainingPlaces == 0)  ? 'full' : ''}}" ng-repeat-start="show in shows" ng-if="show.active">
 		<a href="#/spectacle/{{show.name | slugify}}-{{show.artistName | slugify}}-{{show.id}}">
-			<img alt="image du spectacle" ng-src="images/show-{{show.id}}.jpg" />
+			<div class="show-image" style='background-image:url("{{show.imageUrl}}")'></div>
+			<img alt="image du spectacle" ng-src="images/aspect-ratio.png" />
 			<div class="show-infos">
 				<h2>{{show.name}}</h2>
 				<h3 ng-if="show.fromDate != show.toDate">Du {{show.fromDate | date:'dd/MM/yyyy'}} au {{show.toDate | date:'dd/MM/yyyy'}} @ {{show.showPresentationList[0].theater.name}}</h3>
@@ -27,8 +28,9 @@
 		</a>
 	</article>
 	<article class="show-item col-sm-12 col-md-6 col-lg-4 ng-fade" ng-if="$index == 1">
-		<a href="http://google.com" target="_blank">
-			<img alt="image du spectacle" src="images/pseudo-pub-2.jpg" />
+		<a href="{{ad.url}}" target="_blank">
+			<div class="show-image" style='background-image:url("{{ad.imgSrc}}")'></div>
+			<img alt="image du spectacle" ng-src="images/aspect-ratio.png" />
 			<div class="show-infos">
 				<h3>Publicité</h3>
 			</div>

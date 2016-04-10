@@ -19,7 +19,7 @@
 			</p>
 		</div>
 		<div class="col-sm-2">
-			<p>{{item.date | date:'dd/MM/yyyy'}}</p>
+			<p>{{item.date | date:'dd/MM/yyyy HH:mm'}}</p>
 		</div>
 		<div class="col-sm-2">
 			<p>{{item.theater.name}}</p>
@@ -36,7 +36,7 @@
 <div class="col-md-3 col-sm-12 subtotal-container" ng-if="currentCart.items.length > 0">
 	<h3>Sous-total : </h3>
 	<div class="subtotal">
-		<span><sup class="dollar-sign">$</sup>{{currentCart.total.dollars}}<sup class="cents">{{currentCart.total.cents}}</sup></span>
+		<span><sup class="dollar-sign">$</sup>{{currentCart.total.dollars}}<sup class="cents">{{(!currentCart.total.cents) ? '00' : currentCart.total.cents}}</sup></span>
 	</div>
 	<a class="btn btn-goevents btn-lg btn-continue" ng-click="placeOrder()">Confirmer et placer la commande <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 </div>

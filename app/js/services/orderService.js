@@ -42,10 +42,31 @@
 	    		$http({
 					method: 'POST',
 					url: SHOW_API_BASE_URL+'/ticket/order', 
+					withCredentials: true,
 					data: ticketOrder
 			    }).then(function(data){
 			    	order.orderId = data.data.confirmationId;
 			    	order.cart = cart;
+			    	deferred.resolve(data);
+			    }, function(e){
+			    	deferred.reject(e);
+			    })
+
+			    return deferred.promise;
+	    	},
+
+	    	commitToSocial: function(orderObject, accessToken, userId){
+	    		var deferred = $q.defer();
+	    		$http({
+					method: 'POST',
+					url: SHOW_API_BASE_URL+'/social/commitToSocial', 
+					withCredentials: true,
+					data: orderObject,
+					params: {
+						accessToken: accessToken,
+						idUser: userId
+					}
+			    }).then(function(data){
 			    	deferred.resolve(data);
 			    }, function(e){
 			    	deferred.reject(e);

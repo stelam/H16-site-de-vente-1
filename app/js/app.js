@@ -10,6 +10,9 @@
 		REAL_SHOW_API_BASE_URL : "http://agile-anchorage-60775.herokuapp.com",
 		PAYMENT_API_BASE_URL : "http://demo0468717.mockable.io",
 		PAYMENT_API_KEY: "kj124k1j2k1j2k4j12j4jh21gyu12g12uv1j2hjg",
+		AUTH_API_BASE_URL: "https://stark-lowlands-60666.herokuapp.com",
+		AUTH_API_KEY: "0e69f839017442fd779ca49f09cab8e66394c894a16f24b4112f7b5f5bc64a9fecebf89e45e010fd2ca9188a5035f4289436064f69070439118587f53c39b72c",
+		AUTH_API_CLIENT_ID: 2,
 		CART : {
 			RESERVATION_TIME : 3, //minutes
 			INACTIVITY_TIME : 10,
@@ -32,8 +35,22 @@
 
 	angular.module('app').config(['$httpProvider', function($httpProvider) {
 		$httpProvider.interceptors.push('httpActivityInterceptorService');
+		$httpProvider.defaults.withCredentials = true;
 	}])
 
+	angular.module('app').filter('unique', function() {
+
+	  return function (arr, field) {
+	    var o = {}, i, l = arr.length, r = [];
+	    for(i=0; i<l;i+=1) {
+	      o[arr[i][field]] = arr[i];
+	    }
+	    for(i in o) {
+	      r.push(o[i]);
+	    }
+	    return r;
+	  };
+	})
 
 })();
 

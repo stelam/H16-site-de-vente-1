@@ -7,8 +7,8 @@
  "use strict";
 
   angular.module('app')
-    .controller('checkoutIdentificationController', ["$injector", "$timeout", "$location", "cartService", "checkoutService", "messageService", "authenticationService", "$scope", "$q", "$routeParams", "$rootScope", 
-        function($injector, $timeout, $location, cartService, checkoutService, messageService, authenticationService, $scope, $q, $routeParams, $rootScope){
+    .controller('checkoutIdentificationController', ["$injector", "$timeout", "$location", "provinceService", "cartService", "checkoutService", "messageService", "authenticationService", "$scope", "$q", "$routeParams", "$rootScope", 
+        function($injector, $timeout, $location, provinceService, cartService, checkoutService, messageService, authenticationService, $scope, $q, $routeParams, $rootScope){
         var self = this;
 
         var $validationProvider = $injector.get('$validation');
@@ -18,8 +18,21 @@
             loadingScreen.show();
             $scope.currentCart = cartService.currentCart;
             $scope.user = authenticationService.getUser();
-            $scope.provinces = ["Québec", "Ontario"]
-             
+            $scope.provinces = [
+                "Québec",
+                "Colombie-Britannique",
+                "Île-du-Prince-Édouard",
+                "Manitoba",
+                "Nouveau-Brunswick",
+                "Nouvelle-Écosse",
+                "Ontario",
+                "Saskatchewan",
+                "Terre-Neuve-et-Labrador",
+                "Nunavut",
+                "Territoire du Nord-Ouest",
+                "Yukon"
+            ]
+
             $scope.anonymousIdentificationForm = {}
 
             return $q.all([
@@ -54,18 +67,7 @@
         });
 
         $scope.delegateAuth = function(){
-
-            var newWindow = window.open("fake-auth-social.html",'Authentification sociale','height=225,width=500');
-            if (window.focus) {newWindow.focus()}
-            newWindow.onbeforeunload = function(){
-                loadingScreen.showFor(1500);
-                var user = authenticationService.getFakeUser();
-                authenticationService.setUser(user);
-                $timeout(function(){
-                    checkoutService.setCompletedStep("identification");
-                    $location.path("/caisse/informations-paiement");
-                }, 1500)
-            }
+            $location.path("/caisse/authentification-reseau-social");
 
         }
 
@@ -77,6 +79,42 @@
                 $location.path("/caisse/informations-paiement");
             }).error(function(e){
                 messageService.showMessage(messageService.getMessage("ERROR_FORM"));
+            })
+        }
+
+        $scope.submitSocialAuthentication = function(){
+            loadingScreen.show();
+            $validationProvider.validate($scope.authenticationForm).success(function(){
+                authenticationService.authenticate($scope.user).then(function(data){
+                    console.log(data);
+                    loadingScreen.hide();
+                    if (data.data.id >= 0) {
+                        $scope.user.socialUserId = data.data.id;
+                        $scope.user.socialLogin = true;
+                        $scope.user.firstName = (data.data.firstName) ? data.data.firstName : "Pas de prénom";
+                        $scope.user.lastName = (data.data.lastName) ? data.data.lastName : "2cool4lastname";
+                        checkoutService.setCompletedStep("identification");
+                        console.log($scope.user);
+                        authenticationService.setUser($scope.user)
+
+                        $location.path("/caisse/informations-paiement");
+                    } else {
+                        messageService.showMessage(messageService.getMessage("ERROR_ADMIN_LOGIN"));
+                    }
+
+                    
+                }, function(){
+                    // temporary
+                    /*checkoutService.setCompletedStep("identification");
+                    $scope.user = authenticationService.getFakeUser();
+                    $scope.user.socialLogin = true;
+                    authenticationService.setUser($scope.user);*/
+                    loadingScreen.hide();
+                    messageService.showMessage(messageService.getMessage("ERROR_ADMIN_LOGIN"));
+                    //$location.path("/caisse/informations-paiement");
+                })
+            }).error(function(e){
+                loadingScreen.hide();
             })
         }
 

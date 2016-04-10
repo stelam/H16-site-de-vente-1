@@ -14,7 +14,7 @@
                 	moment.locale("fr-CA");
 
                 	var currentDate = (scope.dateObj) ? moment(scope.dateObj.dd + "/" + scope.dateObj.mm + "/" + scope.dateObj.yyyy, "DD/MM/YYYY") : false;
-			        $(element).datetimepicker({useCurrent: false, debug: false, format: "DD/MM/YYYY", defaultDate: currentDate});
+			        $(element).datetimepicker({useCurrent: false, debug: false, format: "DD/MM/YYYY HH:mm", defaultDate: currentDate});
  
                     if (scope.link == true) {
     			        $(element).on('dp.change', function(e){

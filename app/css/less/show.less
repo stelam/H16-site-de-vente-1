@@ -1,6 +1,6 @@
 body.page-spectacle {background:url("film-noise.jpg") repeat;}
 
-.backdrop div {content: ""; min-width: 100%; min-height: 100%; position: fixed; top:0px; left: 0px; z-index: -1; background-size: cover !important; opacity: 0.14; transition: all 11s; background-repeat: no-repeat; background-position: center center;
+.backdrop.loaded div {content: ""; min-width: 100%; min-height: 100%; position: fixed; top:0px; left: 0px; z-index: -1; background-size: cover !important; opacity: 0.14; transition: all 11s; background-repeat: no-repeat; background-position: center center;
 	 
 	-webkit-filter: blur(2px);
   -moz-filter: blur(2px);
@@ -16,7 +16,7 @@ body.page-spectacle {background:url("film-noise.jpg") repeat;}
 
 }
 
-.backdrop {min-width: 100%; min-height: 100%; position: fixed; top:0px; left: 0px; z-index: -1; background-size: cover !important; transition: all 11s; background-repeat: no-repeat; background-position: center center;}
+.backdrop.loaded {min-width: 100%; min-height: 100%; position: fixed; top:0px; left: 0px; z-index: -1; background-size: cover !important; transition: all 11s; background-repeat: no-repeat; background-position: center center;}
 
 body.page-spectacle {
 
@@ -76,7 +76,7 @@ body.page-spectacle {
 			box-shadow: none !important;
 		}
 
-		select {max-width: 300px; margin: 36px auto 0px; border-radius: 0px; padding: 0px 0px 0px 90px;}
+		select {max-width: 300px; margin: 36px auto 0px; border-radius: 0px; padding: 0px 0px 0px 72px;}
 		option {text-align: center;}
 		.btn-add {display: block; margin: 0px auto; max-width: 300px; border-radius: 0px; 
 			@media @bp-sm {
@@ -146,10 +146,13 @@ body.page-spectacle {
 				left: 0px;
 			}
 		 	&.cents:after {
-		 		width: 20px;
+		 		width: 21px;
 		 		left: 2px;
 		 		top: 28px;
 		 		border-width: 3px;
+		 	}
+		 	&.cents.empty:after {
+				display: none;
 		 	}
 		 }
 

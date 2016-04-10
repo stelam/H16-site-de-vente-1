@@ -18,7 +18,10 @@
             $scope.currentCart = cartService.currentCart;
             $scope.user = authenticationService.getUser();
             $scope.payment = paymentService.getPayment();
-            
+            $scope.payment.credit_card.first_name = $scope.user.firstName;
+            $scope.payment.credit_card.last_name = $scope.user.lastName;
+            $scope.payment.amount = $scope.currentCart.total.price;
+            $scope.payment.label = "Test";
 
             return $q.all([
                 // d'autres appels asynchrones peuvent être faits ici
@@ -61,17 +64,23 @@
             $validationProvider.validate($scope.paymentForm).success(function(){
                 //$location.path("/caisse/informations-paiement");
                 loadingScreen.show();
-                paymentService.preauthorize().then(function(data){
+                console.log(JSON.stringify($scope.payment));
+                paymentService.preauthorize($scope.payment).then(function(data){
                     loadingScreen.hide();
-                    if (data.data.success == true) {
+                    if (data.status == 200) {
+                        paymentService.setPaymentPreauthoriation(data.data);
                         $location.path("/caisse/sommaire");
+                    } else {
+                        messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));
+
                     }
                 }, function(errorData){
                     loadingScreen.hide();
-                    if (errorData.status == 406) // le code va sûrement changer
+                    if (errorData.status == 422) // le code va sûrement changer
                         messageService.showMessage(messageService.getMessage("ERROR_PREAUTHORIZATION_REJECTED"));
-                    else
+                    else{
                         messageService.showMessage(messageService.getMessage("ERROR_PAYMENT_API"));
+                    }
                 })
             }).error(function(e){
                 messageService.showMessage(messageService.getMessage("ERROR_FORM"));

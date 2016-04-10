@@ -20,6 +20,10 @@
 				templateUrl: 'partials/admin/theater-list.html',
 				controller: 'adminTheaterListController',
 				title: 'Liste des salles'
+			}).when('/ventes', {
+				templateUrl: 'partials/admin/sales-list.html',
+				controller: 'adminSalesController',
+				title: 'Liste des ventes'
 			}).when('/salle/:idTheater', {
 				templateUrl: 'partials/admin/theater-details.html',
 				controller: 'adminTheaterController',
